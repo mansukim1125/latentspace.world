@@ -1,15 +1,16 @@
 import { Terminal } from "lucide-react";
-import { ArticleCard } from "@/app/components/article/ArticleCard/ArticleCard";
-import { Article } from "@/app/types/article/article";
+import { WritingCard } from "@/app/components/writing/WritingCard/WritingCard";
+import { Writing } from "@/app/types/writing/writing";
 
-export const ArticleList = () => {
-  const articles: Article[] = [
+export const WritingList = () => {
+  const writings: Writing[] = [
     {
       title: "Understanding Vector Embeddings in LLMs",
       category: "Deep Learning",
       date: new Date("2025-01-15"),
       excerpt: "An exploration of how large language models represent semantic meaning in high-dimensional vector spaces.",
       readTime: 12,
+      slug: "understanding-vector-embeddings-in-llms",
     },
     {
       title: "Implementing Attention Mechanisms from Scratch",
@@ -17,6 +18,7 @@ export const ArticleList = () => {
       date: new Date("2025-01-10"),
       excerpt: "A deep dive into the mathematics and implementation details of attention mechanisms in transformers.",
       readTime: 15,
+      slug: "implementing-attention-mechanisms-from-scratch",
     },
     {
       title: "Optimizing Inference Performance in Production",
@@ -24,8 +26,10 @@ export const ArticleList = () => {
       date: new Date("2025-01-05"),
       excerpt: "Real-world strategies for deploying and optimizing machine learning models in production environments.",
       readTime: 10,
-    }
+      slug: "optimizing-inference-performance-in-production",
+    },
   ];
+
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-20">
@@ -34,8 +38,8 @@ export const ArticleList = () => {
         Latest Writing
       </h2>
       <div className="grid gap-8">
-        {articles.map((post, index) => (
-          <ArticleCard key={index} article={post}></ArticleCard>
+        {writings.map((post, index) => (
+          <WritingCard key={index} writing={post}></WritingCard>
         ))}
       </div>
     </section>

@@ -1,4 +1,5 @@
 import {Grid} from "lucide-react";
+import Link from "next/link";
 
 export const HeaderSection = () => {
   return (
@@ -13,7 +14,8 @@ export const HeaderSection = () => {
             </div>
           </div>
           <div className="flex items-center space-x-8">
-            <a href="#" className="text-gray-300 hover:text-white">Writing</a>
+            <Link href="/writings" className="text-gray-300 hover:text-white">Writing</Link>
+            {/*<a href="#" className="text-gray-300 hover:text-white">Writing</a>*/}
             <a href="#" className="text-gray-300 hover:text-white">Projects</a>
             <a href="#" className="text-gray-300 hover:text-white">About</a>
           </div>
