@@ -1,3 +1,5 @@
+import {Author} from "@/app/types/author/author";
+
 export interface Writing {
   title: string;
   slug: string;
@@ -5,4 +7,6 @@ export interface Writing {
   date: Date;
   excerpt: string;
   readTime: number;
+  content: string;
+  author: Author;
 }

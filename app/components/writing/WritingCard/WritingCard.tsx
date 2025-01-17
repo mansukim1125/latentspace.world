@@ -1,5 +1,6 @@
 import {ChevronRight} from "lucide-react";
 import {Writing} from "@/app/types/writing/writing";
+import Link from "next/link";
 
 export const WritingCard = (param: { writing: Writing }) => {
   const { writing }	= param;
@@ -14,7 +15,7 @@ export const WritingCard = (param: { writing: Writing }) => {
         </span>
         <span className="text-sm text-gray-500">{writing.date.toISOString().slice(0, 10)}</span>
       </div>
-      <a href={`/writing/${writing.slug}`} className="block group">
+      <Link href={`/writings/${writing.slug}`} className="block group">
         <h2 className="text-xl font-semibold mb-3 text-white group-hover:text-purple-400 transition-colors">
           {writing.title}
         </h2>
@@ -23,7 +24,7 @@ export const WritingCard = (param: { writing: Writing }) => {
           <span className="text-sm text-gray-500">{writing.readTime}</span>
           <ChevronRight className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform"/>
         </div>
-      </a>
+      </Link>
     </article>
   );
 }
