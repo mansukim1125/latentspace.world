@@ -1,8 +1,8 @@
 import {ChevronRight} from "lucide-react";
 import {Writing} from "@/app/types/writing/writing";
 
-export const ArticleCard = (param: { article: Writing }) => {
-  const { article }	= param;
+export const WritingCard = (param: { writing: Writing }) => {
+  const { writing }	= param;
 
   return (
     <article
@@ -10,17 +10,17 @@ export const ArticleCard = (param: { article: Writing }) => {
     >
       <div className="flex justify-between items-start mb-4">
         <span className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm">
-          {article.category}
+          {writing.category}
         </span>
-        <span className="text-sm text-gray-500">{article.date.toISOString().slice(0, 10)}</span>
+        <span className="text-sm text-gray-500">{writing.date.toISOString().slice(0, 10)}</span>
       </div>
-      <a href={`/writing/${article.slug}`} className="block group">
+      <a href={`/writing/${writing.slug}`} className="block group">
         <h2 className="text-xl font-semibold mb-3 text-white group-hover:text-purple-400 transition-colors">
-          {article.title}
+          {writing.title}
         </h2>
-        <p className="text-gray-400 mb-4">{article.excerpt}</p>
+        <p className="text-gray-400 mb-4">{writing.excerpt}</p>
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">{article.readTime}</span>
+          <span className="text-sm text-gray-500">{writing.readTime}</span>
           <ChevronRight className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform"/>
         </div>
       </a>
