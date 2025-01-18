@@ -165,12 +165,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function WritingPage({params}: Promise<{ params:{
-  slug: string
-}
-}>) {
-  const post = await getPostBySlug((await params).slug);
+export default async function WritingPage({ params }: { params: Promise<{ slug: string }> }) {
+  const slug = (await params).slug;
 
-  // @ts-ignore
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+  //   TOOD: 404 page..
+    return;
+  }
+
   return <WritingDetail post={post} />;
 }
