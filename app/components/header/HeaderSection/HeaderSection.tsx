@@ -17,9 +17,8 @@ export const HeaderSection = () => {
           </div>
           <div className="flex items-center space-x-8">
             <Link href="/writings" className="text-gray-300 hover:text-white">Writing</Link>
-            {/*<a href="#" className="text-gray-300 hover:text-white">Writing</a>*/}
             <Link href="/projects" className="text-gray-300 hover:text-white">Projects</Link>
-            <a href="#" className="text-gray-300 hover:text-white">About</a>
+            <Link href="/about" className="text-gray-300 hover:text-white">About</Link>
           </div>
         </div>
       </div>
