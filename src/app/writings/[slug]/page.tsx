@@ -1,6 +1,6 @@
 // app/writing/[slug]/page.tsx
-import WritingDetail from "@/app/components/writing/WritingDetail/WritingDetail";
-import {Writing} from "@/app/types/writing/writing";
+import WritingDetail from "@/components/writing/WritingDetail/WritingDetail";
+import {Writing} from "@/types/writing/writing";
 
 const getPosts = async () => {
   const writings: Writing[] = [

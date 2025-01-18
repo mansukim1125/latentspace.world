@@ -1,6 +1,6 @@
 import {Brain} from "lucide-react";
-import {Project} from "@/app/types/project/project";
-import {ProjectCard} from "@/app/components/project/ProjectCard/ProjectCard";
+import {Project} from "@/types/project/project";
+import {ProjectCard} from "@/components/project/ProjectCard/ProjectCard";
 
 export const ProjectList = () => {
   const projects: Project[] = [

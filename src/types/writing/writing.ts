@@ -1,4 +1,4 @@
-import {Author} from "@/app/types/author/author";
+import {Author} from "@/types/author/author";
 
 export interface Writing {
   title: string;
