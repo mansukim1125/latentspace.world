@@ -1,4 +1,4 @@
-export const HeroSection = (param: {
+export const MainHeroSection = (param: {
   title: string;
   text: string;
   gradientHeading?: boolean;

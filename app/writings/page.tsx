@@ -3,8 +3,8 @@
 import {useState} from "react";
 import {Writing} from "@/app/types/writing/writing";
 import {ArrowUpDown, Search} from "lucide-react";
-import {HeroSection} from "@/app/components/hero/HeroSection/HeroSection";
 import {WritingCard} from "@/app/components/writing/WritingCard/WritingCard";
+import {OtherHeroSection} from "@/app/components/hero/OtherHeroSection/OtherHeroSection";
 
 export default function WritingsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -40,7 +40,7 @@ export default function WritingsPage() {
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
-      <HeroSection title="Writing" text="Thoughts and insights about artificial intelligence, machine learning, and software engineering."/>
+      <OtherHeroSection title="Writing" text="Thoughts and insights about artificial intelligence, machine learning, and software engineering."/>
 
       {/* Filters and Search */}
       <div className="border-b border-gray-800 bg-gray-900/50">

@@ -1,4 +1,4 @@
-import {HeroSection} from "@/app/components/hero/HeroSection/HeroSection";
+import {MainHeroSection} from "@/app/components/hero/MainHeroSection/MainHeroSection";
 import {WritingList} from "@/app/components/writing/WritingList/WritingList";
 import {ProjectList} from "@/app/components/project/ProjectList/ProjectList";
 import {FooterSection} from "@/app/components/footer/FooterSection/FooterSection";
@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <HeroSection title={title} text={text} gradientHeading={true} />
+      <MainHeroSection title={title} text={text} gradientHeading={true} />
 
       {/* Featured Posts */}
       <WritingList />

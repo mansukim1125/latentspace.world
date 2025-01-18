@@ -169,8 +169,6 @@ export default async function WritingPage({params}: Promise<{ params:{
   slug: string
 }
 }>) {
-  const slug = (await params);
-
   const post = await getPostBySlug((await params).slug);
 
   // @ts-ignore
