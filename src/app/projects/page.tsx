@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Building2, ExternalLink, Calendar, ChevronRight, Code, Timer } from 'lucide-react';
-import {OtherHeroSection} from "@/app/components/hero/OtherHeroSection/OtherHeroSection";
+import {OtherHeroSection} from "@/components/hero/OtherHeroSection/OtherHeroSection";
 import Link from "next/link";
 
 interface Company {

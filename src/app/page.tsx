@@ -1,7 +1,7 @@
-import {MainHeroSection} from "@/app/components/hero/MainHeroSection/MainHeroSection";
-import {WritingList} from "@/app/components/writing/WritingList/WritingList";
-import {ProjectList} from "@/app/components/project/ProjectList/ProjectList";
-import {FooterSection} from "@/app/components/footer/FooterSection/FooterSection";
+import {MainHeroSection} from "@/components/hero/MainHeroSection/MainHeroSection";
+import {WritingList} from "@/components/writing/WritingList/WritingList";
+import {ProjectList} from "@/components/project/ProjectList/ProjectList";
+import {FooterSection} from "@/components/footer/FooterSection/FooterSection";
 
 export default function Home() {
   const title = 'Exploring the Dimensions of AI';

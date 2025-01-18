@@ -2,7 +2,7 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import {ArrowLeft, Clock, Calendar, Share2, Bookmark} from 'lucide-react';
-import {Writing} from '@/app/types/writing/writing';
+import {Writing} from '@/types/writing/writing';
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
