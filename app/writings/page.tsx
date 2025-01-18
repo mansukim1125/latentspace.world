@@ -23,11 +23,16 @@ export default function WritingsPage() {
   const writings: Writing[] = [
     {
       title: "Understanding Vector Embeddings in LLMs",
-      slug: "vector-embeddings-llm",
+      slug: "understanding-vector-embeddings-in-llms",
       excerpt: "An exploration of how large language models represent semantic meaning in high-dimensional vector spaces.",
       category: "Machine Learning",
       date: new Date("2025-01-15"),
       readTime: 12,
+      content: '',
+      author: {
+        name: 'Joonseok Kim',
+        avatar: 'https://avatars1.githubusercontent.com/u/55?v=4',
+      },
     },
     // ... more posts
   ];
@@ -86,8 +91,8 @@ export default function WritingsPage() {
       {/* Posts Grid */}
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid gap-8">
-          {writings.map((post, index) => (
-            <WritingCard writing={post} key={index} />
+          {writings.map((writing, index) => (
+            <WritingCard writing={writing} key={index} />
           ))}
         </div>
       </div>
