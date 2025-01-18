@@ -1,4 +1,4 @@
-import ProjectDetail from "@/app/components/project/ProjectDetail/ProjectDetail";
+import ProjectDetail from "@/components/project/ProjectDetail/ProjectDetail";
 
 interface ProjectDetail {
   id: string;

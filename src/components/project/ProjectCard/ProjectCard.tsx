@@ -1,5 +1,5 @@
 import {ExternalLink} from "lucide-react";
-import {Project} from "@/app/types/project/project";
+import {Project} from "@/types/project/project";
 
 export const ProjectCard = (param: { project: Project }) => {
   const { project } = param;

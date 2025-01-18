@@ -1,10 +1,10 @@
 'use client';
 
 import {useState} from "react";
-import {Writing} from "@/app/types/writing/writing";
+import {Writing} from "@/types/writing/writing";
 import {ArrowUpDown, Search} from "lucide-react";
-import {WritingCard} from "@/app/components/writing/WritingCard/WritingCard";
-import {OtherHeroSection} from "@/app/components/hero/OtherHeroSection/OtherHeroSection";
+import {WritingCard} from "@/components/writing/WritingCard/WritingCard";
+import {OtherHeroSection} from "@/components/hero/OtherHeroSection/OtherHeroSection";
 
 export default function WritingsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');

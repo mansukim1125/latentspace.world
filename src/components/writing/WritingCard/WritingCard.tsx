@@ -1,5 +1,5 @@
 import {ChevronRight} from "lucide-react";
-import {Writing} from "@/app/types/writing/writing";
+import {Writing} from "@/types/writing/writing";
 import Link from "next/link";
 
 export const WritingCard = (param: { writing: Writing }) => {

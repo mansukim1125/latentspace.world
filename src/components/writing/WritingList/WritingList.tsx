@@ -1,6 +1,6 @@
 import { Terminal } from "lucide-react";
-import { WritingCard } from "@/app/components/writing/WritingCard/WritingCard";
-import { Writing } from "@/app/types/writing/writing";
+import { WritingCard } from "@/components/writing/WritingCard/WritingCard";
+import { Writing } from "@/types/writing/writing";
 
 export const WritingList = () => {
   const writings: Writing[] = [
