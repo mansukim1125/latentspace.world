@@ -1,8 +1,8 @@
 'use client';
 
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ArrowLeft, Clock, Calendar, Share2, Bookmark} from 'lucide-react';
-import {Writing} from '@/types/writing/writing';
+import {IWriting} from '@/interface/writing/writing.interface';
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
@@ -44,7 +44,7 @@ function CustomHeading({ level, children }) {
   return <HeadingTag id={id}>{children}</HeadingTag>;
 }
 
-const WritingDetail = ({post}: { post: Writing }) => {
+const WritingDetail = ({ writing }: { writing: IWriting }) => {
   const [activeSection, setActiveSection] = useState<string>('');
   const [tableOfContents, setTableOfContents] = useState<TableOfContents[]>([]);
 
@@ -88,22 +88,22 @@ const WritingDetail = ({post}: { post: Writing }) => {
           <div className="max-w-3xl">
             <div className="flex items-center space-x-4 text-sm text-gray-400 mb-6">
               <span className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full">
-                {post.category}
+                {writing.category}
               </span>
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-1"/>
-                {post.date.toISOString().slice(0, 10)}
+                {writing.date.toISOString().slice(0, 10)}
               </div>
               <div className="flex items-center">
                 <Clock className="w-4 h-4 mr-1"/>
-                {post.readTime}
+                {writing.readTime}
               </div>
             </div>
             <h1 className="text-4xl font-bold text-white mb-6">
-              {post.title}
+              {writing.title}
             </h1>
             <p className="text-xl text-gray-400">
-              {post.excerpt}
+              {writing.excerpt}
             </p>
           </div>
         </div>
@@ -128,7 +128,7 @@ const WritingDetail = ({post}: { post: Writing }) => {
                 },
               }}
             >
-              {post.content}
+              {writing.content}
             </Markdown>
           </article>
 
@@ -167,17 +167,17 @@ const WritingDetail = ({post}: { post: Writing }) => {
         </div>
       </div>
 
-      {/* Author Section */}
+      {/* AuthorInterface Section */}
       <div className="max-w-6xl mx-auto px-4 py-12 border-t border-gray-800">
         <div className="max-w-3xl">
           <div className="flex items-center space-x-4">
             <img
-              src={post.author.avatar}
-              alt={post.author.name}
+              src={writing.author.avatar}
+              alt={writing.author.name}
               className="w-12 h-12 rounded-full"
             />
             <div>
-              <div className="text-white font-medium">{post.author.name}</div>
+              <div className="text-white font-medium">{writing.author.name}</div>
               <div className="text-gray-400 text-sm">Software Engineer</div>
             </div>
           </div>

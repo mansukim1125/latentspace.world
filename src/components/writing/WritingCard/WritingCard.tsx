@@ -1,8 +1,8 @@
 import {ChevronRight} from "lucide-react";
-import {Writing} from "@/types/writing/writing";
+import {IWriting} from "@/interface/writing/writing.interface";
 import Link from "next/link";
 
-export const WritingCard = (param: { writing: Writing }) => {
+export const WritingCard = (param: { writing: IWriting }) => {
   const { writing }	= param;
 
   return (

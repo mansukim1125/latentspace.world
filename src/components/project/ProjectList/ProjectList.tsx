@@ -1,9 +1,9 @@
 import {Brain} from "lucide-react";
-import {Project} from "@/types/project/project";
-import {ProjectCard} from "@/components/project/ProjectCard/ProjectCard";
+import {IProject} from "@/interface/project/project.interface";
+import {ProjectCard} from "../ProjectCard/ProjectCard";
 
 export const ProjectList = () => {
-  const projects: Project[] = [
+  const projects: IProject[] = [
     {
       title: "Vector DB Optimization",
       description: "High-performance vector similarity search implementation",

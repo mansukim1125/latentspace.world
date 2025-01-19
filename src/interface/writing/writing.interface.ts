@@ -1,6 +1,7 @@
-import {Author} from "@/types/author/author";
+import {IAuthor} from "../author/author.interface";
 
-export interface Writing {
+export interface IWriting {
+  id: string;
   title: string;
   slug: string;
   category: string;
@@ -8,5 +9,5 @@ export interface Writing {
   excerpt: string;
   readTime: number;
   content: string;
-  author: Author;
+  author: IAuthor;
 }
