@@ -1,7 +1,7 @@
 import {ExternalLink} from "lucide-react";
-import {Project} from "@/types/project/project";
+import {IProject} from "@/interface/project/project.interface";
 
-export const ProjectCard = (param: { project: Project }) => {
+export const ProjectCard = (param: { project: IProject }) => {
   const { project } = param;
 
   return (
