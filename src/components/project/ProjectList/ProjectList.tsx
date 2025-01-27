@@ -1,22 +1,9 @@
 import {Brain} from "lucide-react";
-import {IProject} from "@/interface/project/project.interface";
 import {ProjectCard} from "../ProjectCard/ProjectCard";
+import {ProjectService} from "@/service/project/project.service";
 
-export const ProjectList = () => {
-  const projects: IProject[] = [
-    {
-      title: "Vector DB Optimization",
-      description: "High-performance vector similarity search implementation",
-      tech: ["Python", "FAISS", "NumPy"],
-      link: "#"
-    },
-    {
-      title: "Transformer Architecture",
-      description: "Custom implementation of transformer blocks",
-      tech: ["PyTorch", "CUDA", "Python"],
-      link: "#"
-    }
-  ];
+export const ProjectList = async () => {
+  const featuredProjects = await ProjectService.createInstance().getFeaturedProjects();
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-20 border-t border-gray-800">
@@ -25,7 +12,7 @@ export const ProjectList = () => {
         Featured Projects
       </h2>
       <div className="grid md:grid-cols-2 gap-8">
-        {projects.map((project, index) => (
+        {featuredProjects.map((project, index) => (
           <ProjectCard key={index} project={project} />
         ))}
       </div>

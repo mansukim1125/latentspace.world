@@ -1,23 +1,11 @@
-import ProjectDetail from "@/components/project/ProjectDetail/ProjectDetail";
 
-interface ProjectDetail {
-  id: string;
-  title: string;
-  description: string;
-  period: string;
-  duration: string;
-  stack: string[];
-  role: string;
-  team?: string;
-  links: {
-    github?: string;
-    demo?: string;
-    docs?: string;
-  };
-  content: string; // Markdown content
-}
+// Mocking..
+import {Project} from "@/entity/project/project.entity";
+import {IProject} from "@/interface/project/project.interface";
+import {IRepository} from "@/interface/repository/repository.interface";
+import {ProjectTypeEnum} from "@/interface/project/project-type.enum";
 
-const projects: ProjectDetail[] = [
+const projects: IProject[] = [
   {
     id: "personal-1",
     title: "Vector Database Implementation",
@@ -32,6 +20,7 @@ const projects: ProjectDetail[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    type: ProjectTypeEnum.Personal,
     content: `
   # Project Overview
   
@@ -86,12 +75,14 @@ const projects: ProjectDetail[] = [
     period: "2023.07 - Present",
     duration: "6 months",
     role: "Lead Developer",
+    team: '',
     stack: ["Java", "Spring Boot", "Kafka", "MongoDB"],
     links: {
       github: "https://github.com/username/vector-db",
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
+    type: ProjectTypeEnum.Work,
     content: `
 # Project Overview
 
@@ -133,12 +124,14 @@ const projects: ProjectDetail[] = [
     period: "2023.01 - 2023.06",
     duration: "6 months",
     role: "Backend Developer",
+    team: "",
     links: {
       github: "https://github.com/username/vector-db",
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
     stack: ["Kotlin", "Spring Boot", "Redis"],
+    type: ProjectTypeEnum.Work,
     content: `
 # Project Overview
 
@@ -175,20 +168,26 @@ const projects: ProjectDetail[] = [
   },
 ];
 
-const getProjectBySlug = async (slug: string) => {
-  return projects.find(project => project.id === slug);
-};
+export class ProjectRepository implements IRepository<Project> {
+  private projects: IProject[];
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
-  const param = await params;
-  const slug = param?.slug;
-
-  const project = await getProjectBySlug(slug);
-
-  if (!project) {
-    //   TODO: 404 page..
-    return;
+  constructor() {
+    this.projects = projects;
   }
 
-  return <ProjectDetail project={project} />;
+  public static createInstance() {
+    return new ProjectRepository();
+  }
+
+  public async findAll(): Promise<Project[]> {
+    return this.projects.map(project => new Project(project));
+  }
+
+  public async findOne(id: string): Promise<Project> {
+    const project = this.projects.find(project => project.id === id);
+    if (!project) {
+      throw new Error(`Project with id ${id} not found`);
+    }
+    return new Project(project);
+  }
 }

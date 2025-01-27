@@ -1,9 +1,12 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Building2, ExternalLink, Calendar, ChevronRight, Code, Timer } from 'lucide-react';
 import {OtherHeroSection} from "@/components/hero/OtherHeroSection/OtherHeroSection";
 import Link from "next/link";
+import {IWorkProject} from "@/interface/project/work-project.interface";
+import {IPersonalProject} from "@/interface/project/personal-project.interface";
+import {ProjectService} from "@/service/project/project.service";
+import {ProjectTypeEnum} from "@/interface/project/project-type.enum";
+import {IProject} from "@/interface/project/project.interface";
 
 interface Company {
   id: string;
@@ -12,41 +15,15 @@ interface Company {
   position: string;
   team?: string;
   description: string;
-  projects: WorkProject[];
+  projects: IWorkProject[];
 }
 
-interface WorkProject {
-  id: string;
-  title: string;
-  description: string;
-  period: string;
-  stack: string[];
-  achievements: string[];
-  links?: {
-    demo?: string;
-    docs?: string;
-  };
-}
-
-interface PersonalProject {
-  id: string;
-  title: string;
-  description: string;
-  period: string;
-  stack: string[];
-  type: 'open-source' | 'research' | 'experiment';
-  links?: {
-    github?: string;
-    demo?: string;
-  };
-}
-
-const ProjectCard = ({ project }: { project: WorkProject | PersonalProject }) => {
+const ProjectCard = ({ project }: { project: IProject }) => {
   return (
     <div className="group bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-colors">
       <div className="flex items-center justify-between mb-4">
         <div className="px-3 py-1 text-sm bg-purple-500/10 text-purple-400 rounded-full">
-          {'type' in project ? project.type : 'work'}
+          {'category' in project ? project.category : 'work'}
         </div>
         <div className="flex items-center gap-2 text-gray-400">
           <Timer className="w-4 h-4" />
@@ -140,8 +117,11 @@ const CompanySection = ({ company }: { company: Company }) => {
   );
 };
 
-const ProjectsPage = () => {
-  const [filter, setFilter] = useState('all');
+const ProjectsPage = async () => {
+  const workProjects =
+    await ProjectService.createInstance().getProjectsByType({
+      type: ProjectTypeEnum.Work,
+    });
 
   const companies: Company[] = [
     {
@@ -151,35 +131,12 @@ const ProjectsPage = () => {
       position: "Senior Backend Developer",
       team: "Platform Team",
       description: "대규모 커머스 플랫폼 회사에서 백엔드 시스템 설계 및 개발",
-      projects: [
-        {
-          id: "project-1",
-          title: "MSA 기반 커머스 플랫폼",
-          period: "2023.07 - Present",
-          description: "대규모 트래픽을 처리하는 이커머스 플랫폼 개발 및 운영. 마이크로서비스 아키텍처 설계 및 구현을 주도하였으며, 시스템 성능 최적화를 통해 큰 성과를 달성했습니다.",
-          stack: ["Java", "Spring Boot", "Kafka", "MongoDB"],
-          achievements: [
-            "일 처리 트랜잭션 100만 건 달성",
-            "시스템 응답 시간 30% 개선",
-            "마이크로서비스 아키텍처 설계 및 구현"
-          ]
-        },
-        {
-          id: "project-2",
-          title: "결제 시스템 리뉴얼",
-          period: "2023.01 - 2023.06",
-          description: "레거시 결제 시스템 현대화 프로젝트. 시스템 안정성과 확장성을 크게 개선하였으며, 신규 결제 수단 통합을 용이하게 만들었습니다.",
-          stack: ["Kotlin", "Spring Boot", "Redis"],
-          achievements: [
-            "시스템 안정성 99.99% 달성",
-            "결제 실패율 50% 감소",
-            "신규 결제 수단 통합 시간 70% 단축"
-          ]
-        }
-      ]
+      projects: workProjects.map(project => project.toPlainObject()),
     },
     // ... 더 많은 회사 데이터
   ];
+
+  const projects: IWorkProject[] = workProjects.map(project => project.toPlainObject());
 
   const personalProjects: PersonalProject[] = [
     {
@@ -189,6 +146,10 @@ const ProjectsPage = () => {
       description: "고성능 벡터 유사도 검색 시스템. HNSW 인덱스를 활용한 효율적인 벡터 검색 구현 및 대용량 데이터 처리를 위한 메모리 최적화를 진행했습니다.",
       type: "research",
       stack: ["Python", "FAISS", "NumPy"],
+      duration: '',
+      role: '',
+      team: '',
+      content: '',
       links: {
         github: "https://github.com/username/vector-db",
         demo: "https://demo.example.com"

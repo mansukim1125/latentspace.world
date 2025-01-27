@@ -3,23 +3,7 @@ import {ArrowLeft, Calendar, Clock, ExternalLink, Github} from "lucide-react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import React from "react";
-
-interface ProjectDetail {
-  id: string;
-  title: string;
-  description: string;
-  period: string;
-  duration: string;
-  stack: string[];
-  role: string;
-  team?: string;
-  links: {
-    github?: string;
-    demo?: string;
-    docs?: string;
-  };
-  content: string; // Markdown content
-}
+import {IProject} from "@/interface/project/project.interface";
 
 const makeHeadingId = (text: string) => {
   return text.toLowerCase().replace(/\s+/g, "-");
@@ -52,7 +36,7 @@ function CustomHeading({ level, children }) {
   return <HeadingTag id={id}>{children}</HeadingTag>;
 }
 
-export default function ProjectDetail({ project }: { project: ProjectDetail }) {
+export default function ProjectDetail({ project }: { project: IProject }) {
   // 예시 데이터. 실제로는 params로 받은 id를 기반으로 데이터를 불러옵니다
   return (
     <div className="min-h-screen bg-black">

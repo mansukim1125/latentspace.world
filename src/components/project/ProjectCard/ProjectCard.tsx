@@ -12,7 +12,7 @@ export const ProjectCard = (param: { project: IProject }) => {
       </h3>
       <p className="text-gray-400 mb-4">{project.description}</p>
       <div className="flex flex-wrap gap-2">
-        {project.tech.map((tech, i) => (
+        {project.stack.map((tech, i) => (
           <span key={i} className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-sm">
 						{tech}
 					</span>
