@@ -1,11 +1,13 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
-import {ArrowLeft, Clock, Calendar, Share2, Bookmark} from 'lucide-react';
-import {IWriting} from '@/interface/writing/writing.interface';
+import React, { useEffect, useState } from 'react';
+import { ArrowLeft, Clock, Calendar, Share2, Bookmark } from 'lucide-react';
+import { IWriting } from '@/interface/writing/writing.interface';
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
+import { makeHeadingId } from "@/util";
+import { CustomHeading } from '@/components/custom-heading/CustomHeading';
 
 interface TableOfContents {
   id: string;
@@ -13,46 +15,15 @@ interface TableOfContents {
   level: number;
 }
 
-const makeHeadingId = (text: string) => {
-  return text.toLowerCase().replace(/\s+/g, "-");
-}
-
-function extractTextFromChildren(children) {
-  return React.Children.toArray(children)
-    .map(child => {
-      if (typeof child === "string") {
-        return child; // 텍스트 노드 반환
-      } else if (typeof child === "number") {
-        return child.toString(); // 숫자 노드도 문자열로 변환
-      } else if (React.isValidElement(child)) {
-        return extractTextFromChildren(child.props.children); // 자식 요소 재귀 처리
-      }
-      return ""; // 기타 타입은 빈 문자열 반환
-    })
-    .join(""); // 배열을 하나의 문자열로 결합
-}
-
-function CustomHeading({ level, children }) {
-  // Heading 텍스트로부터 id 생성
-  const text = extractTextFromChildren(children);
-
-  const id = makeHeadingId(text);
-
-  const HeadingTag = `h${level}`; // 동적으로 h1, h2, h3 등을 결정
-
-  // @ts-ignore
-  return <HeadingTag id={id}>{children}</HeadingTag>;
-}
-
 const WritingDetail = ({ writing }: { writing: IWriting }) => {
-  const [activeSection, setActiveSection] = useState<string>('');
+  const [activeSection, _] = useState<string>('');
   const [tableOfContents, setTableOfContents] = useState<TableOfContents[]>([]);
 
   useEffect(() => {
     // 목차 생성 및 IntersectionObserver 설정
     const headings = document.querySelectorAll('h2, h3');
 
-    const toc: TableOfContents[] = Array.from(headings).map((heading, index) => ({
+    const toc: TableOfContents[] = Array.from(headings).map((heading, _) => ({
       id: makeHeadingId(heading.textContent || ''),
       title: heading.textContent || '',
       level: Number(heading.tagName.charAt(1))
@@ -96,7 +67,7 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
               </div>
               <div className="flex items-center">
                 <Clock className="w-4 h-4 mr-1"/>
-                {writing.readTime}
+                {writing.readTime} min read
               </div>
             </div>
             <h1 className="text-4xl font-bold text-white mb-6">
@@ -117,14 +88,26 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
             <Markdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h1({node, ...props}) {
-                  return <CustomHeading level={1} {...props} />;
+                h1({ _, ...props }) {
+                  return (
+                    <CustomHeading level={1} >
+                      {props.children}
+                    </CustomHeading>
+                  );
                 },
-                h2({node, ...props}) {
-                  return <CustomHeading level={2} {...props} />;
+                h2({ _, ...props }) {
+                  return (
+                    <CustomHeading level={2} >
+                      {props.children}
+                    </CustomHeading>
+                  );
                 },
-                h3({node, ...props}) {
-                  return <CustomHeading level={3} {...props} />;
+                h3({ _, ...props }) {
+                  return (
+                    <CustomHeading level={3} >
+                      {props.children}
+                    </CustomHeading>
+                  );
                 },
               }}
             >

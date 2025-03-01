@@ -1,8 +1,9 @@
 import {MainHeroSection} from "@/components/hero/MainHeroSection/MainHeroSection";
 import {FeaturedWritings} from "@/components/writing/FeaturedWritings/FeaturedWritings";
-import {ProjectList} from "@/components/project/ProjectList/ProjectList";
+import {FeaturedProjectList} from "@/components/project/FeaturedProjectList/FeaturedProjectList";
 import {FooterSection} from "@/components/footer/FooterSection/FooterSection";
 import {WritingService} from "@/service/writings/writing.service";
+import {ProjectService} from "@/service/project/project.service";
 
 export default async function Home() {
   const title = 'Exploring the Dimensions of AI';
@@ -13,6 +14,11 @@ export default async function Home() {
     return writing.toPlainObject();
   });
 
+  const featuredProjects = await ProjectService.createInstance().getFeaturedProjects();
+  const plainProjects = featuredProjects.map(project => {
+    return project.toPlainObject();
+  });
+
   return (
     <>
       <MainHeroSection title={title} text={text} gradientHeading={true} />
@@ -21,7 +27,7 @@ export default async function Home() {
       <FeaturedWritings featuredWritings={plainWritings} />
 
       {/* Projects Section */}
-      <ProjectList />
+      <FeaturedProjectList featuredProjects={plainProjects} />
 
       {/* Footer */}
       <FooterSection />

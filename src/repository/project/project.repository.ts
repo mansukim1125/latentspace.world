@@ -1,26 +1,27 @@
-
-// Mocking..
 import {Project} from "@/entity/project/project.entity";
 import {IProject} from "@/interface/project/project.interface";
 import {IRepository} from "@/interface/repository/repository.interface";
-import {ProjectTypeEnum} from "@/interface/project/project-type.enum";
 
 const projects: IProject[] = [
   {
     id: "personal-1",
     title: "Vector Database Implementation",
-    description: "High-performance vector similarity search system optimized for large-scale ML models",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
     period: "2024-01 ~ Present",
-    duration: "3 months",
+    duration: '3 months',
     role: "Lead Developer",
     team: "Personal Project",
-    stack: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
     links: {
       github: "https://github.com/username/vector-db",
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
-    type: ProjectTypeEnum.Personal,
+    belongsTo: 'relation-id-for-personal-project',
+    achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
   
@@ -71,18 +72,23 @@ const projects: IProject[] = [
   {
     id: "project-1",
     title: "MSA 기반 커머스 플랫폼",
-    description: "대규모 트래픽을 처리하는 이커머스 플랫폼 개발 및 운영. 마이크로서비스 아키텍처 설계 및 구현을 주도하였으며, 시스템 성능 최적화를 통해 큰 성과를 달성했습니다.",
+    slug: 'commerce-platform-developing-on-msa',
+    excerpt: "대규모 트래픽을 처리하는 이커머스 플랫폼 개발 및 운영. 마이크로서비스 아키텍처 설계 및 구현을 주도하였으며, 시스템 성능 최적화를 통해 큰 성과를 달성했습니다.",
+    category: 'MSA',
+    date: new Date(),
+
     period: "2023.07 - Present",
-    duration: "6 months",
+    duration: '3 months',
     role: "Lead Developer",
     team: '',
-    stack: ["Java", "Spring Boot", "Kafka", "MongoDB"],
+    stacks: ["Java", "Spring Boot", "Kafka", "MongoDB"],
     links: {
       github: "https://github.com/username/vector-db",
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
-    type: ProjectTypeEnum.Work,
+    belongsTo: 'relation-id-for-company',
+    achievements: ['asdasdsd', 'asdsaoj'],
     content: `
 # Project Overview
 
@@ -120,9 +126,13 @@ const projects: IProject[] = [
   {
     id: "project-2",
     title: "결제 시스템 리뉴얼",
-    description: "레거시 결제 시스템 현대화 프로젝트. 시스템 안정성과 확장성을 크게 개선하였으며, 신규 결제 수단 통합을 용이하게 만들었습니다.",
+    slug: 'renew-purchase-system',
+    excerpt: "레거시 결제 시스템 현대화 프로젝트. 시스템 안정성과 확장성을 크게 개선하였으며, 신규 결제 수단 통합을 용이하게 만들었습니다.",
+    category: 'Legacy System',
+    date: new Date(),
+
     period: "2023.01 - 2023.06",
-    duration: "6 months",
+    duration: '3 months',
     role: "Backend Developer",
     team: "",
     links: {
@@ -130,8 +140,9 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
-    stack: ["Kotlin", "Spring Boot", "Redis"],
-    type: ProjectTypeEnum.Work,
+    belongsTo: 'relation-id-for-company',
+    stacks: ["Kotlin", "Spring Boot", "Redis"],
+    achievements: ['ajsiohuigyu', 'oiugyut'],
     content: `
 # Project Overview
 

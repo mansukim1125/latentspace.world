@@ -4,37 +4,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import React from "react";
 import {IProject} from "@/interface/project/project.interface";
-
-const makeHeadingId = (text: string) => {
-  return text.toLowerCase().replace(/\s+/g, "-");
-}
-
-function extractTextFromChildren(children) {
-  return React.Children.toArray(children)
-    .map(child => {
-      if (typeof child === "string") {
-        return child; // 텍스트 노드 반환
-      } else if (typeof child === "number") {
-        return child.toString(); // 숫자 노드도 문자열로 변환
-      } else if (React.isValidElement(child)) {
-        return extractTextFromChildren(child.props.children); // 자식 요소 재귀 처리
-      }
-      return ""; // 기타 타입은 빈 문자열 반환
-    })
-    .join(""); // 배열을 하나의 문자열로 결합
-}
-
-function CustomHeading({ level, children }) {
-  // Heading 텍스트로부터 id 생성
-  const text = extractTextFromChildren(children);
-
-  const id = makeHeadingId(text);
-
-  const HeadingTag = `h${level}`; // 동적으로 h1, h2, h3 등을 결정
-
-  // @ts-ignore
-  return <HeadingTag id={id}>{children}</HeadingTag>;
-}
+import {CustomHeading} from "@/components/custom-heading/CustomHeading";
 
 export default function ProjectDetail({ project }: { project: IProject }) {
   // 예시 데이터. 실제로는 params로 받은 id를 기반으로 데이터를 불러옵니다
@@ -49,7 +19,7 @@ export default function ProjectDetail({ project }: { project: IProject }) {
               Back to Projects
             </Link>
             <div className="flex items-center space-x-4">
-              {Object.entries(project.links).map(([key, url]) => (
+              {project.links && Object.entries(project.links).map(([key, url]) => (
                 url && (
                   <a
                     key={key}
@@ -71,18 +41,19 @@ export default function ProjectDetail({ project }: { project: IProject }) {
       <header className="border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="flex flex-wrap gap-4 mb-6">
-            {project.stack.map((tech, i) => (
+
+            {/*{project.stacks.map((tech, i) => (*/}
               <span
-                key={i}
+                // key={i}
                 className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm"
               >
-                {tech}
+                {project.category}
               </span>
-            ))}
+            {/*))}*/}
           </div>
           <h1 className="text-4xl font-bold text-white mb-6">{project.title}</h1>
-          <p className="text-xl text-gray-400 mb-8 max-w-3xl">{project.description}</p>
-          <div className="flex flex-wrap gap-6 text-gray-400">
+          <p className="text-xl text-gray-400 mb-8 max-w-3xl">{project.excerpt}</p>
+          <div className="flex flex-wrap gap-6 mb-8 text-gray-400">
             <div className="flex items-center">
               <Calendar className="w-5 h-5 mr-2" />
               {project.period}
@@ -91,6 +62,16 @@ export default function ProjectDetail({ project }: { project: IProject }) {
               <Clock className="w-5 h-5 mr-2" />
               {project.duration}
             </div>
+          </div>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.stacks.map((tech, i) => (
+              <span
+                key={i}
+                className="px-2 py-1 text-sm bg-gray-800 text-gray-300 rounded"
+              >
+              {tech}
+            </span>
+            ))}
           </div>
         </div>
       </header>
@@ -102,13 +83,25 @@ export default function ProjectDetail({ project }: { project: IProject }) {
             remarkPlugins={[remarkGfm]}
             components={{
               h1({node, ...props}) {
-                return <CustomHeading level={1} {...props} />;
+                return (
+                  <CustomHeading level={1} >
+                    {props.children}
+                  </CustomHeading>
+                );
               },
               h2({node, ...props}) {
-                return <CustomHeading level={2} {...props} />;
+                return (
+                  <CustomHeading level={2} >
+                    {props.children}
+                  </CustomHeading>
+                );
               },
               h3({node, ...props}) {
-                return <CustomHeading level={3} {...props} />;
+                return (
+                  <CustomHeading level={3} >
+                    {props.children}
+                  </CustomHeading>
+                );
               },
             }}
           >

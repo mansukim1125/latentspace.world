@@ -6,15 +6,27 @@ import {WritingCard} from "@/components/writing/WritingCard/WritingCard";
 import {useState} from "react";
 import {IWriting} from "@/interface/writing/writing.interface";
 
+function filterWritingsByCategory(param: { writings: IWriting[]; category: string }) {
+  const { writings, category } = param;
+  if (category === 'all') return writings;
+  return writings.filter(writing => writing.category.toLowerCase() === category.toLowerCase());
+}
+
 export default function Writings(param: {
-  categories: string[];
   writings: IWriting[];
 }) {
-  const { categories, writings } = param;
+  const { writings } = param;
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'date' | 'title'>('date');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const [filteredWritings, setFilteredWritings] = useState<IWriting[]>(writings);
+
+  const categories = writings.reduce((acc, writing) => {
+    acc.push(writing.category);
+    return acc;
+  }, ['All']);
 
   return (
     <div className="min-h-screen bg-black">
@@ -31,7 +43,13 @@ export default function Writings(param: {
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setSelectedCategory(category.toLowerCase())}
+                  onClick={() => {
+                    setSelectedCategory(category.toLowerCase());
+                    setFilteredWritings(filterWritingsByCategory({
+                      writings,
+                      category: category.toLowerCase(),
+                    }))
+                  }}
                   className={`px-4 py-2 rounded-full text-sm transition-colors ${
                     selectedCategory === category.toLowerCase()
                       ? 'bg-purple-500 text-white'
@@ -71,7 +89,7 @@ export default function Writings(param: {
       {/* Posts Grid */}
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid gap-8">
-          {writings.map((writing, index) => (
+          {filteredWritings.map((writing, index) => (
             <WritingCard writing={writing} key={index}/>
           ))}
         </div>
