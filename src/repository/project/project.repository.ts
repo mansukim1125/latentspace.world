@@ -1,37 +1,27 @@
-import ProjectDetail from "@/components/project/ProjectDetail/ProjectDetail";
+import {Project} from "@/entity/project/project.entity";
+import {IProject} from "@/interface/project/project.interface";
+import {IRepository} from "@/interface/repository/repository.interface";
 
-interface ProjectDetail {
-  id: string;
-  title: string;
-  description: string;
-  period: string;
-  duration: string;
-  stack: string[];
-  role: string;
-  team?: string;
-  links: {
-    github?: string;
-    demo?: string;
-    docs?: string;
-  };
-  content: string; // Markdown content
-}
-
-const projects: ProjectDetail[] = [
+const projects: IProject[] = [
   {
     id: "personal-1",
     title: "Vector Database Implementation",
-    description: "High-performance vector similarity search system optimized for large-scale ML models",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
     period: "2024-01 ~ Present",
-    duration: "3 months",
+    duration: '3 months',
     role: "Lead Developer",
     team: "Personal Project",
-    stack: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
     links: {
       github: "https://github.com/username/vector-db",
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    belongsTo: 'relation-id-for-personal-project',
+    achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
   
@@ -82,16 +72,23 @@ const projects: ProjectDetail[] = [
   {
     id: "project-1",
     title: "MSA 기반 커머스 플랫폼",
-    description: "대규모 트래픽을 처리하는 이커머스 플랫폼 개발 및 운영. 마이크로서비스 아키텍처 설계 및 구현을 주도하였으며, 시스템 성능 최적화를 통해 큰 성과를 달성했습니다.",
+    slug: 'commerce-platform-developing-on-msa',
+    excerpt: "대규모 트래픽을 처리하는 이커머스 플랫폼 개발 및 운영. 마이크로서비스 아키텍처 설계 및 구현을 주도하였으며, 시스템 성능 최적화를 통해 큰 성과를 달성했습니다.",
+    category: 'MSA',
+    date: new Date(),
+
     period: "2023.07 - Present",
-    duration: "6 months",
+    duration: '3 months',
     role: "Lead Developer",
-    stack: ["Java", "Spring Boot", "Kafka", "MongoDB"],
+    team: '',
+    stacks: ["Java", "Spring Boot", "Kafka", "MongoDB"],
     links: {
       github: "https://github.com/username/vector-db",
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
+    belongsTo: 'relation-id-for-company',
+    achievements: ['asdasdsd', 'asdsaoj'],
     content: `
 # Project Overview
 
@@ -129,16 +126,23 @@ const projects: ProjectDetail[] = [
   {
     id: "project-2",
     title: "결제 시스템 리뉴얼",
-    description: "레거시 결제 시스템 현대화 프로젝트. 시스템 안정성과 확장성을 크게 개선하였으며, 신규 결제 수단 통합을 용이하게 만들었습니다.",
+    slug: 'renew-purchase-system',
+    excerpt: "레거시 결제 시스템 현대화 프로젝트. 시스템 안정성과 확장성을 크게 개선하였으며, 신규 결제 수단 통합을 용이하게 만들었습니다.",
+    category: 'Legacy System',
+    date: new Date(),
+
     period: "2023.01 - 2023.06",
-    duration: "6 months",
+    duration: '3 months',
     role: "Backend Developer",
+    team: "",
     links: {
       github: "https://github.com/username/vector-db",
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
-    stack: ["Kotlin", "Spring Boot", "Redis"],
+    belongsTo: 'relation-id-for-company',
+    stacks: ["Kotlin", "Spring Boot", "Redis"],
+    achievements: ['ajsiohuigyu', 'oiugyut'],
     content: `
 # Project Overview
 
@@ -175,20 +179,26 @@ const projects: ProjectDetail[] = [
   },
 ];
 
-const getProjectBySlug = async (slug: string) => {
-  return projects.find(project => project.id === slug);
-};
+export class ProjectRepository implements IRepository<Project> {
+  private projects: IProject[];
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
-  const param = await params;
-  const slug = param?.slug;
-
-  const project = await getProjectBySlug(slug);
-
-  if (!project) {
-    //   TODO: 404 page..
-    return;
+  constructor() {
+    this.projects = projects;
   }
 
-  return <ProjectDetail project={project} />;
+  public static createInstance() {
+    return new ProjectRepository();
+  }
+
+  public async findAll(): Promise<Project[]> {
+    return this.projects.map(project => new Project(project));
+  }
+
+  public async findOne(id: string): Promise<Project> {
+    const project = this.projects.find(project => project.id === id);
+    if (!project) {
+      throw new Error(`Project with id ${id} not found`);
+    }
+    return new Project(project);
+  }
 }
