@@ -16,6 +16,7 @@ export interface IProject {
   stacks: string[]; // NOTE: 기술 stack
   achievements: string[]; // NOTE: 핵심 성과
   links?: ILink,
+  companyId?: string;
 
-  belongsTo: string;
+  // belongsTo: string;
 }
