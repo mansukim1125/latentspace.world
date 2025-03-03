@@ -20,7 +20,718 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
-    belongsTo: 'relation-id-for-personal-project',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },
+  {
+    id: "personal-2",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    companyId: 'company-a',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },
+  {
+    id: "personal-3",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    companyId: 'company-a',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },
+  {
+    id: "personal-4",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },
+  {
+    id: "personal-5",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },
+  {
+    id: "personal-6",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },{
+    id: "personal-7",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    companyId: 'company-a',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },{
+    id: "personal-8",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },{
+    id: "personal-9",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },{
+    id: "personal-10",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },{
+    id: "personal-11",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `
+  },{
+    id: "personal-12",
+    title: "Vector Database Implementation",
+    slug: 'vector-database-implementation',
+    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    category: 'NLP',
+    date: new Date(),
+    period: "2024-01 ~ Present",
+    duration: '3 months',
+    role: "Lead Developer",
+    team: "Personal Project",
+    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    links: {
+      github: "https://github.com/username/vector-db",
+      demo: "https://demo.example.com",
+      docs: "https://docs.example.com"
+    },
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -87,7 +798,6 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
-    belongsTo: 'relation-id-for-company',
     achievements: ['asdasdsd', 'asdsaoj'],
     content: `
 # Project Overview
@@ -140,9 +850,9 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
-    belongsTo: 'relation-id-for-company',
     stacks: ["Kotlin", "Spring Boot", "Redis"],
     achievements: ['ajsiohuigyu', 'oiugyut'],
+    companyId: 'company-b',
     content: `
 # Project Overview
 

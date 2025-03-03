@@ -14,9 +14,9 @@ export default function ProjectDetail({ project }: { project: IProject }) {
       <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <Link href="/projects" className="flex items-center text-gray-400 hover:text-white">
+            <Link href="/experiences" className="flex items-center text-gray-400 hover:text-white">
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Projects
+              Back to Experiences
             </Link>
             <div className="flex items-center space-x-4">
               {project.links && Object.entries(project.links).map(([key, url]) => (

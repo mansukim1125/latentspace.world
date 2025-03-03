@@ -16,4 +16,15 @@ export class Company implements ICompany {
     this.team = param.team;
     this.description = param.description;
   }
+
+  toPlainObj() {
+    return {
+      id: this.id,
+      name: this.name,
+      period: this.period,
+      position: this.position,
+      team: this.team,
+      description: this.description,
+    };
+  }
 }

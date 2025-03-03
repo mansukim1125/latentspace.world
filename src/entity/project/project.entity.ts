@@ -16,7 +16,8 @@ export class Project implements IProject {
   stacks: string[];
   achievements: string[];
   links?: ILink;
-  belongsTo: string;
+  // belongsTo: string;
+  companyId?: string;
 
   public constructor(param: IProject) {
     this.id = param.id;
@@ -33,7 +34,8 @@ export class Project implements IProject {
     this.stacks = param.stacks;
     this.achievements = param.achievements;
     this.links = param.links;
-    this.belongsTo = param.belongsTo;
+    // this.belongsTo = param.belongsTo;
+    this.companyId = param.companyId;
   }
 
   public toPlainObject(): IProject {
@@ -52,7 +54,8 @@ export class Project implements IProject {
       stacks: this.stacks,
       achievements: this.achievements,
       links: this.links,
-      belongsTo: this.belongsTo,
+      // belongsTo: this.belongsTo,
+      companyId: this.companyId,
     };
   }
 }

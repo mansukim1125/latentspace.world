@@ -1,6 +1,6 @@
 import {MainHeroSection} from "@/components/hero/MainHeroSection/MainHeroSection";
 import {FeaturedWritings} from "@/components/writing/FeaturedWritings/FeaturedWritings";
-import {FeaturedProjectList} from "@/components/project/FeaturedProjectList/FeaturedProjectList";
+import {FeaturedExperiences} from "@/components/experience/FeaturedExperiences/FeaturedExperiences";
 import {FooterSection} from "@/components/footer/FooterSection/FooterSection";
 import {WritingService} from "@/service/writings/writing.service";
 import {ProjectService} from "@/service/project/project.service";
@@ -23,11 +23,11 @@ export default async function Home() {
     <>
       <MainHeroSection title={title} text={text} gradientHeading={true} />
 
+      {/* Projects Section */}
+      <FeaturedExperiences featuredProjects={plainProjects} />
+
       {/* Featured Posts */}
       <FeaturedWritings featuredWritings={plainWritings} />
-
-      {/* Projects Section */}
-      <FeaturedProjectList featuredProjects={plainProjects} />
 
       {/* Footer */}
       <FooterSection />
