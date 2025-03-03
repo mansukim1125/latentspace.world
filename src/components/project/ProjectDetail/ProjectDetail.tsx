@@ -41,15 +41,11 @@ export default function ProjectDetail({ project }: { project: IProject }) {
       <header className="border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-16">
           <div className="flex flex-wrap gap-4 mb-6">
-
-            {/*{project.stacks.map((tech, i) => (*/}
-              <span
-                // key={i}
-                className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm"
-              >
-                {project.category}
-              </span>
-            {/*))}*/}
+            <span
+              className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm"
+            >
+              {project.category}
+            </span>
           </div>
           <h1 className="text-4xl font-bold text-white mb-6">{project.title}</h1>
           <p className="text-xl text-gray-400 mb-8 max-w-3xl">{project.excerpt}</p>
@@ -82,21 +78,24 @@ export default function ProjectDetail({ project }: { project: IProject }) {
           <Markdown
             remarkPlugins={[remarkGfm]}
             components={{
-              h1({node, ...props}) {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              h1({ node: _, ...props}) {
                 return (
                   <CustomHeading level={1} >
                     {props.children}
                   </CustomHeading>
                 );
               },
-              h2({node, ...props}) {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              h2({ node: _, ...props}) {
                 return (
                   <CustomHeading level={2} >
                     {props.children}
                   </CustomHeading>
                 );
               },
-              h3({node, ...props}) {
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              h3({ node: _, ...props}) {
                 return (
                   <CustomHeading level={3} >
                     {props.children}

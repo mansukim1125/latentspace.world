@@ -6,8 +6,9 @@ import { ProjectCard } from "@/components/project/ProjectCard/ProjectCard";
 import { Search, XCircle } from "lucide-react";
 import { CompanyCard } from "@/components/company/CompanyCard/CompanyCard";
 import { IExperience } from "@/interface/experience/experience.interface";
+import {IConfig} from "@/interface/config/config.interface";
 
-export function Experiences({ experiences }: { experiences: IExperience[] }) {
+export function Experiences({ config, experiences }: { config: IConfig; experiences: IExperience[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -23,8 +24,8 @@ export function Experiences({ experiences }: { experiences: IExperience[] }) {
     <div className="min-h-screen bg-black">
       {/* 📌 Hero Section */}
       <OtherHeroSection
-        title="Experiences"
-        text="A collection of professional experiences and personal projects in software development."
+        title={config.experienceHero.title}
+        text={config.experienceHero.description}
       />
 
       {/* 📌 Navigation Bar */}

@@ -5,8 +5,9 @@ import { Search, XCircle } from "lucide-react";
 import { WritingCard } from "@/components/writing/WritingCard/WritingCard";
 import { useState, useEffect } from "react";
 import { IWriting } from "@/interface/writing/writing.interface";
+import {IConfig} from "@/interface/config/config.interface";
 
-export default function Writings({ writings }: { writings: IWriting[] }) {
+export default function Writings({ config, writings }: { config: IConfig; writings: IWriting[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'date' | 'title'>('date');
   const [searchQuery, setSearchQuery] = useState('');
@@ -47,8 +48,8 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
-      <OtherHeroSection title="Writing"
-                        text="Thoughts and insights about artificial intelligence, machine learning, and software engineering."/>
+      <OtherHeroSection title={config.writingHero.title}
+                        text={config.writingHero.description}/>
 
       {/* Filters & Search */}
       <div className="border-b border-gray-800 bg-gray-900/50">

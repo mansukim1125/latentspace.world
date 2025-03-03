@@ -4,11 +4,10 @@ import {FeaturedExperiences} from "@/components/experience/FeaturedExperiences/F
 import {FooterSection} from "@/components/footer/FooterSection/FooterSection";
 import {WritingService} from "@/service/writings/writing.service";
 import {ProjectService} from "@/service/project/project.service";
+import {ProfileService} from "@/service/profile/profile.service";
+import {ConfigService} from "@/service/config/config.service";
 
 export default async function Home() {
-  const title = 'Exploring the Dimensions of AI';
-  const text = 'Deep dives into machine learning, neural networks, and the mathematics behind modern AI systems. From theoretical foundations to practical implementations.';
-
   const featuredWritings = await WritingService.createInstance().getFeaturedWritings();
   const plainWritings = featuredWritings.map(writing => {
     return writing.toPlainObject();
@@ -19,9 +18,13 @@ export default async function Home() {
     return project.toPlainObject();
   });
 
+  const profile = await new ProfileService().getProfile();
+
+  const config = await new ConfigService().getConfig();
+
   return (
     <>
-      <MainHeroSection title={title} text={text} gradientHeading={true} />
+      <MainHeroSection title={config.mainHero.title} text={config.mainHero.description} gradientHeading={true} />
 
       {/* Projects Section */}
       <FeaturedExperiences featuredProjects={plainProjects} />
@@ -30,7 +33,7 @@ export default async function Home() {
       <FeaturedWritings featuredWritings={plainWritings} />
 
       {/* Footer */}
-      <FooterSection />
+      <FooterSection profile={profile.toPlainObject()}/>
     </>
   );
 }

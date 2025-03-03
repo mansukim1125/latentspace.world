@@ -3,6 +3,7 @@ import {ProjectService} from "@/service/project/project.service";
 import {Experiences} from "@/components/experience/Experiences";
 import {CompanyRepository} from "@/repository/company/company.repository";
 import {IExperience} from "@/interface/experience/experience.interface";
+import {ConfigService} from "@/service/config/config.service";
 
 const ExperiencesPage = async () => {
   const projects =
@@ -20,7 +21,7 @@ const ExperiencesPage = async () => {
         async companyId => {
           const experience: IExperience = { projects: [] };
           if (companyId) {
-            experience.company = (await companyRepository.findOne(companyId))?.toPlainObj();
+            experience.company = (await companyRepository.findOne(companyId))?.toPlainObject();
           }
           experience.projects = plainProjects.filter(project => project.companyId === companyId);
           return experience;
@@ -34,7 +35,9 @@ const ExperiencesPage = async () => {
     return experiences.find(experience => experience.company?.id === companyId);
   });
 
-  return <Experiences experiences={orderedExperiences} />
+  const config = await new ConfigService().getConfig();
+
+  return <Experiences experiences={orderedExperiences} config={config} />
 };
 
 export default ExperiencesPage;

@@ -10,7 +10,7 @@ export const FeaturedExperiences = async ({ featuredProjects }: { featuredProjec
       <div className="flex items-center justify-between mb-12">
         <h2 className="text-2xl font-bold flex items-center">
           <Brain className="w-6 h-6 mr-2 text-purple-500" />
-          Featured Projects
+          Featured Experiences
         </h2>
         <Link href="/experiences">
           <span className="text-sm text-purple-400 hover:underline">

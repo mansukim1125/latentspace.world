@@ -17,7 +17,6 @@ export class WritingService {
   }
 
   public async getFeaturedWritings() {
-    const writings = await this.writingRepository.findAll();
-    return writings.slice(0, 2);
+    return await this.writingRepository.findFeaturedWritings();
   }
 }

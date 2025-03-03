@@ -16,6 +16,7 @@ interface TableOfContents {
 }
 
 const WritingDetail = ({ writing }: { writing: IWriting }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeSection, _] = useState<string>('');
   const [tableOfContents, setTableOfContents] = useState<TableOfContents[]>([]);
 
@@ -88,21 +89,24 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
             <Markdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h1({ _, ...props }) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                h1({ node: _, ...props }) {
                   return (
                     <CustomHeading level={1} >
                       {props.children}
                     </CustomHeading>
                   );
                 },
-                h2({ _, ...props }) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                h2({ node: _, ...props }) {
                   return (
                     <CustomHeading level={2} >
                       {props.children}
                     </CustomHeading>
                   );
                 },
-                h3({ _, ...props }) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                h3({ node: _, ...props }) {
                   return (
                     <CustomHeading level={3} >
                       {props.children}

@@ -202,4 +202,9 @@ export class WritingRepository implements IRepository<IWriting> {
 
     return new WritingEntity(writing);
   }
+
+  public async findFeaturedWritings() {
+    const writings = await this.findAll();
+    return writings.slice(0, 2);
+  }
 }
