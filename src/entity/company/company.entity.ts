@@ -17,7 +17,7 @@ export class Company implements ICompany {
     this.description = param.description;
   }
 
-  toPlainObj() {
+  toPlainObject(): ICompany {
     return {
       id: this.id,
       name: this.name,

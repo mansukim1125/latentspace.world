@@ -911,4 +911,9 @@ export class ProjectRepository implements IRepository<Project> {
     }
     return new Project(project);
   }
+
+  public async findFeaturedProjects() {
+    const projects = await this.findAll();
+    return projects.slice(0, 2);
+  }
 }

@@ -1,5 +1,5 @@
-import {IProject} from "@/interface/project/project.interface";
-import {ILink} from "@/interface/link/link.interface";
+import {IProject} from '@/interface/project/project.interface';
+import {ILink} from '@/interface/link/link.interface';
 
 export class Project implements IProject {
   id: string;
@@ -16,7 +16,6 @@ export class Project implements IProject {
   stacks: string[];
   achievements: string[];
   links?: ILink;
-  // belongsTo: string;
   companyId?: string;
 
   public constructor(param: IProject) {
@@ -25,7 +24,7 @@ export class Project implements IProject {
     this.slug = param.slug;
     this.excerpt = param.excerpt;
     this.category = param.category;
-    this.date = new Date(param.date); // Ensure `date` is a `Date` instance
+    this.date = new Date(param.date);
     this.content = param.content;
     this.period = param.period;
     this.duration = param.duration;
@@ -34,7 +33,6 @@ export class Project implements IProject {
     this.stacks = param.stacks;
     this.achievements = param.achievements;
     this.links = param.links;
-    // this.belongsTo = param.belongsTo;
     this.companyId = param.companyId;
   }
 
@@ -54,7 +52,6 @@ export class Project implements IProject {
       stacks: this.stacks,
       achievements: this.achievements,
       links: this.links,
-      // belongsTo: this.belongsTo,
       companyId: this.companyId,
     };
   }

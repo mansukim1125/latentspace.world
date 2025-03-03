@@ -17,7 +17,6 @@ export class ProjectService {
   }
 
   public async getFeaturedProjects(): Promise<Project[]> {
-    const projects = await this.projectRepository.findAll();
-    return projects.slice(0, 2);
+    return await this.projectRepository.findFeaturedProjects();
   }
 }

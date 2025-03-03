@@ -17,7 +17,7 @@ export const ProjectCard = (param: { project: IProject }) => {
           {project.period}
         </div>
       </div>
-      <Link href={"/projects/" + project.id}>
+      <Link href={"/experiences/" + project.id}>
         <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-purple-400 transition-colors">
           {project.title}
         </h3>
