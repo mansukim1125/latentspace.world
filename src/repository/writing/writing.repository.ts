@@ -158,9 +158,9 @@ const writings: IWriting[] = [
     readTime: 15,
     content: "This article provides a detailed exploration of attention mechanisms, explaining their mathematical foundation and offering a step-by-step guide for implementing them in code.",
     author: {
-      avatar: "https://example.com/avatar1.png",
-      name: "John Doe"
-    }
+      name: 'Joonseok Kim',
+      avatar: 'https://avatars1.githubusercontent.com/u/55?v=4',
+    },
   },
   {
     id: "optimizing-inference-performance-in-production",
@@ -172,9 +172,9 @@ const writings: IWriting[] = [
     readTime: 10,
     content: "This article discusses various strategies for optimizing inference performance in production, focusing on latency reduction, throughput maximization, and resource utilization.",
     author: {
-      avatar: "https://example.com/avatar2.png",
-      name: "Jane Smith"
-    }
+      name: 'Joonseok Kim',
+      avatar: 'https://avatars1.githubusercontent.com/u/55?v=4',
+    },
   },
 ];
 

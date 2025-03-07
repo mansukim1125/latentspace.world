@@ -1,6 +1,6 @@
 import React from "react";
 
-export const OtherHeroSection = (param: {
+export const HeroSection = (param: {
   title: string;
   text: string;
 }) => {

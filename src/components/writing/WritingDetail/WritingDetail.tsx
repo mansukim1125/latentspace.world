@@ -5,9 +5,9 @@ import { ArrowLeft, Clock, Calendar, Share2, Bookmark } from 'lucide-react';
 import { IWriting } from '@/interface/writing/writing.interface';
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import Link from "next/link";
 import { makeHeadingId } from "@/util";
 import { CustomHeading } from '@/components/custom-heading/CustomHeading';
+import {useRouter} from "next/navigation";
 
 interface TableOfContents {
   id: string;
@@ -19,6 +19,8 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeSection, _] = useState<string>('');
   const [tableOfContents, setTableOfContents] = useState<TableOfContents[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     // 목차 생성 및 IntersectionObserver 설정
@@ -38,10 +40,10 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
       <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/writings" className="flex items-center text-gray-400 hover:text-white">
+            <span onClick={() => router.back()} className="flex items-center text-gray-400 hover:text-white">
               <ArrowLeft className="w-5 h-5 mr-2"/>
               Back to Writing
-            </Link>
+            </span>
             <div className="flex items-center space-x-4">
               <button className="p-2 text-gray-400 hover:text-white">
                 <Share2 className="w-5 h-5"/>

@@ -1,4 +1,4 @@
-import {IProfile} from "@/interface/profile/profile.interface";
+import { IProfile } from "@/interface/profile/profile.interface";
 
 export const FooterSection = (param: {
   profile: IProfile;
@@ -13,10 +13,19 @@ export const FooterSection = (param: {
             © 2025 latentspace.world
           </div>
           <div className="flex space-x-6">
-            {Object.entries(profile.socialLink).map(([label, link]) => {
-              return (
-                <a key={label} href={link} className="text-gray-500 hover:text-gray-300">{label}</a>
-              );
+            {Object.entries(profile.social).map(([label, link]) => {
+              if (link) { // only render if link exists
+                return (
+                  <a
+                    key={label}
+                    href={link}
+                    className="text-gray-500 hover:text-gray-300 capitalize"
+                  >
+                    {label}
+                  </a>
+                );
+              }
+              return null;
             })}
           </div>
         </div>

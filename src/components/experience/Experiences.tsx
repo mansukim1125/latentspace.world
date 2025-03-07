@@ -1,14 +1,13 @@
 'use client';
 
 import { useState, useMemo } from "react";
-import { OtherHeroSection } from "@/components/hero/OtherHeroSection/OtherHeroSection";
 import { ProjectCard } from "@/components/project/ProjectCard/ProjectCard";
-import { Search, XCircle } from "lucide-react";
+import { Search, XCircle, ChevronRight } from "lucide-react";
 import { CompanyCard } from "@/components/company/CompanyCard/CompanyCard";
 import { IExperience } from "@/interface/experience/experience.interface";
-import {IConfig} from "@/interface/config/config.interface";
+import Link from "next/link";
 
-export function Experiences({ config, experiences }: { config: IConfig; experiences: IExperience[] }) {
+export function Experiences({ experiences, enableMoreLink = false }: { enableMoreLink: boolean; experiences: IExperience[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -21,13 +20,7 @@ export function Experiences({ config, experiences }: { config: IConfig; experien
   }, [experiences]);
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* 📌 Hero Section */}
-      <OtherHeroSection
-        title={config.experienceHero.title}
-        text={config.experienceHero.description}
-      />
-
+    <>
       {/* 📌 Navigation Bar */}
       <div className="border-b border-gray-800 bg-gray-900/50">
         <div className="max-w-6xl mx-auto px-4 py-4">
@@ -61,16 +54,29 @@ export function Experiences({ config, experiences }: { config: IConfig; experien
               )}
             </div>
 
-            {/* 📌 검색창 */}
-            <div className="relative flex-1 md:flex-initial">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-300 focus:outline-none focus:border-purple-500"
-              />
+            <div className="flex items-center gap-4">
+              {/* View All Experiences 링크 추가 */}
+              {enableMoreLink && (
+                <Link
+                  href="/experiences"
+                  className="text-purple-400 hover:text-purple-300 flex items-center text-sm font-medium"
+                >
+                  View All Experiences
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
+              )}
+
+              {/* 📌 검색창 */}
+              <div className="relative flex-1 md:flex-initial">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <input
+                  type="text"
+                  placeholder="Search projects..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-300 focus:outline-none focus:border-purple-500"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -106,6 +112,6 @@ export function Experiences({ config, experiences }: { config: IConfig; experien
           );
         })}
       </div>
-    </div>
+    </>
   );
 }
