@@ -3,7 +3,7 @@ import { extractTextFromChildren, makeHeadingId } from '@/util';
 
 export function CustomHeading(param: {
   level: number;
-  className: string;
+  className?: string;
   children: React.ReactNode | React.ReactNode[];
 }) {
   const { level, className, children } = param;
