@@ -1,19 +1,20 @@
-import {IBlogStat} from "@/interface/blog-stat/blog-stat.interface";
-
 export interface IProfile {
   name: string;
   title: string;
+  summary: string;
   location: string;
-  availability: string;
-  profileImage: string;
-  resumeLink: string;
-  bio: string;
-  aboutMe: string[];
-  interests: string[];
-  blogStats: IBlogStat[];
-  socialLink: {
-    github: string;
-    linkedin: string;
-    email: string;
+  experience: string;
+  avatar?: string;
+  skills: string[];
+  keyMetrics: {
+    projects: number;
+    experience: string;
+    contributions: number;
   };
+  social: {
+    github?: string;
+    linkedin?: string;
+    email?: string;
+  };
+  badges: string[];
 }

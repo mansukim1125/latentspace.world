@@ -1,23 +1,27 @@
-import Link from "next/link";
+'use client';
+
 import {ArrowLeft, Calendar, Clock, ExternalLink, Github} from "lucide-react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import React from "react";
 import {IProject} from "@/interface/project/project.interface";
 import {CustomHeading} from "@/components/custom-heading/CustomHeading";
+import {useRouter} from "next/navigation";
 
 export default function ProjectDetail({ project }: { project: IProject }) {
   // 예시 데이터. 실제로는 params로 받은 id를 기반으로 데이터를 불러옵니다
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-black">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
-            <Link href="/experiences" className="flex items-center text-gray-400 hover:text-white">
+            <span onClick={() => router.back()} className="flex items-center text-gray-400 hover:text-white">
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Experiences
-            </Link>
+            </span>
             <div className="flex items-center space-x-4">
               {project.links && Object.entries(project.links).map(([key, url]) => (
                 url && (

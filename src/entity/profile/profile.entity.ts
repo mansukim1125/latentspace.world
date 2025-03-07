@@ -1,47 +1,50 @@
-import { IBlogStat } from "@/interface/blog-stat/blog-stat.interface";
-import {IProfile} from "@/interface/profile/profile.interface";
-import {BlogStat} from "@/entity/blog-stat/blog-stat.entity";
+import { IProfile } from '@/interface/profile/profile.interface';
 
 export class Profile implements IProfile {
   name: string;
   title: string;
+  summary: string;
   location: string;
-  availability: string;
-  profileImage: string;
-  resumeLink: string;
-  bio: string;
-  aboutMe: string[];
-  interests: string[];
-  blogStats: BlogStat[];
-  socialLink: { github: string; linkedin: string; email: string; };
+  experience: string;
+  avatar?: string;
+  skills: string[];
+  keyMetrics: {
+    projects: number;
+    experience: string;
+    contributions: number;
+  };
+  social: {
+    github?: string;
+    linkedin?: string;
+    email?: string;
+  };
+  badges: string[];
 
   constructor(param: IProfile) {
     this.name = param.name;
     this.title = param.title;
+    this.summary = param.summary;
     this.location = param.location;
-    this.availability = param.availability;
-    this.profileImage = param.profileImage;
-    this.resumeLink = param.resumeLink;
-    this.bio = param.bio;
-    this.aboutMe = param.aboutMe;
-    this.interests = param.interests;
-    this.blogStats = param.blogStats.map(blogStat => new BlogStat(blogStat));
-    this.socialLink = param.socialLink;
+    this.experience = param.experience;
+    this.avatar = param.avatar;
+    this.skills = param.skills;
+    this.keyMetrics = param.keyMetrics;
+    this.social = param.social;
+    this.badges = param.badges;
   }
 
   toPlainObject(): IProfile {
     return {
       name: this.name,
       title: this.title,
+      summary: this.summary,
       location: this.location,
-      availability: this.availability,
-      profileImage: this.profileImage,
-      resumeLink: this.resumeLink,
-      bio: this.bio,
-      aboutMe: this.aboutMe,
-      interests: this.interests,
-      blogStats: this.blogStats.map(blogStat => blogStat.toPlainObject()),
-      socialLink: this.socialLink,
+      experience: this.experience,
+      avatar: this.avatar,
+      skills: this.skills,
+      keyMetrics: this.keyMetrics,
+      social: this.social,
+      badges: this.badges
     };
   }
 }
