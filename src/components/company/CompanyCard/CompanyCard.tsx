@@ -1,7 +1,7 @@
 import {ICompany} from "@/interface/company/company.interface";
 import {Building2, Shapes} from "lucide-react";
 
-export function CompanyCard(param: { company: ICompany | undefined }) {
+export function CompanyCard(param: { company: ICompany | null }) {
   const { company } = param;
 
   return (

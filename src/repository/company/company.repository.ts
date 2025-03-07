@@ -19,18 +19,26 @@ const companies: ICompany[] = [
     team: "Platform Team",
     description: "대규모 커머스 플랫폼 회사에서 백엔드 시스템 설계 및 개발",
   },
+  {
+    id: "side-project",
+    name: "Side Project",
+    period: "2023.01 - Present",
+    position: "Backend Developer",
+    team: "Personal Project",
+    description: "사이드 프로젝트",
+  }
   // ... 더 많은 회사 데이터
 ];
 
 const companyOrder = [
   'company-a',
   'company-b',
-  undefined,
+  'side-project',
 ];
 
 export class CompanyRepository implements IRepository<Company> {
   private readonly companies: ICompany[];
-  private readonly companyOrder: (string | undefined)[];
+  private readonly companyOrder: (string | null)[];
 
   constructor() {
     this.companies = companies;
@@ -41,9 +49,9 @@ export class CompanyRepository implements IRepository<Company> {
     return this.companies.map(company => new Company(company));
   }
 
-  async findOne(id: string): Promise<Company | undefined> {
+  async findOne(id: string): Promise<Company | null> {
     const data = this.companies.find(company => company.id === id);
-    if (!data) return;
+    if (!data) return null;
     return new Company(data);
   }
 

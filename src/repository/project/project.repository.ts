@@ -20,6 +20,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -151,7 +152,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
-    companyId: 'company-a',
+    companyId: 'company-b',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -217,6 +218,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -282,6 +284,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -347,6 +350,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -476,6 +480,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -540,6 +545,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -604,6 +610,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -668,6 +675,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -732,6 +740,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com"
     },
+    companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
     content: `
   # Project Overview
@@ -798,6 +807,7 @@ const projects: IProject[] = [
       demo: "https://demo.example.com",
       docs: "https://docs.example.com",
     },
+    companyId: 'side-project',
     achievements: ['asdasdsd', 'asdsaoj'],
     content: `
 # Project Overview
@@ -914,6 +924,6 @@ export class ProjectRepository implements IRepository<Project> {
 
   public async findFeaturedProjects() {
     const projects = await this.findAll();
-    return projects.slice(0, 2);
+    return projects.slice(0, 3);
   }
 }

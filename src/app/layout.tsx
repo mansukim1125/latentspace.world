@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
-import {HeaderSection} from "@/components/header/HeaderSection/HeaderSection";
-import {FooterSection} from "@/components/footer/FooterSection/FooterSection";
-import {ProfileService} from "@/service/profile/profile.service";
+import {Root} from "@/components/root/Root";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,17 +13,5 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const profile = await new ProfileService().getProfile();
-
-  return (
-    <html lang="en">
-      <body>
-        <div className="min-h-screen bg-black text-gray-100">
-          <HeaderSection />
-          {children}
-          <FooterSection profile={profile.toPlainObject()}/>
-        </div>
-      </body>
-    </html>
-  );
+  return <Root>{children}</Root>
 }
