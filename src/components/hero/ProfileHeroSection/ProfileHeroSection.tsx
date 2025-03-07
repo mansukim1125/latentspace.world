@@ -12,7 +12,9 @@ import {
   Award,
 } from 'lucide-react';
 import { IProfile } from '@/interface/profile/profile.interface';
-import Image from 'next/image';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { CustomHeading } from '@/components/custom-heading/CustomHeading';
 
 export const ProfileHeroSection = (param: { profile: IProfile }) => {
   const {
@@ -83,7 +85,7 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
                   >
                     <Github className="w-5 h-5" />
                   </a>
-                )}
+                  )}
                 {social.linkedin && (
                   <a
                     href={social.linkedin}
@@ -94,7 +96,7 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
                   >
                     <Linkedin className="w-5 h-5" />
                   </a>
-                )}
+                  )}
                 {social.email && (
                   <a
                     href={`mailto:${social.email}`}
@@ -103,19 +105,57 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
                   >
                     <Mail className="w-5 h-5" />
                   </a>
-                )}
+                  )}
               </div>
             </div>
           </div>
 
           {/* Right column - Bio, skills, metrics */}
           <div className="md:w-2/3">
-            {/* Summary */}
+            {/* Summary - 마크다운으로 변경 */}
             <div className="bg-gray-900/40 p-6 rounded-lg border border-gray-800 mb-6">
-              <h2 className="text-xl font-semibold text-white mb-3">
-                About Me
-              </h2>
-              <p className="text-gray-300 leading-relaxed">{summary}</p>
+              <Markdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  h1({ node: _, ...props }) {
+                    return (
+                      <CustomHeading
+                        level={1}
+                        className="text-2xl font-bold text-white mb-4"
+                      >
+                        {props.children}
+                      </CustomHeading>
+                    );
+                  },
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  h2({ node: _, ...props }) {
+                    return (
+                      <CustomHeading
+                        level={2}
+                        className="text-xl font-semibold text-white mb-3"
+                      >{props.children}</CustomHeading>
+                    );
+                  },
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  h3({ node: _, ...props }) {
+                    return (
+                      <CustomHeading
+                        level={3}
+                        className="text-lg font-medium text-white mb-2"
+                      >{props.children}</CustomHeading>
+                    );
+                  },
+                  p: ({ children }) => (
+                    <p className="text-gray-300 leading-relaxed mb-4 last:mb-0">{children}</p>
+                  ),
+                  ul: ({ children }) => (
+                    <ul className="mb-4">{children}</ul>
+                  ),
+                }}
+              >
+                {summary}
+              </Markdown>
             </div>
 
             {/* Key metrics */}

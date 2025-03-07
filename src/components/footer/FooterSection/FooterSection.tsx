@@ -15,7 +15,7 @@ export const FooterSection = (param: { profile: IProfile }) => {
                 return (
                   <a
                     key={label}
-                    href={link}
+                    href={label === 'email' ? `mailto:${link}` : link}
                     className="text-gray-500 hover:text-gray-300 capitalize"
                   >
                     {label}
