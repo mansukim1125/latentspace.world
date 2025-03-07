@@ -8,7 +8,6 @@ import remarkGfm from 'remark-gfm';
 import { makeHeadingId } from '@/util';
 import { CustomHeading } from '@/components/custom-heading/CustomHeading';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 interface TableOfContents {
   id: string;
