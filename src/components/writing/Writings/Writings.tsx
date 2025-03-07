@@ -14,14 +14,14 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
   useEffect(() => {
     let updatedWritings = writings;
 
-    // **카테고리 필터 적용**
+    // 카테고리 필터
     if (selectedCategory !== 'all') {
       updatedWritings = updatedWritings.filter(writing =>
         writing.category.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
-    // **검색 필터 적용**
+    // 검색 필터
     if (searchQuery.trim() !== '') {
       updatedWritings = updatedWritings.filter(writing =>
         writing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -29,7 +29,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
       );
     }
 
-    // **정렬 적용**
+    // 정렬
     updatedWritings = [...updatedWritings].sort((a, b) => {
       if (sortBy === 'date') {
         return new Date(b.date).getTime() - new Date(a.date).getTime();

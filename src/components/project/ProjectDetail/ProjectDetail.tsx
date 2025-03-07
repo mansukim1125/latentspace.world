@@ -9,9 +9,7 @@ import {CustomHeading} from "@/components/custom-heading/CustomHeading";
 import {useRouter} from "next/navigation";
 
 export default function ProjectDetail({ project }: { project: IProject }) {
-  // 예시 데이터. 실제로는 params로 받은 id를 기반으로 데이터를 불러옵니다
   const router = useRouter();
-
   return (
     <>
       {/* Navigation */}

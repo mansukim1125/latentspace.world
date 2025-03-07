@@ -16,7 +16,7 @@ export const HeaderSection = () => {
             </div>
           </div>
           <div className="flex items-center space-x-8">
-            <Link href="/writings" className="text-gray-300 hover:text-white">Writing</Link>
+            <Link href="/writings" className="text-gray-300 hover:text-white">Writings</Link>
             <Link href="/experiences" className="text-gray-300 hover:text-white">Experiences</Link>
           </div>
         </div>

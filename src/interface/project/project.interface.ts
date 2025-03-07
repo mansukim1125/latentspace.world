@@ -9,7 +9,7 @@ export interface IProject {
   date: Date;
   content: string; // NOTE: markdown 문서
 
-  period: string; // NOTE: 작업 기간. TODO: PeriodInterface 로 수정해야 함.
+  period: string; // NOTE: 작업 기간
   duration: string;
   role: string;
   team: string;
@@ -17,6 +17,4 @@ export interface IProject {
   achievements: string[]; // NOTE: 핵심 성과
   links?: ILink,
   companyId?: string;
-
-  // belongsTo: string;
 }
