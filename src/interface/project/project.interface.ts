@@ -1,4 +1,4 @@
-import {ILink} from "@/interface/link/link.interface";
+import { ILink } from '@/interface/link/link.interface';
 
 export interface IProject {
   id: string; // NOTE: project 식별자. (e.g., url 에 프로젝트 ID)
@@ -15,6 +15,6 @@ export interface IProject {
   team: string;
   stacks: string[]; // NOTE: 기술 stack
   achievements: string[]; // NOTE: 핵심 성과
-  links?: ILink,
+  links?: ILink;
   companyId?: string;
 }

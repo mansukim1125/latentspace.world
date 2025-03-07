@@ -1,24 +1,25 @@
-import {Project} from "@/entity/project/project.entity";
-import {IProject} from "@/interface/project/project.interface";
-import {IRepository} from "@/interface/repository/repository.interface";
+import { Project } from '@/entity/project/project.entity';
+import { IProject } from '@/interface/project/project.interface';
+import { IRepository } from '@/interface/repository/repository.interface';
 
 const projects: IProject[] = [
   {
-    id: "personal-1",
-    title: "Vector Database Implementation",
+    id: 'personal-1',
+    title: 'Vector Database Implementation',
     slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
     category: 'NLP',
     date: new Date(),
-    period: "2024-01 ~ Present",
+    period: '2024-01 ~ Present',
     duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
@@ -67,24 +68,25 @@ const projects: IProject[] = [
   2. 커스텀 거리 메트릭 지원 추가
   3. 분산 환경에서의 확장성 개선
   4. 자동 파라미터 최적화 기능 구현
-      `
+      `,
   },
   {
-    id: "personal-2",
-    title: "Vector Database Implementation",
+    id: 'personal-2',
+    title: 'Vector Database Implementation',
     slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
     category: 'NLP',
     date: new Date(),
-    period: "2024-01 ~ Present",
+    period: '2024-01 ~ Present',
     duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'company-a',
     achievements: ['ads', 'akjihuigyu'],
@@ -133,24 +135,25 @@ const projects: IProject[] = [
   2. 커스텀 거리 메트릭 지원 추가
   3. 분산 환경에서의 확장성 개선
   4. 자동 파라미터 최적화 기능 구현
-      `
+      `,
   },
   {
-    id: "personal-3",
-    title: "Vector Database Implementation",
+    id: 'personal-3',
+    title: 'Vector Database Implementation',
     slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
     category: 'NLP',
     date: new Date(),
-    period: "2024-01 ~ Present",
+    period: '2024-01 ~ Present',
     duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'company-b',
     achievements: ['ads', 'akjihuigyu'],
@@ -199,24 +202,25 @@ const projects: IProject[] = [
   2. 커스텀 거리 메트릭 지원 추가
   3. 분산 환경에서의 확장성 개선
   4. 자동 파라미터 최적화 기능 구현
-      `
+      `,
   },
   {
-    id: "personal-4",
-    title: "Vector Database Implementation",
+    id: 'personal-4',
+    title: 'Vector Database Implementation',
     slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
     category: 'NLP',
     date: new Date(),
-    period: "2024-01 ~ Present",
+    period: '2024-01 ~ Present',
     duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
@@ -265,24 +269,25 @@ const projects: IProject[] = [
   2. 커스텀 거리 메트릭 지원 추가
   3. 분산 환경에서의 확장성 개선
   4. 자동 파라미터 최적화 기능 구현
-      `
+      `,
   },
   {
-    id: "personal-5",
-    title: "Vector Database Implementation",
+    id: 'personal-5',
+    title: 'Vector Database Implementation',
     slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
     category: 'NLP',
     date: new Date(),
-    period: "2024-01 ~ Present",
+    period: '2024-01 ~ Present',
     duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
@@ -331,24 +336,25 @@ const projects: IProject[] = [
   2. 커스텀 거리 메트릭 지원 추가
   3. 분산 환경에서의 확장성 개선
   4. 자동 파라미터 최적화 기능 구현
-      `
+      `,
   },
   {
-    id: "personal-6",
-    title: "Vector Database Implementation",
+    id: 'personal-6',
+    title: 'Vector Database Implementation',
     slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
     category: 'NLP',
     date: new Date(),
-    period: "2024-01 ~ Present",
+    period: '2024-01 ~ Present',
     duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'side-project',
     achievements: ['ads', 'akjihuigyu'],
@@ -397,23 +403,25 @@ const projects: IProject[] = [
   2. 커스텀 거리 메트릭 지원 추가
   3. 분산 환경에서의 확장성 개선
   4. 자동 파라미터 최적화 기능 구현
-      `
-  },{
-    id: "personal-7",
-    title: "Vector Database Implementation",
+      `,
+  },
+  {
+    id: 'personal-7',
+    title: 'Vector Database Implementation',
     slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
     category: 'NLP',
     date: new Date(),
-    period: "2024-01 ~ Present",
+    period: '2024-01 ~ Present',
     duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'company-a',
     achievements: ['ads', 'akjihuigyu'],
@@ -462,350 +470,361 @@ const projects: IProject[] = [
   2. 커스텀 거리 메트릭 지원 추가
   3. 분산 환경에서의 확장성 개선
   4. 자동 파라미터 최적화 기능 구현
-      `
-  },{
-    id: "personal-8",
-    title: "Vector Database Implementation",
-    slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
-    category: 'NLP',
-    date: new Date(),
-    period: "2024-01 ~ Present",
-    duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
-    links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
-    },
-    companyId: 'side-project',
-    achievements: ['ads', 'akjihuigyu'],
-    content: `
-  # Project Overview
-  
-  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
-  
-  ## Objectives
-  
-  - Build a scalable vector similarity search system
-  - Optimize for high-dimensional embeddings from LLMs
-  - Provide simple API for integration with existing systems
-  
-  ## Key Features
-  
-  ### HNSW Index Implementation
-  
-  \`\`\`python
-  class VectorIndex:
-      def __init__(self, dimension: int, max_elements: int):
-          self.index = faiss.IndexHNSWFlat(dimension, 32)
-          self.index.hnsw.efConstruction = 200
-          self.index.hnsw.efSearch = 50
-  \`\`\`
-  
-  ## Challenges & Solutions
-  
-  ### Performance Optimization
-  
-  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
-  
-  ### Memory Management
-  
-  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
-  
-  ## Learnings
-  
-  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
-  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
-  - 벡터 정규화가 검색 품질에 큰 영향을 미침
-  
-  ## Future Improvements
-  
-  1. 비동기 처리를 통한 인덱싱 속도 개선
-  2. 커스텀 거리 메트릭 지원 추가
-  3. 분산 환경에서의 확장성 개선
-  4. 자동 파라미터 최적화 기능 구현
-      `
-  },{
-    id: "personal-9",
-    title: "Vector Database Implementation",
-    slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
-    category: 'NLP',
-    date: new Date(),
-    period: "2024-01 ~ Present",
-    duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
-    links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
-    },
-    companyId: 'side-project',
-    achievements: ['ads', 'akjihuigyu'],
-    content: `
-  # Project Overview
-  
-  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
-  
-  ## Objectives
-  
-  - Build a scalable vector similarity search system
-  - Optimize for high-dimensional embeddings from LLMs
-  - Provide simple API for integration with existing systems
-  
-  ## Key Features
-  
-  ### HNSW Index Implementation
-  
-  \`\`\`python
-  class VectorIndex:
-      def __init__(self, dimension: int, max_elements: int):
-          self.index = faiss.IndexHNSWFlat(dimension, 32)
-          self.index.hnsw.efConstruction = 200
-          self.index.hnsw.efSearch = 50
-  \`\`\`
-  
-  ## Challenges & Solutions
-  
-  ### Performance Optimization
-  
-  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
-  
-  ### Memory Management
-  
-  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
-  
-  ## Learnings
-  
-  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
-  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
-  - 벡터 정규화가 검색 품질에 큰 영향을 미침
-  
-  ## Future Improvements
-  
-  1. 비동기 처리를 통한 인덱싱 속도 개선
-  2. 커스텀 거리 메트릭 지원 추가
-  3. 분산 환경에서의 확장성 개선
-  4. 자동 파라미터 최적화 기능 구현
-      `
-  },{
-    id: "personal-10",
-    title: "Vector Database Implementation",
-    slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
-    category: 'NLP',
-    date: new Date(),
-    period: "2024-01 ~ Present",
-    duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
-    links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
-    },
-    companyId: 'side-project',
-    achievements: ['ads', 'akjihuigyu'],
-    content: `
-  # Project Overview
-  
-  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
-  
-  ## Objectives
-  
-  - Build a scalable vector similarity search system
-  - Optimize for high-dimensional embeddings from LLMs
-  - Provide simple API for integration with existing systems
-  
-  ## Key Features
-  
-  ### HNSW Index Implementation
-  
-  \`\`\`python
-  class VectorIndex:
-      def __init__(self, dimension: int, max_elements: int):
-          self.index = faiss.IndexHNSWFlat(dimension, 32)
-          self.index.hnsw.efConstruction = 200
-          self.index.hnsw.efSearch = 50
-  \`\`\`
-  
-  ## Challenges & Solutions
-  
-  ### Performance Optimization
-  
-  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
-  
-  ### Memory Management
-  
-  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
-  
-  ## Learnings
-  
-  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
-  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
-  - 벡터 정규화가 검색 품질에 큰 영향을 미침
-  
-  ## Future Improvements
-  
-  1. 비동기 처리를 통한 인덱싱 속도 개선
-  2. 커스텀 거리 메트릭 지원 추가
-  3. 분산 환경에서의 확장성 개선
-  4. 자동 파라미터 최적화 기능 구현
-      `
-  },{
-    id: "personal-11",
-    title: "Vector Database Implementation",
-    slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
-    category: 'NLP',
-    date: new Date(),
-    period: "2024-01 ~ Present",
-    duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
-    links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
-    },
-    companyId: 'side-project',
-    achievements: ['ads', 'akjihuigyu'],
-    content: `
-  # Project Overview
-  
-  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
-  
-  ## Objectives
-  
-  - Build a scalable vector similarity search system
-  - Optimize for high-dimensional embeddings from LLMs
-  - Provide simple API for integration with existing systems
-  
-  ## Key Features
-  
-  ### HNSW Index Implementation
-  
-  \`\`\`python
-  class VectorIndex:
-      def __init__(self, dimension: int, max_elements: int):
-          self.index = faiss.IndexHNSWFlat(dimension, 32)
-          self.index.hnsw.efConstruction = 200
-          self.index.hnsw.efSearch = 50
-  \`\`\`
-  
-  ## Challenges & Solutions
-  
-  ### Performance Optimization
-  
-  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
-  
-  ### Memory Management
-  
-  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
-  
-  ## Learnings
-  
-  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
-  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
-  - 벡터 정규화가 검색 품질에 큰 영향을 미침
-  
-  ## Future Improvements
-  
-  1. 비동기 처리를 통한 인덱싱 속도 개선
-  2. 커스텀 거리 메트릭 지원 추가
-  3. 분산 환경에서의 확장성 개선
-  4. 자동 파라미터 최적화 기능 구현
-      `
-  },{
-    id: "personal-12",
-    title: "Vector Database Implementation",
-    slug: 'vector-database-implementation',
-    excerpt: "High-performance vector similarity search system optimized for large-scale ML models",
-    category: 'NLP',
-    date: new Date(),
-    period: "2024-01 ~ Present",
-    duration: '3 months',
-    role: "Lead Developer",
-    team: "Personal Project",
-    stacks: ["Python", "FAISS", "NumPy", "FastAPI", "Docker"],
-    links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com"
-    },
-    companyId: 'side-project',
-    achievements: ['ads', 'akjihuigyu'],
-    content: `
-  # Project Overview
-  
-  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
-  
-  ## Objectives
-  
-  - Build a scalable vector similarity search system
-  - Optimize for high-dimensional embeddings from LLMs
-  - Provide simple API for integration with existing systems
-  
-  ## Key Features
-  
-  ### HNSW Index Implementation
-  
-  \`\`\`python
-  class VectorIndex:
-      def __init__(self, dimension: int, max_elements: int):
-          self.index = faiss.IndexHNSWFlat(dimension, 32)
-          self.index.hnsw.efConstruction = 200
-          self.index.hnsw.efSearch = 50
-  \`\`\`
-  
-  ## Challenges & Solutions
-  
-  ### Performance Optimization
-  
-  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
-  
-  ### Memory Management
-  
-  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
-  
-  ## Learnings
-  
-  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
-  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
-  - 벡터 정규화가 검색 품질에 큰 영향을 미침
-  
-  ## Future Improvements
-  
-  1. 비동기 처리를 통한 인덱싱 속도 개선
-  2. 커스텀 거리 메트릭 지원 추가
-  3. 분산 환경에서의 확장성 개선
-  4. 자동 파라미터 최적화 기능 구현
-      `
+      `,
   },
   {
-    id: "project-1",
-    title: "MSA 기반 커머스 플랫폼",
+    id: 'personal-8',
+    title: 'Vector Database Implementation',
+    slug: 'vector-database-implementation',
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
+    category: 'NLP',
+    date: new Date(),
+    period: '2024-01 ~ Present',
+    duration: '3 months',
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
+    links: {
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
+    },
+    companyId: 'side-project',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `,
+  },
+  {
+    id: 'personal-9',
+    title: 'Vector Database Implementation',
+    slug: 'vector-database-implementation',
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
+    category: 'NLP',
+    date: new Date(),
+    period: '2024-01 ~ Present',
+    duration: '3 months',
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
+    links: {
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
+    },
+    companyId: 'side-project',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `,
+  },
+  {
+    id: 'personal-10',
+    title: 'Vector Database Implementation',
+    slug: 'vector-database-implementation',
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
+    category: 'NLP',
+    date: new Date(),
+    period: '2024-01 ~ Present',
+    duration: '3 months',
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
+    links: {
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
+    },
+    companyId: 'side-project',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `,
+  },
+  {
+    id: 'personal-11',
+    title: 'Vector Database Implementation',
+    slug: 'vector-database-implementation',
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
+    category: 'NLP',
+    date: new Date(),
+    period: '2024-01 ~ Present',
+    duration: '3 months',
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
+    links: {
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
+    },
+    companyId: 'side-project',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `,
+  },
+  {
+    id: 'personal-12',
+    title: 'Vector Database Implementation',
+    slug: 'vector-database-implementation',
+    excerpt:
+      'High-performance vector similarity search system optimized for large-scale ML models',
+    category: 'NLP',
+    date: new Date(),
+    period: '2024-01 ~ Present',
+    duration: '3 months',
+    role: 'Lead Developer',
+    team: 'Personal Project',
+    stacks: ['Python', 'FAISS', 'NumPy', 'FastAPI', 'Docker'],
+    links: {
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
+    },
+    companyId: 'side-project',
+    achievements: ['ads', 'akjihuigyu'],
+    content: `
+  # Project Overview
+  
+  This project implements a high-performance vector similarity search system designed for large-scale machine learning applications.
+  
+  ## Objectives
+  
+  - Build a scalable vector similarity search system
+  - Optimize for high-dimensional embeddings from LLMs
+  - Provide simple API for integration with existing systems
+  
+  ## Key Features
+  
+  ### HNSW Index Implementation
+  
+  \`\`\`python
+  class VectorIndex:
+      def __init__(self, dimension: int, max_elements: int):
+          self.index = faiss.IndexHNSWFlat(dimension, 32)
+          self.index.hnsw.efConstruction = 200
+          self.index.hnsw.efSearch = 50
+  \`\`\`
+  
+  ## Challenges & Solutions
+  
+  ### Performance Optimization
+  
+  Initial implementation had high latency for large vector sets. Implemented HNSW index with custom distance metrics, reducing query time by 80%.
+  
+  ### Memory Management
+  
+  Loading large vector sets caused memory issues. Developed chunked loading mechanism with memory-mapped files.
+  
+  ## Learnings
+  
+  - HNSW 인덱스의 파라미터 튜닝이 검색 성능에 미치는 영향이 매우 큼
+  - 메모리 효율성과 검색 속도는 대부분 트레이드오프 관계
+  - 벡터 정규화가 검색 품질에 큰 영향을 미침
+  
+  ## Future Improvements
+  
+  1. 비동기 처리를 통한 인덱싱 속도 개선
+  2. 커스텀 거리 메트릭 지원 추가
+  3. 분산 환경에서의 확장성 개선
+  4. 자동 파라미터 최적화 기능 구현
+      `,
+  },
+  {
+    id: 'project-1',
+    title: 'MSA 기반 커머스 플랫폼',
     slug: 'commerce-platform-developing-on-msa',
-    excerpt: "대규모 트래픽을 처리하는 이커머스 플랫폼 개발 및 운영. 마이크로서비스 아키텍처 설계 및 구현을 주도하였으며, 시스템 성능 최적화를 통해 큰 성과를 달성했습니다.",
+    excerpt:
+      '대규모 트래픽을 처리하는 이커머스 플랫폼 개발 및 운영. 마이크로서비스 아키텍처 설계 및 구현을 주도하였으며, 시스템 성능 최적화를 통해 큰 성과를 달성했습니다.',
     category: 'MSA',
     date: new Date(),
 
-    period: "2023.07 - Present",
+    period: '2023.07 - Present',
     duration: '3 months',
-    role: "Lead Developer",
+    role: 'Lead Developer',
     team: '',
-    stacks: ["Java", "Spring Boot", "Kafka", "MongoDB"],
+    stacks: ['Java', 'Spring Boot', 'Kafka', 'MongoDB'],
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com",
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
     companyId: 'side-project',
     achievements: ['asdasdsd', 'asdsaoj'],
@@ -841,26 +860,27 @@ const projects: IProject[] = [
 - 마이크로서비스 간의 데이터 동기화와 분산 처리의 중요성
 - 성능 최적화를 위해 비동기 아키텍처 활용
 
-    `
+    `,
   },
   {
-    id: "project-2",
-    title: "결제 시스템 리뉴얼",
+    id: 'project-2',
+    title: '결제 시스템 리뉴얼',
     slug: 'renew-purchase-system',
-    excerpt: "레거시 결제 시스템 현대화 프로젝트. 시스템 안정성과 확장성을 크게 개선하였으며, 신규 결제 수단 통합을 용이하게 만들었습니다.",
+    excerpt:
+      '레거시 결제 시스템 현대화 프로젝트. 시스템 안정성과 확장성을 크게 개선하였으며, 신규 결제 수단 통합을 용이하게 만들었습니다.',
     category: 'Legacy System',
     date: new Date(),
 
-    period: "2023.01 - 2023.06",
+    period: '2023.01 - 2023.06',
     duration: '3 months',
-    role: "Backend Developer",
-    team: "",
+    role: 'Backend Developer',
+    team: '',
     links: {
-      github: "https://github.com/username/vector-db",
-      demo: "https://demo.example.com",
-      docs: "https://docs.example.com",
+      github: 'https://github.com/username/vector-db',
+      demo: 'https://demo.example.com',
+      docs: 'https://docs.example.com',
     },
-    stacks: ["Kotlin", "Spring Boot", "Redis"],
+    stacks: ['Kotlin', 'Spring Boot', 'Redis'],
     achievements: ['ajsiohuigyu', 'oiugyut'],
     companyId: 'company-b',
     content: `
@@ -895,7 +915,7 @@ const projects: IProject[] = [
 - Kotlin을 활용한 모던 백엔드 개발의 장점
 - 시스템 안정성을 위한 캐싱 및 비동기 처리의 중요성
 
-    `
+    `,
   },
 ];
 
@@ -911,11 +931,11 @@ export class ProjectRepository implements IRepository<Project> {
   }
 
   public async findAll(): Promise<Project[]> {
-    return this.projects.map(project => new Project(project));
+    return this.projects.map((project) => new Project(project));
   }
 
   public async findOne(id: string): Promise<Project> {
-    const project = this.projects.find(project => project.id === id);
+    const project = this.projects.find((project) => project.id === id);
     if (!project) {
       throw new Error(`Project with id ${id} not found`);
     }

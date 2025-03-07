@@ -1,5 +1,5 @@
-import {IProject} from '@/interface/project/project.interface';
-import {ILink} from '@/interface/link/link.interface';
+import { IProject } from '@/interface/project/project.interface';
+import { ILink } from '@/interface/link/link.interface';
 
 export class Project implements IProject {
   id: string;

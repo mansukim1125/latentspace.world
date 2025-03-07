@@ -1,4 +1,4 @@
-import {IAuthor} from "../author/author.interface";
+import { IAuthor } from '../author/author.interface';
 
 export interface IWriting {
   id: string;

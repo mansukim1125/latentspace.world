@@ -1,7 +1,7 @@
-import {ProjectService} from "@/service/project/project.service";
-import {CompanyRepository} from "@/repository/company/company.repository";
-import {Project} from "@/entity/project/project.entity";
-import {Experience} from "@/entity/experience/experience.entity";
+import { ProjectService } from '@/service/project/project.service';
+import { CompanyRepository } from '@/repository/company/company.repository';
+import { Project } from '@/entity/project/project.entity';
+import { Experience } from '@/entity/experience/experience.entity';
 
 export class ExperienceService {
   constructor(
@@ -21,10 +21,14 @@ export class ExperienceService {
     const companyOrder = await this.companyRepository.findCompanyOrder();
 
     return await Promise.all(
-      companyOrder.map(async companyId => {
+      companyOrder.map(async (companyId) => {
         return new Experience({
-          company: companyId ? await this.companyRepository.findOne(companyId) : null,
-          projects: projects.filter(project => project.companyId === companyId),
+          company: companyId
+            ? await this.companyRepository.findOne(companyId)
+            : null,
+          projects: projects.filter(
+            (project) => project.companyId === companyId,
+          ),
         });
       }),
     );

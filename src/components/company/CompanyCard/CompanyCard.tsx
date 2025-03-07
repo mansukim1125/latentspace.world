@@ -1,5 +1,5 @@
-import {ICompany} from "@/interface/company/company.interface";
-import {Building2, Shapes} from "lucide-react";
+import { ICompany } from '@/interface/company/company.interface';
+import { Building2, Shapes } from 'lucide-react';
 
 export function CompanyCard(param: { company: ICompany | null }) {
   const { company } = param;
@@ -9,21 +9,19 @@ export function CompanyCard(param: { company: ICompany | null }) {
       <div className="pb-4 flex items-center">
         {(() => {
           if (company?.period && company?.position && company?.team) {
-            return <Building2 className="inline mr-3 stroke-purple-500"/>
+            return <Building2 className="inline mr-3 stroke-purple-500" />;
           } else {
-            return <Shapes className="inline mr-3 stroke-purple-500"/>
+            return <Shapes className="inline mr-3 stroke-purple-500" />;
           }
         })()}
-        <span className="text-2xl font-bold">{company?.name || 'Personal'}</span>
+        <span className="text-2xl font-bold">
+          {company?.name || 'Personal'}
+        </span>
       </div>
-      {(company?.period && company?.position && company?.team) && (
+      {company?.period && company?.position && company?.team && (
         <p className="pb-4 text-gray-400">
-          <span className="mr-5">
-            {company?.period || ''}
-          </span>
-          <span className="mr-5">
-            {company?.position || ''}
-          </span>
+          <span className="mr-5">{company?.period || ''}</span>
+          <span className="mr-5">{company?.position || ''}</span>
           <span>{company?.team || ''}</span>
         </p>
       )}
@@ -31,5 +29,5 @@ export function CompanyCard(param: { company: ICompany | null }) {
         <span>{company?.description || '개인 프로젝트'}</span>
       </p>
     </div>
-  )
+  );
 }

@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Clock, Calendar, Share2, Bookmark } from 'lucide-react';
 import { IWriting } from '@/interface/writing/writing.interface';
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { makeHeadingId } from "@/util";
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { makeHeadingId } from '@/util';
 import { CustomHeading } from '@/components/custom-heading/CustomHeading';
-import {useRouter} from "next/navigation";
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface TableOfContents {
   id: string;
@@ -26,10 +27,11 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
     // 목차 생성 및 IntersectionObserver 설정
     const headings = document.querySelectorAll('h2, h3');
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const toc: TableOfContents[] = Array.from(headings).map((heading, _) => ({
       id: makeHeadingId(heading.textContent || ''),
       title: heading.textContent || '',
-      level: Number(heading.tagName.charAt(1))
+      level: Number(heading.tagName.charAt(1)),
     }));
     setTableOfContents(toc);
   }, []);
@@ -40,16 +42,19 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
       <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <span onClick={() => router.back()} className="flex items-center text-gray-400 hover:text-white">
-              <ArrowLeft className="w-5 h-5 mr-2"/>
+            <span
+              onClick={() => router.back()}
+              className="flex items-center text-gray-400 hover:text-white"
+            >
+              <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Writing
             </span>
             <div className="flex items-center space-x-4">
               <button className="p-2 text-gray-400 hover:text-white">
-                <Share2 className="w-5 h-5"/>
+                <Share2 className="w-5 h-5" />
               </button>
               <button className="p-2 text-gray-400 hover:text-white">
-                <Bookmark className="w-5 h-5"/>
+                <Bookmark className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -65,20 +70,18 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
                 {writing.category}
               </span>
               <div className="flex items-center">
-                <Calendar className="w-4 h-4 mr-1"/>
+                <Calendar className="w-4 h-4 mr-1" />
                 {writing.date.toISOString().slice(0, 10)}
               </div>
               <div className="flex items-center">
-                <Clock className="w-4 h-4 mr-1"/>
+                <Clock className="w-4 h-4 mr-1" />
                 {writing.readTime} min read
               </div>
             </div>
             <h1 className="text-4xl font-bold text-white mb-6">
               {writing.title}
             </h1>
-            <p className="text-xl text-gray-400">
-              {writing.excerpt}
-            </p>
+            <p className="text-xl text-gray-400">{writing.excerpt}</p>
           </div>
         </div>
       </header>
@@ -94,25 +97,19 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 h1({ node: _, ...props }) {
                   return (
-                    <CustomHeading level={1} >
-                      {props.children}
-                    </CustomHeading>
+                    <CustomHeading level={1}>{props.children}</CustomHeading>
                   );
                 },
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 h2({ node: _, ...props }) {
                   return (
-                    <CustomHeading level={2} >
-                      {props.children}
-                    </CustomHeading>
+                    <CustomHeading level={2}>{props.children}</CustomHeading>
                   );
                 },
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 h3({ node: _, ...props }) {
                   return (
-                    <CustomHeading level={3} >
-                      {props.children}
-                    </CustomHeading>
+                    <CustomHeading level={3}>{props.children}</CustomHeading>
                   );
                 },
               }}
@@ -142,8 +139,11 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
 
                       const element = document.getElementById(heading.id);
                       if (element) {
-                        const top = element.getBoundingClientRect().top + window.scrollY - gnbHeight;
-                        window.scrollTo({ top, behavior: "smooth" });
+                        const top =
+                          element.getBoundingClientRect().top +
+                          window.scrollY -
+                          gnbHeight;
+                        window.scrollTo({ top, behavior: 'smooth' });
                       }
                     }}
                   >

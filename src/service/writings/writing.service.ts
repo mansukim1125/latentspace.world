@@ -1,4 +1,4 @@
-import { WritingRepository } from "@/repository/writing/writing.repository";
+import { WritingRepository } from '@/repository/writing/writing.repository';
 
 export class WritingService {
   constructor(private readonly writingRepository: WritingRepository) {}
@@ -14,9 +14,5 @@ export class WritingService {
 
   public async getWritings() {
     return this.writingRepository.findAll();
-  }
-
-  public async getFeaturedWritings() {
-    return await this.writingRepository.findFeaturedWritings();
   }
 }
