@@ -1,7 +1,7 @@
-import {ChevronRight, ExternalLink, Timer} from "lucide-react";
-import {IProject} from "@/interface/project/project.interface";
-import Link from "next/link";
-import React from "react";
+import { ChevronRight, ExternalLink, Timer } from 'lucide-react';
+import { IProject } from '@/interface/project/project.interface';
+import Link from 'next/link';
+import React from 'react';
 
 export const ProjectCard = (param: { project: IProject }) => {
   const { project } = param;
@@ -17,14 +17,12 @@ export const ProjectCard = (param: { project: IProject }) => {
           {project.period}
         </div>
       </div>
-      <Link href={"/experiences/" + project.id}>
+      <Link href={'/experiences/' + project.id}>
         <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-purple-400 transition-colors">
           {project.title}
         </h3>
 
-        <p className="text-gray-400 mb-4 line-clamp-2">
-          {project.excerpt}
-        </p>
+        <p className="text-gray-400 mb-4 line-clamp-2">{project.excerpt}</p>
 
         <div className="flex flex-wrap gap-2 mb-6">
           {project.stacks.map((tech, i) => (
@@ -52,24 +50,25 @@ export const ProjectCard = (param: { project: IProject }) => {
       {project.links && Object.keys(project.links).length > 0 && (
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-800">
           <div className="flex gap-3">
-            {Object.entries(project.links).map(([key, url]) => (
-              url && (
-                <a
-                  key={key}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-white flex items-center gap-1"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  {key}
-                </a>
-              )
-            ))}
+            {Object.entries(project.links).map(
+              ([key, url]) =>
+                url && (
+                  <a
+                    key={key}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-400 hover:text-white flex items-center gap-1"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    {key}
+                  </a>
+                ),
+            )}
           </div>
           <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transition-colors" />
         </div>
       )}
     </div>
   );
-}
+};

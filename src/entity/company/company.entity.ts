@@ -1,4 +1,4 @@
-import {ICompany} from "@/interface/company/company.interface";
+import { ICompany } from '@/interface/company/company.interface';
 
 export class Company implements ICompany {
   id: string;

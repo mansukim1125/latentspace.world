@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Github,
   Linkedin,
@@ -9,12 +9,24 @@ import {
   Code,
   Star,
   BookOpen,
-  Award
-} from "lucide-react";
-import { IProfile } from "@/interface/profile/profile.interface";
+  Award,
+} from 'lucide-react';
+import { IProfile } from '@/interface/profile/profile.interface';
+import Image from 'next/image';
 
 export const ProfileHeroSection = (param: { profile: IProfile }) => {
-  const { avatar, name, location, social, badges, keyMetrics, summary, skills, title, experience } = param.profile;
+  const {
+    avatar,
+    name,
+    location,
+    social,
+    badges,
+    keyMetrics,
+    summary,
+    skills,
+    title,
+    experience,
+  } = param.profile;
 
   return (
     <div className="border-b border-gray-800 bg-gradient-to-b from-black to-gray-900/70">
@@ -40,8 +52,12 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
               </div>
 
               {/* Basic info */}
-              <h1 className="text-3xl md:text-4xl font-bold text-white text-center md:text-left">{name}</h1>
-              <p className="text-xl text-purple-400 mt-2 text-center md:text-left">{title}</p>
+              <h1 className="text-3xl md:text-4xl font-bold text-white text-center md:text-left">
+                {name}
+              </h1>
+              <p className="text-xl text-purple-400 mt-2 text-center md:text-left">
+                {title}
+              </p>
 
               {/* Location */}
               <div className="flex items-center mt-4 text-gray-400">
@@ -96,7 +112,9 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
           <div className="md:w-2/3">
             {/* Summary */}
             <div className="bg-gray-900/40 p-6 rounded-lg border border-gray-800 mb-6">
-              <h2 className="text-xl font-semibold text-white mb-3">About Me</h2>
+              <h2 className="text-xl font-semibold text-white mb-3">
+                About Me
+              </h2>
               <p className="text-gray-300 leading-relaxed">{summary}</p>
             </div>
 
@@ -106,21 +124,27 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
                 <div className="bg-purple-500/20 p-2 rounded-full mb-2">
                   <Briefcase className="w-5 h-5 text-purple-400" />
                 </div>
-                <span className="text-2xl font-bold text-white">{keyMetrics.projects}</span>
+                <span className="text-2xl font-bold text-white">
+                  {keyMetrics.projects}
+                </span>
                 <span className="text-sm text-gray-400">Projects</span>
               </div>
               <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">
                 <div className="bg-purple-500/20 p-2 rounded-full mb-2">
                   <Code className="w-5 h-5 text-purple-400" />
                 </div>
-                <span className="text-2xl font-bold text-white">{keyMetrics.experience}</span>
+                <span className="text-2xl font-bold text-white">
+                  {keyMetrics.experience}
+                </span>
                 <span className="text-sm text-gray-400">Experience</span>
               </div>
               <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">
                 <div className="bg-purple-500/20 p-2 rounded-full mb-2">
                   <Star className="w-5 h-5 text-purple-400" />
                 </div>
-                <span className="text-2xl font-bold text-white">{keyMetrics.contributions}+</span>
+                <span className="text-2xl font-bold text-white">
+                  {keyMetrics.contributions}+
+                </span>
                 <span className="text-sm text-gray-400">Contributions</span>
               </div>
             </div>
@@ -151,7 +175,9 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
                   className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-purple-900/50 to-purple-700/30 rounded-lg border border-purple-700/50"
                 >
                   <Award className="w-4 h-4 text-purple-400" />
-                  <span className="text-sm font-medium text-purple-300">{badge}</span>
+                  <span className="text-sm font-medium text-purple-300">
+                    {badge}
+                  </span>
                 </div>
               ))}
             </div>

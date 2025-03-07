@@ -44,7 +44,7 @@ export class Profile implements IProfile {
       skills: this.skills,
       keyMetrics: this.keyMetrics,
       social: this.social,
-      badges: this.badges
+      badges: this.badges,
     };
   }
 }

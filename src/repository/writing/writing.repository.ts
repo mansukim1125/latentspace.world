@@ -1,18 +1,20 @@
-import {IWriting} from "@/interface/writing/writing.interface";
-import {IRepository} from "@/interface/repository/repository.interface";
-import {WritingEntity} from "@/entity/writing/writing.entity";
+import { IWriting } from '@/interface/writing/writing.interface';
+import { IRepository } from '@/interface/repository/repository.interface';
+import { WritingEntity } from '@/entity/writing/writing.entity';
 
 // Mocking..
 const writings: IWriting[] = [
   {
-    id: "understanding-vector-embeddings-in-llms",
-    title: "Understanding Vector Embeddings in LLMs",
-    slug: "understanding-vector-embeddings-in-llms",
-    excerpt: "An exploration of how large language models represent semantic meaning in high-dimensional vector spaces.",
-    category: "Machine Learning",
-    date: new Date("2025-01-15"),
+    id: 'understanding-vector-embeddings-in-llms',
+    title: 'Understanding Vector Embeddings in LLMs',
+    slug: 'understanding-vector-embeddings-in-llms',
+    excerpt:
+      'An exploration of how large language models represent semantic meaning in high-dimensional vector spaces.',
+    category: 'Machine Learning',
+    date: new Date('2025-01-15'),
     readTime: 12,
-    content: 'Large Language Models (LLMs) like GPT, BERT, and others have revolutionized natural language processing (NLP) tasks by leveraging vector embeddings to represent the semantic meaning of text. These embeddings are high-dimensional vectors that capture the contextual relationships between words, phrases, or even entire documents. In this article, we explore the concept of vector embeddings, how they are generated, and why they are fundamental to the performance of LLMs.\n' +
+    content:
+      'Large Language Models (LLMs) like GPT, BERT, and others have revolutionized natural language processing (NLP) tasks by leveraging vector embeddings to represent the semantic meaning of text. These embeddings are high-dimensional vectors that capture the contextual relationships between words, phrases, or even entire documents. In this article, we explore the concept of vector embeddings, how they are generated, and why they are fundamental to the performance of LLMs.\n' +
       '\n' +
       '---\n' +
       '\n' +
@@ -116,7 +118,7 @@ const writings: IWriting[] = [
       '\n' +
       '## Example: Visualizing Embeddings\n' +
       '\n' +
-      'Embeddings can be visualized using dimensionality reduction techniques like t-SNE or PCA. Here\'s an example in Python using t-SNE:\n' +
+      "Embeddings can be visualized using dimensionality reduction techniques like t-SNE or PCA. Here's an example in Python using t-SNE:\n" +
       '\n' +
       '```python\n' +
       'import numpy as np\n' +
@@ -149,28 +151,32 @@ const writings: IWriting[] = [
     },
   },
   {
-    id: "implementing-attention-mechanisms-from-scratch",
-    title: "Implementing Attention Mechanisms from Scratch",
-    slug: "implementing-attention-mechanisms-from-scratch",
-    category: "NLP",
-    date: new Date("2025-01-10"),
-    excerpt: "A deep dive into the mathematics and implementation details of attention mechanisms in transformers.",
+    id: 'implementing-attention-mechanisms-from-scratch',
+    title: 'Implementing Attention Mechanisms from Scratch',
+    slug: 'implementing-attention-mechanisms-from-scratch',
+    category: 'NLP',
+    date: new Date('2025-01-10'),
+    excerpt:
+      'A deep dive into the mathematics and implementation details of attention mechanisms in transformers.',
     readTime: 15,
-    content: "This article provides a detailed exploration of attention mechanisms, explaining their mathematical foundation and offering a step-by-step guide for implementing them in code.",
+    content:
+      'This article provides a detailed exploration of attention mechanisms, explaining their mathematical foundation and offering a step-by-step guide for implementing them in code.',
     author: {
       name: 'Joonseok Kim',
       avatar: 'https://avatars1.githubusercontent.com/u/55?v=4',
     },
   },
   {
-    id: "optimizing-inference-performance-in-production",
-    title: "Optimizing Inference Performance in Production",
-    slug: "optimizing-inference-performance-in-production",
-    category: "MLOps",
-    date: new Date("2025-01-05"),
-    excerpt: "Real-world strategies for deploying and optimizing machine learning models in production environments.",
+    id: 'optimizing-inference-performance-in-production',
+    title: 'Optimizing Inference Performance in Production',
+    slug: 'optimizing-inference-performance-in-production',
+    category: 'MLOps',
+    date: new Date('2025-01-05'),
+    excerpt:
+      'Real-world strategies for deploying and optimizing machine learning models in production environments.',
     readTime: 10,
-    content: "This article discusses various strategies for optimizing inference performance in production, focusing on latency reduction, throughput maximization, and resource utilization.",
+    content:
+      'This article discusses various strategies for optimizing inference performance in production, focusing on latency reduction, throughput maximization, and resource utilization.',
     author: {
       name: 'Joonseok Kim',
       avatar: 'https://avatars1.githubusercontent.com/u/55?v=4',
@@ -191,11 +197,11 @@ export class WritingRepository implements IRepository<IWriting> {
   }
 
   public async findAll(): Promise<WritingEntity[]> {
-    return this.writings.map(writing => new WritingEntity(writing));
+    return this.writings.map((writing) => new WritingEntity(writing));
   }
 
   public async findOne(id: string): Promise<WritingEntity> {
-    const writing = this.writings.find(writing => writing.id === id);
+    const writing = this.writings.find((writing) => writing.id === id);
     if (!writing) {
       throw new Error('No writing with id ' + id);
     }

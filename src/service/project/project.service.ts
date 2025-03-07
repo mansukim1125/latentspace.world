@@ -1,5 +1,5 @@
-import {ProjectRepository} from "@/repository/project/project.repository";
-import {Project} from "@/entity/project/project.entity";
+import { ProjectRepository } from '@/repository/project/project.repository';
+import { Project } from '@/entity/project/project.entity';
 
 export class ProjectService {
   constructor(private readonly projectRepository: ProjectRepository) {}

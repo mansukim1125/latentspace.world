@@ -1,5 +1,5 @@
-import {Grid} from "lucide-react";
-import Link from "next/link";
+import { Grid } from 'lucide-react';
+import Link from 'next/link';
 
 export const HeaderSection = () => {
   return (
@@ -10,17 +10,26 @@ export const HeaderSection = () => {
             <Grid className="w-8 h-8 text-purple-500" />
             <div>
               <Link href="/">
-                <div className="text-lg font-bold tracking-wider">latentspace</div>
+                <div className="text-lg font-bold tracking-wider">
+                  latentspace
+                </div>
                 <div className="text-sm text-purple-500">.world</div>
               </Link>
             </div>
           </div>
           <div className="flex items-center space-x-8">
-            <Link href="/writings" className="text-gray-300 hover:text-white">Writings</Link>
-            <Link href="/experiences" className="text-gray-300 hover:text-white">Experiences</Link>
+            <Link href="/writings" className="text-gray-300 hover:text-white">
+              Writings
+            </Link>
+            <Link
+              href="/experiences"
+              className="text-gray-300 hover:text-white"
+            >
+              Experiences
+            </Link>
           </div>
         </div>
       </div>
     </nav>
   );
-}
+};

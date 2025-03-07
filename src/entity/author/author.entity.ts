@@ -1,4 +1,4 @@
-import {IAuthor} from "@/interface/author/author.interface";
+import { IAuthor } from '@/interface/author/author.interface';
 
 export class AuthorEntity implements IAuthor {
   avatar: string;

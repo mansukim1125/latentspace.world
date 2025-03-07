@@ -1,12 +1,10 @@
-import {HeaderSection} from "@/components/header/HeaderSection/HeaderSection";
-import {MainContent} from "@/components/main-content/MainContent";
-import {FooterSection} from "@/components/footer/FooterSection/FooterSection";
-import React from "react";
-import {ProfileService} from "@/service/profile/profile.service";
+import { HeaderSection } from '@/components/header/HeaderSection/HeaderSection';
+import { MainContent } from '@/components/main-content/MainContent';
+import { FooterSection } from '@/components/footer/FooterSection/FooterSection';
+import React from 'react';
+import { ProfileService } from '@/service/profile/profile.service';
 
-export const Root = async (param: {
-  children: React.ReactNode;
-}) => {
+export const Root = async (param: { children: React.ReactNode }) => {
   const { children } = param;
 
   const profile = await new ProfileService().getProfile();
@@ -16,10 +14,8 @@ export const Root = async (param: {
       <body>
         <div className="min-h-screen bg-black text-gray-100">
           <HeaderSection />
-          <MainContent>
-            {children}
-          </MainContent>
-          <FooterSection profile={profile.toPlainObject()}/>
+          <MainContent>{children}</MainContent>
+          <FooterSection profile={profile.toPlainObject()} />
         </div>
       </body>
     </html>

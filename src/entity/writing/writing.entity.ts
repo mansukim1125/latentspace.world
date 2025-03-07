@@ -1,5 +1,5 @@
-import {IWriting} from "@/interface/writing/writing.interface";
-import {AuthorEntity} from "@/entity/author/author.entity";
+import { IWriting } from '@/interface/writing/writing.interface';
+import { AuthorEntity } from '@/entity/author/author.entity';
 
 export class WritingEntity implements IWriting {
   id: string;

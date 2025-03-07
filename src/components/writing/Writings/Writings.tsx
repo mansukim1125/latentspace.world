@@ -1,31 +1,34 @@
 'use client';
 
-import { Search, XCircle } from "lucide-react";
-import { WritingCard } from "@/components/writing/WritingCard/WritingCard";
-import { useState, useEffect } from "react";
-import { IWriting } from "@/interface/writing/writing.interface";
+import { Search, XCircle } from 'lucide-react';
+import { WritingCard } from '@/components/writing/WritingCard/WritingCard';
+import { useState, useEffect } from 'react';
+import { IWriting } from '@/interface/writing/writing.interface';
 
 export default function Writings({ writings }: { writings: IWriting[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'date' | 'title'>('date');
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredWritings, setFilteredWritings] = useState<IWriting[]>(writings);
+  const [filteredWritings, setFilteredWritings] =
+    useState<IWriting[]>(writings);
 
   useEffect(() => {
     let updatedWritings = writings;
 
     // 카테고리 필터
     if (selectedCategory !== 'all') {
-      updatedWritings = updatedWritings.filter(writing =>
-        writing.category.toLowerCase() === selectedCategory.toLowerCase()
+      updatedWritings = updatedWritings.filter(
+        (writing) =>
+          writing.category.toLowerCase() === selectedCategory.toLowerCase(),
       );
     }
 
     // 검색 필터
     if (searchQuery.trim() !== '') {
-      updatedWritings = updatedWritings.filter(writing =>
-        writing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        writing.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+      updatedWritings = updatedWritings.filter(
+        (writing) =>
+          writing.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          writing.excerpt.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -40,7 +43,9 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
     setFilteredWritings(updatedWritings);
   }, [selectedCategory, searchQuery, sortBy, writings]);
 
-  const categories = Array.from(new Set(writings.map(writing => writing.category)));
+  const categories = Array.from(
+    new Set(writings.map((writing) => writing.category)),
+  );
   categories.unshift('All');
 
   return (
@@ -49,10 +54,9 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
       <div className="border-b border-gray-800 bg-gray-900/50">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-
             {/* Categories */}
             <div className="flex flex-wrap gap-2">
-              {categories.map(category => (
+              {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category.toLowerCase())}
@@ -82,7 +86,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
             <div className="flex items-center gap-4 w-full md:w-auto">
               {/* 검색창 */}
               <div className="relative flex-1 md:flex-initial">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"/>
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search writings..."
@@ -111,7 +115,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
         {filteredWritings.length > 0 ? (
           <div className="grid gap-8">
             {filteredWritings.map((writing, index) => (
-              <WritingCard writing={writing} key={index}/>
+              <WritingCard writing={writing} key={index} />
             ))}
           </div>
         ) : (

@@ -1,12 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export const MainContent = (param: {
-  children: React.ReactNode;
-}) => {
+export const MainContent = (param: { children: React.ReactNode }) => {
   const { children } = param;
-  return (
-    <div className="min-h-screen bg-black">
-      {children}
-    </div>
-  )
+  return <div className="min-h-screen bg-black">{children}</div>;
 };
