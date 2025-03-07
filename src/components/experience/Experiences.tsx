@@ -11,7 +11,7 @@ export function Experiences({ experiences, enableMoreLink = false }: { enableMor
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // 📌 중복 없는 카테고리 목록 생성
+  // 중복 없는 카테고리 목록 생성
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(
       new Set(experiences.flatMap(experience => experience.projects).map(project => project.category))
@@ -21,12 +21,12 @@ export function Experiences({ experiences, enableMoreLink = false }: { enableMor
 
   return (
     <>
-      {/* 📌 Navigation Bar */}
+      {/* Navigation Bar */}
       <div className="border-b border-gray-800 bg-gray-900/50">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 
-            {/* 📌 카테고리 필터 */}
+            {/* 카테고리 필터 */}
             <div className="flex flex-wrap gap-2">
               {categories.map(category => (
                 <button
@@ -42,7 +42,7 @@ export function Experiences({ experiences, enableMoreLink = false }: { enableMor
                 </button>
               ))}
 
-              {/* 📌 필터 초기화 버튼 */}
+              {/* 필터 초기화 버튼 */}
               {selectedCategory !== "all" && (
                 <button
                   onClick={() => setSelectedCategory("all")}
@@ -66,7 +66,7 @@ export function Experiences({ experiences, enableMoreLink = false }: { enableMor
                 </Link>
               )}
 
-              {/* 📌 검색창 */}
+              {/* 검색창 */}
               <div className="relative flex-1 md:flex-initial">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
@@ -82,10 +82,10 @@ export function Experiences({ experiences, enableMoreLink = false }: { enableMor
         </div>
       </div>
 
-      {/* 📌 회사별 프로젝트 섹션 */}
+      {/* 회사별 프로젝트 섹션 */}
       <div className="max-w-6xl mx-auto px-4 py-12 space-y-16">
         {experiences.map(experience => {
-          // ✅ 선택된 카테고리에 맞게 프로젝트 필터링
+          // 선택된 카테고리에 맞게 프로젝트 필터링
           const filteredProjects = experience.projects.filter(project =>
             selectedCategory === "all" || project.category.toLowerCase() === selectedCategory
           ).filter(project =>
