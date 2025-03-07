@@ -13,7 +13,7 @@ export default function ProjectDetail({ project }: { project: IProject }) {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-black">
+    <>
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-4">
@@ -112,6 +112,6 @@ export default function ProjectDetail({ project }: { project: IProject }) {
           </Markdown>
         </article>
       </div>
-    </div>
+    </>
   );
 };

@@ -35,7 +35,7 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black">
+    <>
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-black/50 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-4">
@@ -172,7 +172,7 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

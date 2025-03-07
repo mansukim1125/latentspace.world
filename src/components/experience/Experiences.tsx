@@ -7,7 +7,7 @@ import { CompanyCard } from "@/components/company/CompanyCard/CompanyCard";
 import { IExperience } from "@/interface/experience/experience.interface";
 import Link from "next/link";
 
-export function Experiences({ experiences, enableMoreLink = false }: { enableMoreLink: boolean; experiences: IExperience[] }) {
+export function Experiences({ experiences, enableMoreLink = false }: { enableMoreLink?: boolean; experiences: IExperience[] }) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 

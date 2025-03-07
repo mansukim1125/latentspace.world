@@ -22,7 +22,7 @@ export class ConfigService {
     this.config = config;
   }
 
-  getConfig() {
+  async getConfig() {
     return this.config;
   }
 }
