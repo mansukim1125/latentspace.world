@@ -33,10 +33,10 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
   return (
     <div className="border-b border-gray-800 bg-gradient-to-b from-black to-gray-900/70">
       <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row gap-8 items-start">
+        <div className="flex flex-col md:flex-row gap-4 items-start">
           {/* Left column - Avatar and basic info */}
-          <div className="md:w-1/3">
-            <div className="flex flex-col items-center md:items-start">
+          <div className="w-full justify-center  md:w-1/3">
+            <div className="flex flex-col items-center md:items-start md:pl-8">
               {/* Avatar */}
               <div className="relative mb-6">
                 {avatar ? (
@@ -111,8 +111,8 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
           </div>
 
           {/* Right column - Bio, skills, metrics */}
-          <div className="md:w-2/3">
-            {/* Summary - 마크다운으로 변경 */}
+          <div className="md:w-3/4">
+            {/* Summary */}
             <div className="bg-gray-900/40 p-6 rounded-lg border border-gray-800 mb-6">
               <Markdown
                 remarkPlugins={[remarkGfm]}
