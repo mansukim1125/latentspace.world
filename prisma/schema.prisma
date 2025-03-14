@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id          String    @id @unique
+  name        String
+  period      String
+  position    String
+  team        String
+  description String
+  Project     Project[]
+}
+
+model Project {
+  id           String   @id @unique
+  title        String
+  slug         String   @unique
+  excerpt      String
+  category     String
+  date         DateTime @default(now())
+  period       String
+  duration     String
+  role         String
+  team         String?
+  stacks       String[] // 기술 스택
+  links        Json // GitHub, Demo, Docs...
+  companyId    String?
+  achievements String[] // 성과 array
+  content      String
+
+  // Foreign key relation
+  company Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+}
+
+model Writing {
+  id       String   @id @unique
+  title    String
+  slug     String   @unique
+  excerpt  String
+  category String
+  date     DateTime
+  readTime Int
+  content  String
+}
+
+model Config {
+  id             String @id @default("config")
+  writingHero    Json
+  experienceHero Json
+  mainHero       Json
+
+  authorName       String
+  authorTitle      String
+  authorSummary    String
+  authorLocation   String
+  authorExperience String
+  authorAvatar     String?
+  authorSkills     String[]
+  authorSocial     Json
+  authorBadges     String[]
+  authorKeyMetrics Json
+}
