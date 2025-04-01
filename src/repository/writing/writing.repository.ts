@@ -21,7 +21,7 @@ const writings: IWriting[] = [
   },
   {
     "id": "stdin-readline-nightmare",
-    "title": "꾸준한 습관 형성",
+    "title": "습관 형성 - 2일차",
     "slug": "stdin-readline-nightmare",
     "category": "Self Improvement",
     "date": new Date("2025-04-01"),
