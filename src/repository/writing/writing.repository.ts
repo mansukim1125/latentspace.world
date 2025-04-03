@@ -269,6 +269,238 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "make-queue-using-stack-amortized-analysis",
+    "title": "스택으로 큐 만들기",
+    "slug": "make-queue-using-stack-amortized-analysis",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-03"),
+    "excerpt":
+      "새로운 복잡도 개념을 배웠다. Amortized Analysis.",
+    "readTime": 10,
+    "content": "https://leetcode.com/problems/implement-queue-using-stacks/description/\n" +
+      "\n" +
+      "다음은 문제 번역.\n" +
+      "> ** 두 개의 스택만을 사용하여 선입선출(FIFO) 큐를 구현하세요. **\n" +
+      "> \n" +
+      "> \n" +
+      "> 구현된 큐는 일반적인 큐의 모든 기능(push, peek, pop, empty)을 지원해야 합니다.\n" +
+      "> \n" +
+      "> **`MyQueue` 클래스를 구현하세요:**\n" +
+      "> \n" +
+      "> - `void push(int x)`\n" +
+      ">     \n" +
+      ">     원소 `x`를 큐의 뒤쪽에 삽입합니다.\n" +
+      ">     \n" +
+      "> - `int pop()`\n" +
+      ">     \n" +
+      ">     큐의 앞쪽에서 원소를 제거하고, 그 값을 반환합니다.\n" +
+      ">     \n" +
+      "> - `int peek()`\n" +
+      ">     \n" +
+      ">     큐의 앞쪽에 있는 원소를 제거하지 않고 반환합니다.\n" +
+      ">     \n" +
+      "> - `boolean empty()`\n" +
+      ">     \n" +
+      ">     큐가 비어있으면 `true`, 그렇지 않으면 `false`를 반환합니다.\n" +
+      ">     \n" +
+      "> \n" +
+      "> ---\n" +
+      "> \n" +
+      "> ** 주의 사항: **\n" +
+      "> \n" +
+      "> - 반드시 스택의 표준 연산만 사용해야 합니다.\n" +
+      ">     \n" +
+      ">     즉, **스택의 top에 push**, **top에서 peek 또는 pop**, **size 확인**, **비어 있는지 여부 확인**만 가능합니다.\n" +
+      ">     \n" +
+      "> - 사용하는 프로그래밍 언어에 따라 스택이 기본적으로 제공되지 않을 수 있습니다.\n" +
+      ">     \n" +
+      ">     이 경우, 리스트나 덱(deque, 양방향 큐)을 이용해 **스택의 표준 연산만 사용하여** 스택을 시뮬레이션해도 괜찮습니다.\n" +
+      ">     \n" +
+      "\n" +
+      "스택(Stack)은 LIFO(Last In First Out) 방식으로 동작하는 자료구조이다.\n" +
+      "\n" +
+      "반면 큐(Queue)는 FIFO(First In First Out) 방식으로 동작한다. 문제에서 제시된 요구사항은 두 개의 스택을 사용하여 큐를 구현하는 것이다.\n" +
+      "\n" +
+      "사실 처음에는 이게 뭔 소린지 싶어서... 그냥 list를 사용해 구현하였다. 정답은 말 그대로 입력과 출력만 맞으면 되는 것 아닌가.\n" +
+      "\n" +
+      "## 첫 번째 구현\n" +
+      "\n" +
+      "그냥 Python의 list를 queue로 구현한 것이다. 복잡도 면에서 가장 좋다고 할 수 있지만 문제의 요구사항을 만족하지 못한다.\n" +
+      "\n" +
+      "```python\n" +
+      "class MyQueue:\n" +
+      "\n" +
+      "    def __init__(self):\n" +
+      "        self.queue = []\n" +
+      "\n" +
+      "    def push(self, x: int) -> None:\n" +
+      "        self.queue.append(x)\n" +
+      "\n" +
+      "    def pop(self) -> int:\n" +
+      "        ret_val = self.queue[0]\n" +
+      "        self.queue = self.queue[1:]\n" +
+      "        return ret_val\n" +
+      "\n" +
+      "    def peek(self) -> int:\n" +
+      "        return self.queue[0]\n" +
+      "\n" +
+      "    def empty(self) -> bool:\n" +
+      "        return len(self.queue) == 0\n" +
+      "```\n" +
+      "\n" +
+      "## 두 번째 구현\n" +
+      "\n" +
+      "### 2-stack 아이디어\n" +
+      "\n" +
+      "두 개의 스택을 사용하여 큐를 구현하는 방법을 생각해 본다.\n" +
+      "\n" +
+      "스택에서 pop 연산은 맨 마지막에 들어간 item을 빼는 연산이다.\n" +
+      "\n" +
+      "그러나 queue에서의 pop 연산은 맨 처음에 들어간 item을 빼는 연산이다.\n" +
+      "\n" +
+      "queue에서의 FIFO를 구현하기 위해 queue의 push, pop/peek 연산을 수행하기 전, stack을 뒤집는 연산을 하도록 했다.\n" +
+      "\n" +
+      "- push 연산: 직전 연산이 push인 경우 스택을 뒤집을 필요가 없다.\n" +
+      "- pop/peek 연산: 직전 연산이 pop/peek이라면 스택을 뒤집을 필요가 없다.\n" +
+      "\n" +
+      "그리하여 구현한 두 번째 풀이.\n" +
+      "\n" +
+      "flag 변수를 두어 직전에 push 연산이 일어났던 것인지, pop 연산이 일어났었는지를 판단하도록 하고,\n" +
+      "\n" +
+      "push 이후 pop, pop 이후 push/peek이 발생한 경우 원래 stack을 뒤집어 새로운 stack에 push 하도록 하였다.\n" +
+      "\n" +
+      "시간 복잡도는 push, pop, peek 연산에 대해 최악 경우 O(n), 최선 경우 O(1)이다.\n" +
+      "\n" +
+      "```python\n" +
+      "class MyQueue:\n" +
+      "\n" +
+      "    def __init__(self):\n" +
+      "        self.flag = True\n" +
+      "        self.original_stack = []\n" +
+      "\n" +
+      "    def reverse_stack(self):\n" +
+      "        new_stack = []\n" +
+      "        while len(self.original_stack) > 0:\n" +
+      "            popped_val = self.original_stack[-1]\n" +
+      "            new_stack.append(popped_val)\n" +
+      "            self.original_stack.pop()\n" +
+      "        return new_stack\n" +
+      "\n" +
+      "    def push(self, x: int) -> None:\n" +
+      "        if self.flag is False:\n" +
+      "            self.original_stack = self.reverse_stack()\n" +
+      "        self.flag = True\n" +
+      "        self.original_stack.append(x)\n" +
+      "\n" +
+      "    def pop(self) -> int:\n" +
+      "        if self.flag is True:\n" +
+      "            self.original_stack = self.reverse_stack()\n" +
+      "        ret_val = self.original_stack[-1]\n" +
+      "        self.original_stack.pop()\n" +
+      "        self.flag = False\n" +
+      "        return ret_val\n" +
+      "\n" +
+      "    def peek(self) -> int:\n" +
+      "        if self.flag is True:\n" +
+      "            self.original_stack = self.reverse_stack()\n" +
+      "        self.flag = False\n" +
+      "        return self.original_stack[-1]\n" +
+      "\n" +
+      "    def empty(self) -> bool:\n" +
+      "        return len(self.original_stack) == 0\n" +
+      "```\n" +
+      "\n" +
+      "## 세 번째 방법\n" +
+      "\n" +
+      "내가 생각하기에 가장 깔끔하고 스택 두 개를 사용하는 조건에서 나름 효율적으로 보이는 풀이다.\n" +
+      "\n" +
+      "스택 두 개를 가지고 아래 동작을 수행하도록 한다.\n" +
+      "\n" +
+      "- 첫 번째 스택(stack1)은 새로운 요소를 추가(push)할 때 사용 (push 전용)\n" +
+      "- 두 번째 스택(stack2)은 요소를 제거(pop)할 때 사용 (pop 전용)\n" +
+      "\n" +
+      "push할 때는 stack1에 push하면 된다. (O(1) 복잡도)\n" +
+      "\n" +
+      "pop할 때는 pop 전용 스택에서 pop을 하면 된다. (O(1) 복잡도)\n" +
+      "\n" +
+      "다만, pop 전용 스택이 텅 빈 경우 push 전용 스택을 다 빼서 pop 전용 스택에 넣어준다. (한 번의 pop 연산에서 최악의 경우 O(n))\n" +
+      "\n" +
+      "### 구현 방법\n" +
+      "\n" +
+      "```python\n" +
+      "class MyQueue:\n" +
+      "\n" +
+      "    def __init__(self):\n" +
+      "        self.stack_in = []\n" +
+      "        self.stack_out = []\n" +
+      "\n" +
+      "    def move_in_to_out(self):\n" +
+      "        if not self.stack_out:\n" +
+      "            while self.stack_in:\n" +
+      "                self.stack_out.append(self.stack_in.pop())\n" +
+      "\n" +
+      "    def push(self, x: int) -> None:\n" +
+      "        self.stack_in.append(x)\n" +
+      "\n" +
+      "    def pop(self) -> int:\n" +
+      "        self.move_in_to_out()\n" +
+      "        return self.stack_out.pop()\n" +
+      "\n" +
+      "    def peek(self) -> int:\n" +
+      "        self.move_in_to_out()\n" +
+      "        return self.stack_out[-1]\n" +
+      "\n" +
+      "    def empty(self) -> bool:\n" +
+      "        return not self.stack_in and not self.stack_out\n" +
+      "```\n" +
+      "\n" +
+      "### 약간 어려운 시간 복잡도 분석\n" +
+      "\n" +
+      "위 구현에서 `move_in_to_out` 함수를 보자. 이 함수는 언제 실행될까? stack_out이 빈 경우 실행된다.\n" +
+      "\n" +
+      "이해를 돕기 위해 100개의 item을 넣고 빼는 상황을 가정해보자. 이런 상황에서 push 연산은 O(1) 복잡도를 가진다.\n" +
+      "\n" +
+      "> 여기서 질문: pop 연산의 경우 O(100)인가?\n" +
+      "> \n" +
+      "\n" +
+      "최악 경우 복잡도를 계산한다면 O(100)으로 계산하겠지만, 이는 위 알고리즘의 수행 시간을 충분히 대변하지 못한다.\n" +
+      "\n" +
+      "왜냐하면 최초 pop 시점에 100개 item이 stack_out에 옮겨지고 이후 pop부터는 O(1) 시간이 소요되기 때문이다.\n" +
+      "\n" +
+      "따라서 평균적으로 보면 다음과 같이 계산할 수 있다. 여기서 **Amortized 시간 복잡도 개념이 등장한다.**\n" +
+      "\n" +
+      "전체 `pop()` 연산 n번에 대한 시간 복잡도는:\n" +
+      "\n" +
+      "- 최대 n개의 요소가 **한 번씩만 stack_in → stack_out으로 이동** → O(n)\n" +
+      "- 그리고 `pop()` 연산은 각 요소당 1번씩 수행 → O(n)\n" +
+      "\n" +
+      "즉, **총 시간 = O(n) + O(n) = O(n)**\n" +
+      "\n" +
+      "단일 `pop()` 연산의 **암묵적(Amortized)** 시간 복잡도는: O(n) / n = O(1)이다.\n" +
+      "\n" +
+      "## 결론\n" +
+      "\n" +
+      "오늘은 Amortized 시간 복잡도에 대해 배웠다. 아래는 위키피디아의 설명.\n" +
+      "\n" +
+      "> 어떠한 임의의 알고리즘에 대해서, 어떤 연산은 자원적 측면에서 상당한 비용을 소모할 수 있지만, 반면 다른 연산은 그렇게 고비용을 소모하지 않을 수 있다. 분할상환 분석은 알고리즘의 전반적인 연산 집합에 대해 비용이 높은 연산, 그리고 비용이 덜한 연산 모두를 함께 고려하는 기법이라 하겠다. 이것은 다른 종류의 입력, 입력의 길이, 이 알고리즘의 성능에 영향을 미치는 다른 요인들을 전부 고려한다. 수행된 모든 연산에 대해 자료구조 연산만의 어떤 시퀀스를 수행하는 데 필요한 시간의 평균을 구한다. 비록 그 시퀀스에서 하나의 연산 비용이 비싸더라도, 그 일련의 연산에 대해 평균을 구하면 연산 하나의 평균 비용이 작다는 것을 분할 상환 분석을 이용해 보일 수 있다.\n" +
+      "> \n" +
+      "\n" +
+      "이 개념을 오늘 풀어본 문제에 적용해 보면,\n" +
+      "\n" +
+      "`pop` 연산 중에는 가끔 `stack1 → stack2`로의 이동처럼 **상당한 비용이 드는 연산**이 발생하지만,\n" +
+      "\n" +
+      "대부분의 `pop` 연산은 단순한 `stack2.pop()`만 수행되어 **상수 시간**에 처리된다.\n" +
+      "\n" +
+      "결과적으로, 전체 `n`번의 `pop` 연산 시퀀스에 대해 분할 상환 분석을 적용하면,\n" +
+      "\n" +
+      "- 총 수행 시간은 O(n)이므로,\n" +
+      "- pop 연산 하나의 평균 시간 복잡도는 O(1)이라는 것을 보일 수 있었다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  }
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
