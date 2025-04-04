@@ -500,6 +500,198 @@ const writings: IWriting[] = [
       "name": "Joonseok Kim",
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
+  },
+  {
+    "id": "make-stack-using-queue",
+    "title": "큐로 스택 만들기",
+    "slug": "make-stack-using-queue",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-04"),
+    "excerpt":
+      "하나의 문제를 여러 방법으로 풀어보는 것은 즐겁다.",
+    "readTime": 10,
+    "content": "어제는 스택으로 큐를 구현하는 문제였다면 오늘은 반대이다.\n" +
+      "\n" +
+      "FIFO 구조를 가지는 큐로 LIFO 구조를 가지는 스택을 구현하는 문제이다.\n" +
+      "\n" +
+      "## 첫 번째 아이디어\n" +
+      "\n" +
+      "push 할 때는 그냥 넣고, pop 또는 top 할 때는 아래와 같은 절차를 수행한다.\n" +
+      "\n" +
+      "1. 기존에 큐에 있던 원소들을 한 개만 남기고 임시 큐에 넣는다.\n" +
+      "2. 기존 큐에 남은 한 개의 원소를 반환한다.\n" +
+      "\n" +
+      "이렇게 할 경우 시간 복잡도는 push: O(1), pop/top: O(n) 이다. 공간 복잡도는 O(n) 이다.\n" +
+      "\n" +
+      "### 첫 번째 아이디어 구현\n" +
+      "\n" +
+      "```python\n" +
+      "from collections import deque\n" +
+      "\n" +
+      "class MyStack:\n" +
+      "\n" +
+      "    def __init__(self):\n" +
+      "        self.queue = deque([])\n" +
+      "\n" +
+      "    def push(self, x: int) -> None:\n" +
+      "        self.queue.append(x)\n" +
+      "\n" +
+      "    def get_top_val(self):\n" +
+      "        temp_queue = deque([])\n" +
+      "        while len(self.queue) > 1:\n" +
+      "            temp_queue.append(self.queue.popleft())\n" +
+      "        ret_val = self.queue.popleft()\n" +
+      "        self.queue = temp_queue\n" +
+      "        return ret_val\n" +
+      "\n" +
+      "    def pop(self) -> int:\n" +
+      "        return self.get_top_val()\n" +
+      "\n" +
+      "    def top(self) -> int:\n" +
+      "        top_val = self.get_top_val()\n" +
+      "        self.queue.append(top_val)\n" +
+      "        return top_val\n" +
+      "\n" +
+      "    def empty(self) -> bool:\n" +
+      "        return len(self.queue) <= 0\n" +
+      "\n" +
+      "# Your MyStack object will be instantiated and called as such:\n" +
+      "# obj = MyStack()\n" +
+      "# obj.push(x)\n" +
+      "# param_2 = obj.pop()\n" +
+      "# param_3 = obj.top()\n" +
+      "# param_4 = obj.empty()\n" +
+      "```\n" +
+      "\n" +
+      "이 구현은 임시 큐를 사용하여 기존 큐를 임시 큐로 대체하는 방법이다. 물론 임시 큐를 사용하지 않고 하나의 큐만 사용할 수도 있다.\n" +
+      "\n" +
+      "```python\n" +
+      "from collections import deque\n" +
+      "\n" +
+      "class MyStack:\n" +
+      "\n" +
+      "    def __init__(self):\n" +
+      "        self.queue = deque([])\n" +
+      "        self.items_changed = False\n" +
+      "        \n" +
+      "    def _relocation_queue(self):\n" +
+      "        current_len = len(self.queue)\n" +
+      "        for _ in range(current_len - 1):\n" +
+      "            self.queue.append(self.queue.popleft())\n" +
+      "\n" +
+      "    def push(self, x: int) -> None:\n" +
+      "        self.queue.append(x)\n" +
+      "        self.items_changed = True\n" +
+      "\n" +
+      "    def pop(self) -> int:\n" +
+      "        if self.items_changed:\n" +
+      "            self._relocation_queue()\n" +
+      "        self.items_changed = True\n" +
+      "        return self.queue.popleft()\n" +
+      "\n" +
+      "    def top(self) -> int:\n" +
+      "        if self.items_changed:\n" +
+      "            self._relocation_queue()\n" +
+      "            self.items_changed = False\n" +
+      "        return self.queue[0]\n" +
+      "\n" +
+      "    def empty(self) -> bool:\n" +
+      "        return len(self.queue) <= 0\n" +
+      "\n" +
+      "# Your MyStack object will be instantiated and called as such:\n" +
+      "# obj = MyStack()\n" +
+      "# obj.push(x)\n" +
+      "# param_2 = obj.pop()\n" +
+      "# param_3 = obj.top()\n" +
+      "# param_4 = obj.empty()\n" +
+      "```\n" +
+      "\n" +
+      "이 구현은 items_changed 라는 flag 변수를 이용하여 큐의 조성이 변경되었는지를 추적하고, pop 또는 top 연산 시 불필요한 재배치 연산을 하지 않도록 해 준다.\n" +
+      "\n" +
+      "## 두 번째 아이디어\n" +
+      "\n" +
+      "pop 또는 top 할 때는 그냥 빼고, push 할 때는 아래와 같은 절차를 수행한다.\n" +
+      "\n" +
+      "1. 큐에 넣고자 하는 값을 넣는다.\n" +
+      "2. 방금 넣은 값을 제외한 나머지를 빼고 다시 큐에 넣는다.\n" +
+      "\n" +
+      "이렇게 할 경우 시간 복잡도는 push: O(n), pop/top: O(1) 이다. 공간 복잡도는 O(n) 이다.\n" +
+      "\n" +
+      "### 두 번째 아이디어 구현\n" +
+      "\n" +
+      "```python\n" +
+      "from collections import deque\n" +
+      "\n" +
+      "class MyStack:\n" +
+      "\n" +
+      "    def __init__(self):\n" +
+      "        self.queue = deque([])\n" +
+      "\n" +
+      "    def push(self, x: int) -> None:\n" +
+      "        temp_queue = deque([x])\n" +
+      "        while self.queue:\n" +
+      "            temp_queue.append(self.queue.popleft())\n" +
+      "        self.queue = temp_queue\n" +
+      "\n" +
+      "    def pop(self) -> int:\n" +
+      "        return self.queue.popleft()\n" +
+      "\n" +
+      "    def top(self) -> int:\n" +
+      "        return self.queue[0]\n" +
+      "\n" +
+      "    def empty(self) -> bool:\n" +
+      "        return len(self.queue) <= 0\n" +
+      "\n" +
+      "# Your MyStack object will be instantiated and called as such:\n" +
+      "# obj = MyStack()\n" +
+      "# obj.push(x)\n" +
+      "# param_2 = obj.pop()\n" +
+      "# param_3 = obj.top()\n" +
+      "# param_4 = obj.empty()\n" +
+      "```\n" +
+      "\n" +
+      "첫 번째 아이디어와 마찬가지로 큐의 재배치 연산을 push 에서도 수행할 수 있다. 또한 위와 같이 임시 큐를 사용하지 않고 한 개의 큐만을 사용하여 해결할 수도 있다.\n" +
+      "\n" +
+      "```python\n" +
+      "from collections import deque\n" +
+      "\n" +
+      "class MyStack:\n" +
+      "\n" +
+      "    def __init__(self):\n" +
+      "        self.queue = deque([])\n" +
+      "\n" +
+      "    def push(self, x: int) -> None:\n" +
+      "        self.queue.append(x)\n" +
+      "        current_len = len(self.queue)\n" +
+      "        for _ in range(current_len - 1):\n" +
+      "            self.queue.append(self.queue.popleft())\n" +
+      "\n" +
+      "    def pop(self) -> int:\n" +
+      "        return self.queue.popleft()\n" +
+      "\n" +
+      "    def top(self) -> int:\n" +
+      "        return self.queue[0]\n" +
+      "\n" +
+      "    def empty(self) -> bool:\n" +
+      "        return len(self.queue) <= 0\n" +
+      "\n" +
+      "# Your MyStack object will be instantiated and called as such:\n" +
+      "# obj = MyStack()\n" +
+      "# obj.push(x)\n" +
+      "# param_2 = obj.pop()\n" +
+      "# param_3 = obj.top()\n" +
+      "# param_4 = obj.empty()\n" +
+      "```\n" +
+      "\n" +
+      "## 소감\n" +
+      "\n" +
+      "일 주일 째 1일 1문제 풀이를 하고 있는데 습관 형성이 되는 것 같고 자존감에도 좋은 것 같다.\n" +
+      "\n" +
+      "앞으로도 이렇게 습관을 들이는 것이 내 발전에도, 건강에도 도움이 될 것이라 생각한다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
   }
 ];
 
