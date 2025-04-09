@@ -692,7 +692,123 @@ const writings: IWriting[] = [
       "name": "Joonseok Kim",
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
-  }
+  },
+  {
+    "id": "algorithm-optimization-self-counting-strings",
+    "title": "빈도를 세는 문제를 푸는 두 가지 접근",
+    "slug": "algorithm-optimization-self-counting-strings",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-10"),
+    "excerpt":
+      "문자열에서 특정 문자의 빈도를 세는 두 가지 방법을 비교한다. .count 를 사용한 해법과 해시맵을 활용한 빈도 계산의 시간 복잡도 차이를 실제 코드와 함께 알아보자.",
+    "readTime": 10,
+    "content": "이번주 월요일과 화요일에는 개인 사정으로 다른 일을 했다. 오늘부터 문제를 다시 풀어보자.\n" +
+      "\n" +
+      "## 문제\n" +
+      "\n" +
+      "숫자로만 구성된 문자열 `num`이 주어진다. 길이는 `n`이다. 모든 인덱스 `i`(`0 <= i < n`)에 대해, 숫자 `i`가 `num[i]` 횟수만큼 문자열 `num`에 나타나는지 확인한다. 이 조건이 모든 인덱스에 대해 참이면 `true`를 반환하고, 그렇지 않으면 `false`를 반환한다.\n" +
+      "\n" +
+      "### 예시\n" +
+      "\n" +
+      "**예시 1:**\n" +
+      "\n" +
+      "```\n" +
+      "입력: num = \"1210\"\n" +
+      "출력: true\n" +
+      "설명:\n" +
+      "num[0] = '1'. 숫자 0은 num에 1번 나타난다.\n" +
+      "num[1] = '2'. 숫자 1은 num에 2번 나타난다.\n" +
+      "num[2] = '1'. 숫자 2는 num에 1번 나타난다.\n" +
+      "num[3] = '0'. 숫자 3은 num에 0번 나타난다.\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "**예시 2:**\n" +
+      "\n" +
+      "```\n" +
+      "입력: num = \"030\"\n" +
+      "출력: false\n" +
+      "설명:\n" +
+      "num[0] = '0'. 숫자 0은 0번 나타나야 하지만, 실제로는 2번 나타난다.\n" +
+      "num[1] = '3'. 숫자 1은 3번 나타나야 하지만, 실제로는 0번 나타난다.\n" +
+      "num[2] = '0'. 숫자 2는 num에 0번 나타난다.\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "## 첫 번째 접근법: O(n²) 솔루션\n" +
+      "\n" +
+      "처음에는 문자열을 순회하면서 갯수를 세는 간단한 접근법을 생각했다.\n" +
+      "\n" +
+      "```python\n" +
+      "class Solution:\n" +
+      "    def digitCount(self, num: str) -> bool:\n" +
+      "        for i in range(len(num)):\n" +
+      "            count = list(num).count(str(i))\n" +
+      "            if count != int(num[i]):\n" +
+      "                return False\n" +
+      "        return True\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "이 솔루션은 간결하고 이해하기 쉽지만, 시간 복잡도는 O(n²)이다:\n" +
+      "\n" +
+      "1. 바깥 반복문은 n번 실행된다 (각 인덱스마다 한 번씩)\n" +
+      "2. 각 반복마다 `count()` 메서드가 전체 문자열을 순회한다 (n번의 연산)\n" +
+      "3. 총 시간 복잡도: O(n²)\n" +
+      "\n" +
+      "## 두 번째 접근법: O(n) 솔루션\n" +
+      "\n" +
+      "해시 맵(Python에서는 딕셔너리)을 사용하여 시간 복잡도를 O(n)으로 줄이는 더 효율적인 접근법을 생각해 보았다.\n" +
+      "\n" +
+      "```python\n" +
+      "def digitCount(self, num: str) -> bool:\n" +
+      "    counts = {}\n" +
+      "\n" +
+      "    # 문자열에서 각 숫자의 출현 횟수를 세기 (O(n))\n" +
+      "    for n in num:\n" +
+      "        if n in counts:\n" +
+      "            counts[n] += 1 # (O(1))\n" +
+      "        else:\n" +
+      "            counts[n] = 1 # (O(1))\n" +
+      "\n" +
+      "    # 각 인덱스 i가 num[i]번만큼 나타나는지 확인 (O(n))\n" +
+      "    for i in range(len(num)):\n" +
+      "        if str(i) not in counts: # (O(1))\n" +
+      "            counts[str(i)] = 0 # (O(1))\n" +
+      "        if counts[str(i)] != int(num[i]): # (O(1))\n" +
+      "            return False\n" +
+      "\n" +
+      "    return True\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "### 최적화된 솔루션의 작동 방식\n" +
+      "\n" +
+      "1. 먼저, 문자열에서 각 숫자가 몇 번 나타나는지 추적하는 빈도 맵(`counts`)을 만든다.\n" +
+      "    1. 이는 O(n) 시간이 소요된다.\n" +
+      "2. 그런 다음, 각 인덱스 i를 반복하면서 숫자 i가 빈도 맵에 따라 정확히 num[i]번 나타나는지 확인한다.\n" +
+      "    1. 이 또한 O(n) 시간이 소요된다.\n" +
+      "3. 총 시간 복잡도는 O(n) + O(n) = O(n)이다.\n" +
+      "\n" +
+      "## 두 접근법 비교\n" +
+      "\n" +
+      "1. **첫 번째 접근법:**\n" +
+      "    - 장점: 공간 복잡도 O(1)\n" +
+      "    - 단점: 매 반복마다 전체 문자열을 스캔하므로 O(n²) 시간 복잡도를 가진다\n" +
+      "2. **두 번째 접근법 (해시 맵 사용):**\n" +
+      "    - 장점: 전체 문자열을 한 번만 스캔하므로 O(n) 시간 복잡도를 가진다\n" +
+      "    - 단점: 공간 복잡도 O(n)\n" +
+      "\n" +
+      "## 결론\n" +
+      "\n" +
+      "입력 문자열의 길이 제한이 10개로 제한되어 있어 첫 번째 솔루션도 시간 복잡도 측면에서 그렇게 비효율적이라고 생각하지는 않는다.\n" +
+      "\n" +
+      "만약 입력 길이가 매우 커진다면 두 번째 솔루션이 보다 효율적일 것이다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
