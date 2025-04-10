@@ -809,6 +809,61 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "design-hashmap",
+    "title": "간단한 Map 구현 하기",
+    "slug": "design-hashmap",
+    "category": "Self Improvement",
+    "date": new Date('2025-04-10T14:42:37.989Z'),
+    "excerpt":
+      "정수 범위 값을 저장하는 간단한 Hash 구현",
+    "readTime": 4,
+    "content": "https://leetcode.com/problems/design-hashmap/\n" +
+      "\n" +
+      "오늘의 문제는 내장 해시 테이블 라이브러리 없이 해시맵을 직접 구현하는 문제였다.\n" +
+      "\n" +
+      "문제는 다음과 같은 기능을 가진 `MyHashMap` 클래스를 구현하는 것이다.\n" +
+      "\n" +
+      "- `MyHashMap()` - 빈 맵으로 객체를 초기화\n" +
+      "- `put(key, value)` - 키-값 쌍을 삽입하거나 기존 키의 값을 업데이트\n" +
+      "- `get(key)` - 특정 키에 매핑된 값을 반환하거나 키가 없으면 -1 반환\n" +
+      "- `remove(key)` - 키와 해당 값을 제거\n" +
+      "\n" +
+      "키 값이 문자열인 줄 알았으나 정수 범위로 제한되어 있어서 구현이 매우 간단한 문제이다.\n" +
+      "\n" +
+      "시간 복잡도를 낮추는 방향으로 간단하게 구현해 보았다.\n" +
+      "\n" +
+      "## 간단한 배열 기반 구현\n" +
+      "\n" +
+      "배열을 직접 사용하는 방식이다. 문제의 제약 조건에 따라 키와 값이 0에서 10^6 사이라는 점을 활용했다.\n" +
+      "\n" +
+      "```python\n" +
+      "class MyHashMap:\n" +
+      "    def __init__(self):\n" +
+      "        self.hashMap = [-1] * 1000001 # 입력 제한 길이: 1000000\n" +
+      "\n" +
+      "    def put(self, key: int, value: int) -> None:\n" +
+      "        self.hashMap[key] = value\n" +
+      "\n" +
+      "    def get(self, key: int) -> int:\n" +
+      "        return self.hashMap[key]\n" +
+      "\n" +
+      "    def remove(self, key: int) -> None:\n" +
+      "        self.put(key, -1)\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "### 이 접근법의 특징\n" +
+      "\n" +
+      "- **시간 복잡도**: 모든 연산이 O(1) - 인덱스 접근은 상수 시간\n" +
+      "- **공간 복잡도**: O(10^6) - 입력 범위에 맞는 고정 크기 배열\n" +
+      "- **장점**: 구현이 단순하고 모든 연산이 매우 빠르다\n" +
+      "- **단점**: 고정 크기 배열을 미리 만듦으로서 메모리 사용량이 많다",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
