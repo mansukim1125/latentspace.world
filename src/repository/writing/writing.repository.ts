@@ -864,6 +864,116 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "count-the-number-of-parallel-lines",
+    "title": "평면 위의 평행선 개수 세기",
+    "slug": "count-the-number-of-parallel-lines",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-13"),
+    "excerpt":
+      "평면 위에 주어진 점들을 지나는 x축 또는 y축에 평행한 직선의 개수를 세는 문제",
+    "readTime": 5,
+    "content": "평면 위에 주어진 점들을 지나는 x축 또는 y축에 평행한 직선의 개수를 세는 문제이다.\n" +
+      "\n" +
+      "> 평면에 n개의 점이 있다. 그중 두 개 이상의 점을 지나면서 x축 또는 y축에 평행한 직선이 몇 개인지 알아내는 프로그램을 작성하시오.\n" +
+      "> \n" +
+      "\n" +
+      "**입력**:\n" +
+      "\n" +
+      "- 첫째 줄에 n(1 ≤ n ≤ 100,000)이 주어진다.\n" +
+      "- 다음 n개의 줄에는 각 점의 좌표가 주어진다.\n" +
+      "- 같은 좌표가 여러 번 주어질 수 있으며, 그런 경우 서로 다른 점으로 간주한다.\n" +
+      "- 좌표는 절댓값이 2^31보다 작은 정수이다.\n" +
+      "\n" +
+      "**출력**: 첫째 줄에 답을 출력한다.\n" +
+      "\n" +
+      "### 예시\n" +
+      "\n" +
+      "```\n" +
+      "입력:\n" +
+      "4\n" +
+      "0 0\n" +
+      "10 10\n" +
+      "0 10\n" +
+      "10 0\n" +
+      "\n" +
+      "출력:\n" +
+      "4\n" +
+      "```\n" +
+      "\n" +
+      "1. x축에 평행한 직선은 y좌표가 같은 점들을 지나게 된다.\n" +
+      "2. y축에 평행한 직선은 x좌표가 같은 점들을 지나게 된다.\n" +
+      "3. 직선이 의미를 가지려면 적어도 두 개 이상의 점을 지나야 한다.\n" +
+      "\n" +
+      "따라서 문제를 해결하는 핵심 아이디어를 아래와 같이 도출할 수 있다:\n" +
+      "\n" +
+      "- **동일한 x좌표 값을 가진 점이 2개 이상 있으면 y축에 평행한 직선이 존재한다.**\n" +
+      "- **동일한 y좌표 값을 가진 점이 2개 이상 있으면 x축에 평행한 직선이 존재한다.**\n" +
+      "\n" +
+      "이 아이디어를 바탕으로 알고리즘을 작성해 보겠다.\n" +
+      "\n" +
+      "## 해법\n" +
+      "\n" +
+      "알고리즘은 다음과 같이 구현할 수 있다:\n" +
+      "\n" +
+      "1. 각 x좌표와 y좌표가 나타나는 빈도를 계산한다.\n" +
+      "2. x좌표가 2번 이상 나타나면, 해당 x좌표를 가진 점들을 지나는 y축에 평행한 직선이 1개 있다는 의미이다.\n" +
+      "3. y좌표가 2번 이상 나타나면, 해당 y좌표를 가진 점들을 지나는 x축에 평행한 직선이 1개 있다는 의미이다.\n" +
+      "4. 이렇게 조건을 만족하는 직선의 개수를 세면 된다.\n" +
+      "\n" +
+      "## 구현\n" +
+      "\n" +
+      "```python\n" +
+      "import sys\n" +
+      "\n" +
+      "input = sys.stdin.readline\n" +
+      "\n" +
+      "def solution():\n" +
+      "    n = int(input())\n" +
+      "\n" +
+      "    x_occurrence, y_occurrence = {}, {}\n" +
+      "\n" +
+      "    for _ in range(n):\n" +
+      "        x, y = input().split()\n" +
+      "        if x in x_occurrence:\n" +
+      "            x_occurrence[x] += 1\n" +
+      "        else:\n" +
+      "            x_occurrence[x] = 1\n" +
+      "\n" +
+      "        if y in y_occurrence:\n" +
+      "            y_occurrence[y] += 1\n" +
+      "        else:\n" +
+      "            y_occurrence[y] = 1\n" +
+      "\n" +
+      "    x_items = list(filter(lambda item: item[1] >= 2, list(dict.items(x_occurrence))))\n" +
+      "    y_items = list(filter(lambda item: item[1] >= 2, list(dict.items(y_occurrence))))\n" +
+      "\n" +
+      "    print(len(x_items) + len(y_items))\n" +
+      "\n" +
+      "if __name__ == '__main__':\n" +
+      "    solution()\n" +
+      "```\n" +
+      "\n" +
+      "예제 입력인 (0,0), (10,10), (0,10), (10,0)를 살펴보자.\n" +
+      "\n" +
+      "- x=0인 점: (0,0), (0,10) → 2개 → y축 평행선 1개\n" +
+      "- x=10인 점: (10,10), (10,0) → 2개 → y축 평행선 1개\n" +
+      "- y=0인 점: (0,0), (10,0) → 2개 → x축 평행선 1개\n" +
+      "- y=10인 점: (10,10), (0,10) → 2개 → x축 평행선 1개\n" +
+      "\n" +
+      "따라서 총 4개의 직선이 답이 된다.\n" +
+      "\n" +
+      "## 시간 복잡도\n" +
+      "\n" +
+      "- 좌표 빈도 계산: O(n)\n" +
+      "- 직선 개수 세기: O(n)\n" +
+      "\n" +
+      "따라서 전체 시간 복잡도는 O(n).",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
