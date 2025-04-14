@@ -974,6 +974,82 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "binary-substring-problem",
+    "title": "이진 부분 문자열 문제",
+    "slug": "binary-substring-problem",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-14"),
+    "excerpt":
+      "",
+    "readTime": 3,
+    "content": "이진 문자열 `s`와 정수 `k`가 주어졌을 때, 길이가 `k`인 모든 이진 코드가 `s`의 부분 문자열로 존재하면 `true`를 반환하고, 그렇지 않으면 `false`를 반환한다.\n" +
+      "\n" +
+      "예를 들어:\n" +
+      "\n" +
+      "- `s = \"00110110\"`이고 `k = 2`인 경우, 길이가 2인 모든 이진 코드(\"00\", \"01\", \"10\", \"11\")가 부분 문자열로 존재하므로 정답은 `true`다.\n" +
+      "- `s = \"0110\"`이고 `k = 2`인 경우, 이진 코드 \"00\"이 존재하지 않으므로 정답은 `false`다.\n" +
+      "\n" +
+      "이 문제는 주어진 문자열에 길이가 `k`인 모든 가능한 이진 조합이 부분 문자열로 나타나는지 확인하는 것이다.\n" +
+      "\n" +
+      "## 첫 번째 풀이\n" +
+      "\n" +
+      "```python\n" +
+      "class Solution:\n" +
+      "    def get_all_bins(self, k: int) -> List[str]:\n" +
+      "        return [int(format(i, 'b')) for i in range(2 ** k)] # O(k * 2^k)\n" +
+      "\n" +
+      "    def hasAllCodes(self, s: str, k: int) -> bool:\n" +
+      "        all_possible_bins = self.get_all_bins(k) # O(k * 2^k)\n" +
+      "        sub_bins = set()\n" +
+      "        iter_count = len(s) - k + 1\n" +
+      "        for i in range(iter_count): # O(n - k + 1) => O(n)\n" +
+      "            sub_bins.add(int(s[i:i + k])) # O(k)\n" +
+      "        \n" +
+      "        for possible_bin in all_possible_bins: # O(2^k)\n" +
+      "            if possible_bin not in sub_bins:\n" +
+      "                return False\n" +
+      "        return True\n" +
+      "```\n" +
+      "\n" +
+      "이 방법은 k 에 대해 가능한 이진 표현을 모두 만들고, 입력된 문자열로 만들 수 있는 모든 이진 표현에 포함되는지를 확인하는 방식이다.\n" +
+      "\n" +
+      "1. `get_all_bins`를 사용하여 길이가 `k`인 모든 가능한 이진 코드를 생성한다\n" +
+      "2. 입력 문자열에서 길이가 `k`인 모든 부분 문자열을 추출하여 정수로 변환한다\n" +
+      "3. 모든 가능한 코드가 부분 문자열에서 발견되는지 확인한다\n" +
+      "\n" +
+      "이 방법의 단점은 k 가 매우 커지면 그에 따라 필요한 저장 공간과 반복 횟수가 증가하게 된다. (2^k)\n" +
+      "\n" +
+      "총 복잡도는 O(k * 2^k + n * k + 2^k) ≈ O(k * 2^k + n * k) 인데, k 의 경우 문제에서 `1 <= k <= 20` 제약을 두고 있으므로 복잡도는 n 에 의해 좌우된다고 볼 수 있다. 전체적으로는 O(n * k) 로 간단히 표현할 수 있다.\n" +
+      "\n" +
+      "## 두 번째 풀이\n" +
+      "\n" +
+      "```python\n" +
+      "class Solution:\n" +
+      "    def hasAllCodes(self, s: str, k: int) -> bool:\n" +
+      "        iter_count = len(s) - k + 1\n" +
+      "        check_map = [False] * (2 ** k)\n" +
+      "        for i in range(iter_count):\n" +
+      "            check_map[int(s[i:i + k], 2)] = True\n" +
+      "\n" +
+      "        for check in check_map:\n" +
+      "            if check is False:\n" +
+      "                return False\n" +
+      "\n" +
+      "        return True\n" +
+      "```\n" +
+      "\n" +
+      "이 문제에서는 모든 가능한 이진 코드 배열을 없애고 불리언 맵을 만들어 해당 배열에 False 값이 존재하는지 확인하는 방식이다.\n" +
+      "\n" +
+      "- 불리언 배열(`check_map`)을 사용하여 어떤 코드를 보았는지 추적한다\n" +
+      "- 모든 가능한 이진 코드를 미리 생성할 필요성을 제거했다\n" +
+      "\n" +
+      "종전 풀이보다 메모리 효율성이 약간 더 나아졌다고 볼 수 있다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
