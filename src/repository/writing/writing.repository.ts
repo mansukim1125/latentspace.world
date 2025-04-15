@@ -1050,6 +1050,82 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "baekjoon-25757",
+    "title": "백준 25757 - 집합/해시",
+    "slug": "baekjoon-25757",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-16"),
+    "excerpt":
+      "알고리즘 스터디 3주차 문제: 집합/해시",
+    "readTime": 4,
+    "content": "https://www.acmicpc.net/problem/25757\n" +
+      "\n" +
+      "## 문제 설명\n" +
+      "\n" +
+      "- 임스가 다른 사람들과 미니게임을 함께 플레이하려고 한다.\n" +
+      "- 플레이할 수 있는 게임은 세 종류:\n" +
+      "    - 윷놀이(Y): 2명이 필요 (임스 포함)\n" +
+      "    - 같은 그림 찾기(F): 3명이 필요 (임스 포함)\n" +
+      "    - 원카드(O): 4명이 필요 (임스 포함)\n" +
+      "- 여러 사람(N 명)이 임스와 게임하기를 신청\n" +
+      "- 임스는 한 번 같이 플레이한 사람과는 다시 플레이하지 않음\n" +
+      "\n" +
+      "임스가 최대로 몇 번 게임을 플레이할 수 있는지 계산하는 것이다.\n" +
+      "\n" +
+      "## 문제 분석\n" +
+      "\n" +
+      "이 문제의 해법을 찾기 위해서는 아래를 고려해야 한다.\n" +
+      "\n" +
+      "1. 임스를 제외하고 필요한 인원은 각각 윷놀이 1명, 같은 그림 찾기 2명, 원카드 3명이다.\n" +
+      "    1. 이 부분을 바로 캐치하지 못해 푸는 데 10분 정도 더 걸렸다;;\n" +
+      "2. 동일한 사람이 여러 번 신청할 수 있지만, 실제로는 한 번만 게임에 참여할 수 있다.\n" +
+      "3. 결국 사용 가능한 서로 다른 사람들의 수를 게임당 필요한 인원수로 나누면 된다.\n" +
+      "\n" +
+      "## 코드 구현\n" +
+      "\n" +
+      "```python\n" +
+      "import sys\n" +
+      "\n" +
+      "input = sys.stdin.readline\n" +
+      "\n" +
+      "# 각 게임 유형별로 임스를 제외하고 필요한 인원 수\n" +
+      "games = {\n" +
+      "    \"Y\": 1,  # 윷놀이: 임스 + 1명\n" +
+      "    \"F\": 2,  # 같은 그림 찾기: 임스 + 2명\n" +
+      "    \"O\": 3,  # 원카드: 임스 + 3명\n" +
+      "}\n" +
+      "\n" +
+      "def solution():\n" +
+      "    n, kind_of_game = input().split()\n" +
+      "    n = int(n)\n" +
+      "\n" +
+      "    # 중복 제거를 위한 집합(set) 자료구조 사용\n" +
+      "    usernames = set()\n" +
+      "    for _ in range(n):\n" +
+      "        usernames.add(input().strip())  # 줄바꿈 문자 제거. 안 해도 상관 없다.\n" +
+      "\n" +
+      "    # 최대 게임 횟수 계산: 고유한 사람 수 // 게임당 필요한 인원 수\n" +
+      "    print(len(usernames) // games[kind_of_game])\n" +
+      "\n" +
+      "if __name__ == '__main__':\n" +
+      "    solution()\n" +
+      "```\n" +
+      "\n" +
+      "## 시간 복잡도\n" +
+      "\n" +
+      "- 이 문제의 시간 복잡도는 O(N)이다. 여기서 N은 신청 횟수이다.\n" +
+      "- 집합(set)에 요소를 추가하는 연산은 평균적으로 O(1)이므로, N번의 추가 연산에 대해 총 O(N)의 시간이 소요된다.\n" +
+      "\n" +
+      "## 공간 복잡도\n" +
+      "\n" +
+      "- 이 문제의 공간 복잡도는 O(K)이다. 여기서 K는 중복을 제거한 후의 고유한 사람 수이다.\n" +
+      "- 최악의 경우 모든 신청자가 서로 다른 사람인 경우를 고려할 수 있는데, 이는 K = N이 되어 O(N)의 공간이 필요하게 된다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  }
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
