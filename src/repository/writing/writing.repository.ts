@@ -1125,7 +1125,151 @@ const writings: IWriting[] = [
       "name": "Joonseok Kim",
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
-  }
+  },
+  {
+    "id": "sorting-words-by-length-and-alphanumeric-order",
+    "title": "백준 1181 - 집합/문자열/정렬",
+    "slug": "sorting-words-by-length-and-alphanumeric-order",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-17"),
+    "excerpt":
+      "Set과 Heap 두 가지 방식으로 해결하는 방법",
+    "readTime": 7,
+    "content": "https://www.acmicpc.net/problem/1181\n" +
+      "## 문제 설명\n" +
+      "\n" +
+      "오늘 문제는 알파벳 소문자로 이루어진 N개의 단어가 주어졌을 때, 아래와 같은 조건에 따라 정렬하여 출력하는 문제이다.\n" +
+      "\n" +
+      "1. 길이가 짧은 것부터\n" +
+      "2. 길이가 같으면 사전 순으로\n" +
+      "3. 중복된 단어는 하나만 남기고 제거\n" +
+      "\n" +
+      "**입력 예시**\n" +
+      "\n" +
+      "```\n" +
+      "13\n" +
+      "but\n" +
+      "i\n" +
+      "wont\n" +
+      "hesitate\n" +
+      "no\n" +
+      "more\n" +
+      "no\n" +
+      "more\n" +
+      "it\n" +
+      "cannot\n" +
+      "wait\n" +
+      "im\n" +
+      "yours\n" +
+      "```\n" +
+      "\n" +
+      "**출력 예시**\n" +
+      "\n" +
+      "```\n" +
+      "i\n" +
+      "im\n" +
+      "it\n" +
+      "no\n" +
+      "but\n" +
+      "more\n" +
+      "wait\n" +
+      "wont\n" +
+      "yours\n" +
+      "cannot\n" +
+      "hesitate\n" +
+      "```\n" +
+      "\n" +
+      "## 접근 방법 1: Set을 활용한 풀이\n" +
+      "\n" +
+      "첫 번째 풀이 방법은 집합을 활용하여 중복을 제거하고, 정렬하는 방법이다.\n" +
+      "\n" +
+      "```python\n" +
+      "import sys\n" +
+      "\n" +
+      "input = sys.stdin.readline\n" +
+      "\n" +
+      "def solution():\n" +
+      "    n = int(input())\n" +
+      "    word_set = set()\n" +
+      "    for _ in range(n): # O(N)\n" +
+      "        word_set.add(input().rstrip()) # 평균적으로 O(1)\n" +
+      "\n" +
+      "    sorted_words = sorted(list(word_set), key=lambda item: (len(item), item)) # O(N) + O(NlogN) => O(NlogN)\n" +
+      "    [print(word) for word in sorted_words] # O(N)\n" +
+      "\n" +
+      "if __name__ == '__main__':\n" +
+      "    solution() # O(N) + O(NlogN) + O(N) => O(NlogN) + O(2N) => O(NlogN)\n" +
+      "```\n" +
+      "\n" +
+      "### Set 풀이 코드 설명\n" +
+      "\n" +
+      "1. `set()`을 사용해 모든 단어를 저장하면서 중복을 제거\n" +
+      "2. 단어 길이, 사전 순으로 정렬\n" +
+      "    1. `sorted()` 함수에 `key` 매개변수를 사용하여 정렬 기준을 지정\n" +
+      "\n" +
+      "### Set 풀이 시간 복잡도 분석\n" +
+      "\n" +
+      "- 단어 입력 및 set에 추가: O(N)\n" +
+      "- 정렬: O(N log N)\n" +
+      "- 출력: O(N)\n" +
+      "- 전체 시간 복잡도: O(N log N)\n" +
+      "\n" +
+      "### Set 풀이 공간 복잡도 분석\n" +
+      "\n" +
+      "- Set에 단어 저장: O(N)\n" +
+      "- 정렬을 위해 Set을 List로 변환: 추가로 O(N)\n" +
+      "- 따라서 총 2N의 공간이 필요하지만, 빅오 표기법에서는 O(N)\n" +
+      "\n" +
+      "## 접근 방법 2: Heap을 활용한 풀이\n" +
+      "\n" +
+      "두 번째 풀이는 힙(Heap) 자료구조를 사용하는 방식이다.\n" +
+      "\n" +
+      "```python\n" +
+      "import sys, heapq\n" +
+      "\n" +
+      "input = sys.stdin.readline\n" +
+      "\n" +
+      "def solution():\n" +
+      "    n = int(input())\n" +
+      "    word_heap = []\n" +
+      "    for _ in range(n): # O(N) * O(logN) => O(NlogN)\n" +
+      "        word = input().rstrip() # O(1)\n" +
+      "        heapq.heappush(word_heap, (len(word), word)) # O(logN)\n" +
+      "\n" +
+      "    prev_word = ''\n" +
+      "    while word_heap: # O(N) * O(logN) => O(NlogN)\n" +
+      "        item = heapq.heappop(word_heap) # O(logN)\n" +
+      "        if item[1] != prev_word:\n" +
+      "            print(item[1])\n" +
+      "            prev_word = item[1]\n" +
+      "\n" +
+      "if __name__ == '__main__':\n" +
+      "    solution() # O(2NlogN) => O(NlogN)\n" +
+      "```\n" +
+      "\n" +
+      "### Heap 풀이 코드 설명\n" +
+      "\n" +
+      "1. 각 단어를 `(길이, 단어)` 형태의 튜플로 힙에 추가.\n" +
+      "    - 파이썬의 heapq은 우선 첫 번째 요소를 기준으로 정렬하고 길이가 같을 경우 두 번째 요소인 단어를 비교하여 사전 순으로 정렬한다.\n" +
+      "2. 힙에서 하나씩 요소를 꺼내면서\n" +
+      "    - 이전에 출력한 단어와 비교하여 중복을 제거한다. (이미 정렬된 상태이므로)\n" +
+      "    - 새로운 단어만 출력한다.\n" +
+      "\n" +
+      "### Heap 풀이 시간 복잡도 분석\n" +
+      "\n" +
+      "- 단어 입력 및 힙에 추가: O(N log N)\n" +
+      "- 힙에서 꺼내고 출력: O(N log N)\n" +
+      "- 전체 시간 복잡도: O(N log N)\n" +
+      "\n" +
+      "### Heap 풀이 공간 복잡도 분석\n" +
+      "\n" +
+      "- 힙에 모든 단어를 저장: O(N)\n" +
+      "- 별도의 컬렉션으로 변환할 필요 없이 힙에서 직접 추출하여 사용",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
