@@ -1270,6 +1270,143 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "min-max-score",
+    "title": "백준 29723 - 해시/정렬",
+    "slug": "min-max-score",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-18"),
+    "excerpt":
+      "정렬을 이용하는 방법 + Quick Select 알고리즘을 활용하는 방법",
+    "readTime": 6,
+    "content": "[https://www.acmicpc.net/problem/29723](https://www.acmicpc.net/problem/29723)\n" +
+      "\n" +
+      "## 문제 소개\n" +
+      "\n" +
+      "브실대학은 특정 과목들의 성적 합을 통해 서류 전형의 합격 여부를 결정하는데, 어떤 과목이 반영되는지 일부만 공개한다.\n" +
+      "\n" +
+      "브실이가 얻을 수 있는 최소 점수와 최대 점수를 구하는 문제이다.\n" +
+      "\n" +
+      "### 문제 조건\n" +
+      "\n" +
+      "- 수강한 과목 수: N (1 ≤ N ≤ 10,000)\n" +
+      "- 요구하는 과목 수: M (1 ≤ M ≤ N)\n" +
+      "- 공개된 과목 수: K (1 ≤ K ≤ M)\n" +
+      "- 각 과목의 점수: 0 ≤ 점수 ≤ 100\n" +
+      "- 공개된 과목과 비공개된 과목은 모두 브실이가 수강한 과목에 포함되어 있음\n" +
+      "- 과목은 중복되지 않는다.\n" +
+      "\n" +
+      "### 예시\n" +
+      "\n" +
+      "- 공개된 과목: physics(50점), python(90점) → 합계 140점\n" +
+      "- 비공개 과목: calculus(100점), probability(70점), chemistry(80점), algorithm(100점)\n" +
+      "- 추가로 필요한 과목 수: 1개\n" +
+      "- 최소 점수: 140 + 70 = 210\n" +
+      "- 최대 점수: 140 + 100 = 240\n" +
+      "\n" +
+      "## 문제 해법\n" +
+      "\n" +
+      "1. 공개된 K개 과목의 점수를 모두 합산한다. 이는 어차피 반영되어야 하는 점수이기 때문이다.\n" +
+      "2. 총 M개 과목을 요구하므로, 추가로 M-K개 과목을 선택해야 한다.\n" +
+      "3. 최소 점수를 구하려면, 비공개 과목 중 점수가 가장 낮은 M-K개 과목을 선택한다.\n" +
+      "4. 최대 점수를 구하려면, 비공개 과목 중 점수가 가장 높은 M-K개 과목을 선택한다.\n" +
+      "\n" +
+      "## 최종 구현\n" +
+      "\n" +
+      "이 구현에서 중요한 부분은 비공개 과목이 존재하는 경우에만 비공개 과목 후보 리스트를 정렬, 그 중 필요한 갯수만큼을 뽑는 것이다.\n" +
+      "\n" +
+      "```python\n" +
+      "from sys import stdin\n" +
+      "\n" +
+      "input = stdin.readline\n" +
+      "\n" +
+      "def solution():\n" +
+      "    N, M, K = map(int, input().split())\n" +
+      "    \n" +
+      "    # 모든 과목 점수 저장\n" +
+      "    courses = {}\n" +
+      "    for _ in range(N):\n" +
+      "        name, score = input().split()\n" +
+      "        courses[name] = int(score)\n" +
+      "    \n" +
+      "    # 공개된 과목의 점수 합 계산\n" +
+      "    revealed_sum = 0\n" +
+      "    for _ in range(K):\n" +
+      "        name = input().rstrip()\n" +
+      "        revealed_sum += courses[name]\n" +
+      "        courses.pop(name)  # 딕셔너리에서 해당 과목 제거\n" +
+      "    \n" +
+      "    # 비공개 과목 수\n" +
+      "    additional_needed = M - K\n" +
+      "    \n" +
+      "    # 비공개 과목이 없는 경우\n" +
+      "    if additional_needed <= 0:\n" +
+      "        print(revealed_sum, revealed_sum)\n" +
+      "        return\n" +
+      "    \n" +
+      "    # 남은 비공개 과목 점수들만 리스트로 추출\n" +
+      "    remaining_scores = list(courses.values())\n" +
+      "    \n" +
+      "    # 남은 과목 중 비공개 과목 갯수만큼 선택\n" +
+      "    remaining_scores.sort()\n" +
+      "    min_score = revealed_sum + sum(remaining_scores[:additional_needed])\n" +
+      "    max_score = revealed_sum + sum(remaining_scores[-additional_needed:])\n" +
+      "    \n" +
+      "    print(min_score, max_score)\n" +
+      "\n" +
+      "if __name__ == '__main__':\n" +
+      "    solution()\n" +
+      "```\n" +
+      "\n" +
+      "## 주의 사항 (실수할 수 있는 부분)\n" +
+      "\n" +
+      "### 리스트 슬라이싱\n" +
+      "\n" +
+      "처음에는 아래와 같이 리스트 슬라이싱을 사용해 최소/최대 점수를 계산했다. (아래 비공개 과목이 없는 경우 예외 처리가 없을 때의 코드)\n" +
+      "\n" +
+      "```python\n" +
+      "min_k = sorted_scores[:number_of_unopened_courses]\n" +
+      "max_k = sorted_scores[-number_of_unopened_courses:]\n" +
+      "\n" +
+      "print(sum(min_k) + base_score, sum(max_k) + base_score)\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "만약 `number_of_unopened_courses`가 0인 경우(모든 과목이 공개된 경우), `min_k = sorted_scores[:0]`는 빈 리스트를 반환하지만\n" +
+      "\n" +
+      "`max_k = sorted_scores[-0:]`는 전체 리스트를 반환하는 문제가 있다. 이는 Python에서 `[-0:]`가 `[0:]`와 동일하게 동작하기 때문이다.\n" +
+      "\n" +
+      "이 문제를 해결하기 위해 아래 조건을 추가하였다.\n" +
+      "\n" +
+      "### 추가 과목이 필요 없는 경우의 처리\n" +
+      "\n" +
+      "모든 과목이 공개된 경우(M = K)처럼 추가 과목이 필요 없는 경우는 별도로 처리하는 것이 깔끔하다.\n" +
+      "\n" +
+      "```python\n" +
+      "additional_needed = M - K\n" +
+      "if additional_needed <= 0:\n" +
+      "    print(revealed_scores_sum, revealed_scores_sum)\n" +
+      "    return\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "## 성능 분석\n" +
+      "\n" +
+      "이 알고리즘의 시간 복잡도는 다음과 같다:\n" +
+      "\n" +
+      "- 수강한 과목 입력: O(N)\n" +
+      "- 공개 과목 입력: O(K)\n" +
+      "- 비공개 과목 후보 리스트 정렬: O(N log N)\n" +
+      "- 최소/최대 점수 계산: O(M-K)\n" +
+      "\n" +
+      "결과적으로 전체 시간 복잡도는 O(N log N)이다.\n" +
+      "\n" +
+      "공간 복잡도는 모든 과목과 점수를 저장하기 위해 O(N)이 필요하게 된다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
