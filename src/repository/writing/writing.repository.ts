@@ -1407,6 +1407,160 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "measuring-student-popularity",
+    "title": "백준 25325 - 빈도/정렬",
+    "slug": "measuring-student-popularity",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-20"),
+    "excerpt":
+      "Counter 클래스를 활용한 빈도 측정과 정렬",
+    "readTime": 5,
+    "content": "[https://www.acmicpc.net/problem/25325](https://www.acmicpc.net/problem/25325)\n" +
+      "\n" +
+      "## 문제 소개\n" +
+      "\n" +
+      "이 문제는 입력된 이름이 언급된 횟수를 세는, 빈도를 구하고 이를 바탕으로 정렬을 하는 문제이다.\n" +
+      "\n" +
+      "학생들의 이름을 입력받고, 각 이름이 언급된 횟수를 센 뒤 언급된 횟수 내림차순/이름 오름차순으로 정렬하는 문제이다.\n" +
+      "\n" +
+      "## 문제 조건\n" +
+      "\n" +
+      "- 학생 수: n (3 ≤ n ≤ 100)\n" +
+      "- 학생 이름 길이: 1 ≤ 길이 ≤ 10\n" +
+      "- 입력되는 각 학생 이름은 중복되지 않음\n" +
+      "- 각 학생은 1명 이상의 다른 학생을 좋아함\n" +
+      "- 자기 자신을 좋아하는 경우는 없음\n" +
+      "- 한 학생의 인기도는 그 학생을 좋아하는 다른 학생의 수로 정의됨\n" +
+      "- 인기도가 높은 순으로 정렬하되, 인기도가 같은 경우 이름 사전순으로 정렬\n" +
+      "\n" +
+      "## 예시\n" +
+      "\n" +
+      "입력\n" +
+      "\n" +
+      "```\n" +
+      "4\n" +
+      "aaa bbb ccc ddd\n" +
+      "bbb ddd\n" +
+      "aaa ddd\n" +
+      "aaa\n" +
+      "aaa bbb\n" +
+      "```\n" +
+      "\n" +
+      "출력\n" +
+      "\n" +
+      "```\n" +
+      "aaa 3\n" +
+      "bbb 2\n" +
+      "ddd 2\n" +
+      "ccc 0\n" +
+      "```\n" +
+      "\n" +
+      "이 예시를 보면\n" +
+      "\n" +
+      "- 'aaa'는 3명(2번째, 3번째, 4번째 학생)이 좋아함\n" +
+      "- 'bbb'는 2명(1번째, 4번째 학생)이 좋아함\n" +
+      "- 'ddd'는 2명(1번째, 2번째 학생)이 좋아함\n" +
+      "- 'ccc'는 아무도 좋아하지 않음\n" +
+      "\n" +
+      "## 문제 해법\n" +
+      "\n" +
+      "1. 각 학생이 좋아하는 학생 목록을 입력받으면서, 좋아하는 학생의 인기도를 증가시킨다.\n" +
+      "    1. 여기에서 누가 좋아하는지는 중요치 않다. 그냥 입력된 이름의 갯수를 세면 된다.\n" +
+      "2. 인기도를 기준으로 내림차순 정렬하고, 인기도가 같은 경우 이름을 사전순으로 정렬한다.\n" +
+      "\n" +
+      "## 최종 구현\n" +
+      "\n" +
+      "이 문제는 Python의 `Counter` 클래스를 활용하면 코드가 간결해진다.\n" +
+      "\n" +
+      "```python\n" +
+      "from sys import stdin\n" +
+      "from collections import Counter\n" +
+      "\n" +
+      "input = stdin.readline\n" +
+      "\n" +
+      "def calculate_student_popularity():\n" +
+      "    num_students = int(input())\n" +
+      "    all_student_names = input().split()\n" +
+      "\n" +
+      "    # 각 학생의 인기도를 측정하는 Counter\n" +
+      "    student_popularity = Counter()\n" +
+      "\n" +
+      "    # 학생들이 좋아하는 학생들의 이름을 입력받음\n" +
+      "    for _ in range(num_students):\n" +
+      "        liked_students = input().split()\n" +
+      "        student_popularity.update(liked_students) # 카운트 업데이트\n" +
+      "\n" +
+      "    # 각 학생의 이름과 인기도를 쌍으로 만듦\n" +
+      "    student_popularity_pairs = [(name, student_popularity[name]) for name in all_student_names]\n" +
+      "\n" +
+      "    # 인기도 내림차순, 같은 인기도는 이름 오름차순으로 정렬\n" +
+      "    ranked_students = sorted(student_popularity_pairs, key=lambda pair: (-pair[1], pair[0]))\n" +
+      "\n" +
+      "    # 결과 출력\n" +
+      "    for student_name, popularity_count in ranked_students:\n" +
+      "        print(student_name, popularity_count)\n" +
+      "\n" +
+      "if __name__ == '__main__':\n" +
+      "    calculate_student_popularity()\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "## 주의 사항 (실수할 수 있는 부분)\n" +
+      "\n" +
+      "### Counter 초기화\n" +
+      "\n" +
+      "처음 시도에서는 `Counter(student_names)` 와 같이 인기도를 초기화하고, 출력할 때 1을 빼고 출력했다.\n" +
+      "\n" +
+      "다만 그냥 빈 Counter 를 만들면 1을 빼줄 필요가 없으므로.. 코드가 더 의도에 맞게 되었다.\n" +
+      "\n" +
+      "```python\n" +
+      "# 초기 방법\n" +
+      "popularity = Counter(student_names)\n" +
+      "# ..\n" +
+      "print(student_name, popularity_count - 1) # 결과 출력\n" +
+      "\n" +
+      "# 올바른 방법\n" +
+      "popularity = Counter()  # 빈 카운터로 시작\n" +
+      "# ..\n" +
+      "print(student_name, popularity_count) # 결과 출력\n" +
+      "```\n" +
+      "\n" +
+      "### `Counter.most_common()` 메서드\n" +
+      "\n" +
+      "더 효율적인 풀이를 고민하다가.. `Counter.most_common()` 메서드를 알게 되었다. 이걸 쓰면 더 간단하지 않을까 생각했으나, 공식 문서에서 언급하기를\n" +
+      "\n" +
+      "> *Changed in version 3.7:* As a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) subclass, [`Counter`](https://docs.python.org/3/library/collections.html#collections.Counter) inherited the capability to remember insertion order. Math operations on *Counter* objects also preserve order. Results are ordered according to when an element is first encountered in the left operand and then by the order encountered in the right operand.\n" +
+      "> \n" +
+      "\n" +
+      "Insertion order 가 유지된다고 한다. 하지만 우리는 입력 순서와 무관하게 키의 사전 순으로 정렬을 해야 하기 때문에 `most_common` 을 사용할 수는 없다.\n" +
+      "\n" +
+      "```python\n" +
+      "# most_common()은 사전순 정렬을 해 주지 않음. 그냥 count 값으로 정렬할 뿐임\n" +
+      "sorted_items = counter.most_common()\n" +
+      "\n" +
+      "# 직접 정렬하여 인기도 내림차순, 같은 인기도는 이름 오름차순 보장\n" +
+      "sorted_items = sorted(counter.items(), key=lambda x: (-x[1], x[0]))\n" +
+      "\n" +
+      "```\n" +
+      "\n" +
+      "## 성능 분석\n" +
+      "\n" +
+      "이 알고리즘의 시간 복잡도는 다음과 같다.\n" +
+      "\n" +
+      "- 학생 이름 입력: O(n)\n" +
+      "- 좋아하는 학생 목록 처리: O(n²). (한 학생이 자신을 제외한 모든 학생을 좋아하는 경우)\n" +
+      "- 정렬: O(n log n)\n" +
+      "- 결과 출력: O(n)\n" +
+      "\n" +
+      "결과적으로 전체 시간 복잡도는 O(n²)이 된다. 다만 모든 학생이 자신을 제외한 모든 학생을 좋아하는 경우가 많지 않을 경우 O(n log n) 이라고도 볼 수 있다.\n" +
+      "\n" +
+      "공간 복잡도는 모든 학생 이름과 인기도를 저장하기 위해 O(n)이 필요하다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
