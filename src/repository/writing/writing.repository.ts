@@ -1561,6 +1561,147 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "peak-element-in-mountain-array",
+    "title": "이진 탐색을 활용한 문제 1",
+    "slug": "peak-element-in-mountain-array",
+    "category": "Self Improvement",
+    "date": new Date("2025-04-22"),
+    "excerpt":
+      "이진 탐색을 응용한 문제 1번",
+    "readTime": 5,
+    "content": "https://leetcode.com/problems/peak-index-in-a-mountain-array\n" +
+      "\n" +
+      "## 문제 소개\n" +
+      "\n" +
+      "이 문제는 산 배열(Mountain Array)에서 피크(peak) 요소의 인덱스를 찾는 문제이다.\n" +
+      "\n" +
+      "산 배열(Mountain Array)이란 값이 증가하다가 피크에 도달한 후 감소하는 배열을 의미한다.\n" +
+      "\n" +
+      "이 문제의 요지는 ***로그 시간 복잡도***로 해결해야 하는 점이 중요한 제약 조건이다.\n" +
+      "\n" +
+      "## 문제 조건\n" +
+      "\n" +
+      "- 배열 길이: 3 ≤ arr.length ≤ 10^5\n" +
+      "- 배열 요소 값: 0 ≤ arr[i] ≤ 10^6\n" +
+      "- 입력 배열은 항상 산 배열(값이 증가했다가 감소하는 형태)\n" +
+      "- ***시간 복잡도: O(log n)로 해결해야 함***\n" +
+      "\n" +
+      "## 예시\n" +
+      "\n" +
+      "입력:\n" +
+      "\n" +
+      "```\n" +
+      "[0,1,0]\n" +
+      "```\n" +
+      "\n" +
+      "출력:\n" +
+      "\n" +
+      "```\n" +
+      "1\n" +
+      "```\n" +
+      "\n" +
+      "입력:\n" +
+      "\n" +
+      "```\n" +
+      "[0,2,1,0]\n" +
+      "```\n" +
+      "\n" +
+      "출력:\n" +
+      "\n" +
+      "```\n" +
+      "1\n" +
+      "```\n" +
+      "\n" +
+      "입력:\n" +
+      "\n" +
+      "```\n" +
+      "[0,10,5,2]\n" +
+      "```\n" +
+      "\n" +
+      "출력:\n" +
+      "\n" +
+      "```\n" +
+      "1\n" +
+      "```\n" +
+      "\n" +
+      "## 문제 해법\n" +
+      "\n" +
+      "풀이는 두 가지다.\n" +
+      "\n" +
+      "### 방법 1: 선형 탐색 (O(n))\n" +
+      "\n" +
+      "가장 단순한 접근 방법은 배열을 처음부터 끝까지 순회하면서 증가하다가 감소하는 지점을 찾아내면 된다.\n" +
+      "\n" +
+      "```python\n" +
+      "class Solution:\n" +
+      "    def peakIndexInMountainArray(self, arr: List[int]) -> int:\n" +
+      "        for i in range(1, len(arr) - 1):\n" +
+      "            if arr[i - 1] < arr[i] > arr[i + 1]:\n" +
+      "                return i\n" +
+      "```\n" +
+      "\n" +
+      "하지만 이 방식은 최악 경우 O(n) 시간이 소요되므로 문제의 요구 사항인 O(log n)을 충족하지 못한다는 문제가 있다.\n" +
+      "\n" +
+      "### 방법 2: 이진 탐색 (O(log n))\n" +
+      "\n" +
+      "이진 탐색을 활용하면 O(log n) 시간 복잡도를 달성할 수 있다. 핵심 아이디어는 배열을 증가-감소 두 갈래로 나눌 수 있다는 점이다.\n" +
+      "\n" +
+      "- 상승 중(피크의 왼쪽)\n" +
+      "- 하강 중(피크의 오른쪽)\n" +
+      "\n" +
+      "배열의 중간 지점(`mid`)과 그 다음 지점(`mid+1`)을 비교하여\n" +
+      "\n" +
+      "- `arr[mid] < arr[mid+1]`이면 상승 중이므로 피크는 오른쪽에 있다는 의미.\n" +
+      "- `arr[mid] > arr[mid+1]`이면 하강 중이므로 피크는 현재 위치이거나 왼쪽에 있다는 의미이다.\n" +
+      "\n" +
+      "이와 같이 배열의 증가-감소를 판단하여 탐색 범위를 계속 절반으로 줄여나가면 결국 최고점에 도달하게 된다.\n" +
+      "\n" +
+      "## 최종 구현\n" +
+      "\n" +
+      "```python\n" +
+      "class Solution:\n" +
+      "    def peakIndexInMountainArray(self, arr: List[int]) -> int:\n" +
+      "        left = 0\n" +
+      "        right = len(arr) - 1\n" +
+      "\n" +
+      "        peak = left\n" +
+      "\n" +
+      "        while left <= right:\n" +
+      "            mid = (right - left) // 2 + left\n" +
+      "            if arr[mid] < arr[mid + 1]:\n" +
+      "                left = mid + 1\n" +
+      "            elif arr[mid - 1] > arr[mid]:\n" +
+      "                right = mid - 1\n" +
+      "            else:\n" +
+      "                peak = mid\n" +
+      "                break\n" +
+      "\n" +
+      "        return peak\n" +
+      "```\n" +
+      "\n" +
+      "오버플로우를 방지하기 위해 `mid = (left + right) // 2` 대신 `mid = left + (right - left) // 2`를 사용한다.\n" +
+      "\n" +
+      "Python 에서는 전혀 문제가 없지만.. C 계열이나 Java 에서는 문제가 될 수 있을 것 같다.\n" +
+      "\n" +
+      "## 성능 분석\n" +
+      "\n" +
+      "### 시간 복잡도\n" +
+      "\n" +
+      "- 기본적인 이진 탐색 알고리즘을 사용하므로 시간 복잡도는 O(log n)이다.\n" +
+      "- 각 단계에서 배열의 검색 범위가 절반으로 줄어들기 때문\n" +
+      "    - T(n) = T(n/2) + O(1) (n ≥ 2)\n" +
+      "    - T(n) = O(1) (n = 1)\n" +
+      "\n" +
+      "### 공간 복잡도\n" +
+      "\n" +
+      "- 공간 복잡도는 O(1) 이다.\n" +
+      "    - 추가적인 자료구조를 사용하지 않으므로..",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
