@@ -109,6 +109,39 @@ export default function ProjectDetail({ project }: { project: IProject }) {
                   <CustomHeading level={3}>{props.children}</CustomHeading>
                 );
               },
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              img({ node: _, ...props }) {
+                let { src, alt } = props;
+                
+                if (!src) return null;
+                let width, height;
+
+                if (alt) {
+                  const altMatch = alt.match(/(.+)\{(\d+)?x(\d+)?}/);
+                  if (altMatch) {
+                    console.log(altMatch);
+                    alt = altMatch[1] ? altMatch[1] : undefined;
+                    width = altMatch[2] ? Number(altMatch[2]) : undefined;
+                    height = altMatch[3] ? Number(altMatch[3]) : undefined;
+                  }
+                }
+                
+                return (
+                  <span className="block">
+                    <img 
+                      src={src}
+                      alt={alt || ''} 
+                      height={height}
+                      style={{ 
+                        height: height ? (height + 'px') : undefined,
+                        width: width ? (width + 'px') : '100%'
+                      }}
+                      className="ml-auto mr-auto"
+                    />
+                    {alt && <span className="block text-center text-sm text-gray-500 mt-2">{alt}</span>}
+                  </span>
+                );
+              },
             }}
           >
             {project.content}

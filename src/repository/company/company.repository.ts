@@ -4,20 +4,12 @@ import { ICompany } from '@/interface/company/company.interface';
 
 const companies: ICompany[] = [
   {
-    id: 'company-a',
-    name: 'Tech Company A',
-    period: '2023.01 - Present',
-    position: 'Senior Backend Developer',
-    team: 'Platform Team',
-    description: '대규모 커머스 플랫폼 회사에서 백엔드 시스템 설계 및 개발',
-  },
-  {
-    id: 'company-b',
-    name: 'Tech Company B',
-    period: '2023.01 - Present',
-    position: 'Senior Backend Developer',
-    team: 'Platform Team',
-    description: '대규모 커머스 플랫폼 회사에서 백엔드 시스템 설계 및 개발',
+    id: 'nudge-healthcare',
+    name: 'Nudge Healthcare Inc.',
+    period: '2023.06 - Present',
+    position: 'Backend Engineer',
+    team: 'Back-end Team',
+    description: '캐시워크, 팀워크, 캐시톡 서비스를 거쳐 현재는 글로벌 캐시워크, 모두의 챌린지의 백엔드 운영/개발/유지 보수를 책임지고 있습니다.',
   },
   {
     id: 'side-project',
@@ -30,7 +22,7 @@ const companies: ICompany[] = [
   // ... 더 많은 회사 데이터
 ];
 
-const companyOrder = ['company-a', 'company-b', 'side-project'];
+const companyOrder = ['nudge-healthcare', 'side-project'];
 
 export class CompanyRepository implements IRepository<Company> {
   private readonly companies: ICompany[];

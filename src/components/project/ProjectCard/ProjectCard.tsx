@@ -7,7 +7,7 @@ export const ProjectCard = (param: { project: IProject }) => {
   const { project } = param;
 
   return (
-    <div className="group bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-colors">
+    <div className="group flex flex-col bg-gray-900/50 border border-gray-800 rounded-lg p-6 hover:border-purple-500/50 transition-colors">
       <div className="flex items-center justify-between mb-4">
         <div className="px-3 py-1 text-sm bg-purple-500/10 text-purple-400 rounded-full">
           {project.category}
@@ -37,7 +37,7 @@ export const ProjectCard = (param: { project: IProject }) => {
 
         {'achievements' in project && (
           <ul className="mb-4 space-y-1">
-            {project.achievements.slice(0, 2).map((achievement, i) => (
+            {project.achievements.map((achievement, i) => (
               <li key={i} className="text-gray-400 text-sm flex items-start">
                 <span className="text-purple-400 mr-2">•</span>
                 {achievement}
@@ -48,7 +48,7 @@ export const ProjectCard = (param: { project: IProject }) => {
       </Link>
 
       {project.links && Object.keys(project.links).length > 0 && (
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-800">
+        <div className="flex items-center mt-auto justify-between mt-4 pt-4 border-t border-gray-800">
           <div className="flex gap-3">
             {Object.entries(project.links).map(
               ([key, url]) =>
