@@ -15,7 +15,7 @@ const projects: IProject[] = [
     duration: '3 months',
     role: 'Backend Engineer',
     team: '캐시톡-메신저',
-    stacks: ['AWS SQS', 'Elastic Beanstalk', 'Redis', 'Node.js', 'Nest.js'],
+    stacks: ['AWS SQS', 'Elastic Beanstalk Worker', 'Redis', 'Node.js', 'Nest.js'],
     links: {
       github: '',
       demo: '',
@@ -69,6 +69,8 @@ const projects: IProject[] = [
       '\n' +
       '## 설계 설명\n' +
       '\n' +
+      '(설계 설명 문서는 Notion 으로..)\n' +
+      '\n' +
       '[설계](https://achieved-ferry-82f.notion.site/14409aac66678053ac15e6661fd1f4f8?pvs=4)\n' +
       '\n' +
       '## 기술적 과제\n' +
@@ -78,8 +80,6 @@ const projects: IProject[] = [
       '- 한국 [캐시워크](https://www.notion.so/for-Business-1f209aac666780948f34f52b2dfaac2c?pvs=4) 기준 DAU 300만 명의 사용자에게 안정적으로 [웰컴 메시지](https://www.notion.so/for-Business-1f209aac666780948f34f52b2dfaac2c?pvs=4)를 전송해야 하는 과제가 있었습니다.\n' +
       '    - **요구 사항: 유저가 [캐시워크](https://www.notion.so/for-Business-1f209aac666780948f34f52b2dfaac2c?pvs=4) 홈에 진입하면 웰컴 메시지 발송**\n' +
       '- 이를 해결하기 위해 AWS SQS Standard Queue 를 활용하여 웰컴 메시지 및 일반 메시지를 분산 처리하였습니다.\n' +
-      '- 특히, 외부 파트너사와의 협업 시 외부 시스템이 처리 가능한 트래픽 수준을 확인하고 이를 기반으로 메시지 발송 속도를 조절해야 했습니다.\n' +
-      '    - 유저가 메시지 푸시 알림을 클릭하여 외부 업체 페이지로 인입 시 트래픽 고려\n' +
       '\n' +
       '### 메시지 발송 및 예약 발송 기능\n' +
       '\n' +
@@ -106,9 +106,9 @@ const projects: IProject[] = [
       '\n' +
       '[캐시워크](https://www.notion.so/for-Business-1f209aac666780948f34f52b2dfaac2c?pvs=4) 공식 채널은 채널 채팅방 그룹당 최대 10,000명의 유저를 수용하도록 설계되었으나, 구독자가 증가하면서 그룹 번호가 부족해 일부 유저의 구독이 실패하는 문제가 발견되었습니다.\n' +
       '\n' +
-      '- 채널 채팅방 그룹이란: 기본 채팅방 ID(e.g., `ch:342:android:m:1994`) 뒤에 **숫자(그룹 번호)**를 붙여 유저를 분산하여 구독 처리하는 방식\n' +
+      '- 채널 채팅방 그룹이란: 기본 채팅방 ID(e.g., `ch:342:android:m:1994`) 뒤에 숫자(그룹 번호)를 붙여 유저를 분산하여 구독 처리하는 방식\n' +
       '- 한 그룹 번호 당 10,000명을 수용하며, 초기에는 그룹 번호를 :0 ~ :9로 설정(총 100,000명까지 수용 가능).\n' +
-      '    - 예시: `ch:342:android:m:1994**:0**`\n' +
+      '    - 예시: `ch:342:android:m:1994:0`\n' +
       '\n' +
       '**[ 발생 상황 ]**\n' +
       '\n' +
@@ -153,7 +153,7 @@ const projects: IProject[] = [
     "duration": "4 months",
     "role": "Backend Engineer",
     "team": "캐시톡-메신저",
-    "stacks": ["AWS Lambda", "DynamoDB", "Node.js", "Firebase Dynamic Links", "AWS CLI"],
+    "stacks": ["DynamoDB", "Node.js", "Firebase Dynamic Links", "AWS CLI", 'AWS Lambda'],
     "links": {
       "github": "",
       "demo": "",
@@ -197,7 +197,7 @@ const projects: IProject[] = [
       '![500 캐시 당첨{400x}](https://footage.latentspace.world/production/images/%E1%84%8F%E1%85%A2%E1%84%89%E1%85%B5_%E1%84%83%E1%85%A1%E1%86%BC%E1%84%8E%E1%85%A5%E1%86%B7.png)' +
       '\n' +
       '### 미활동 계정 활성화 알림톡 발송\n' +
-      '- 30일 이상 미접속 사용자 로그인 시 1,000 캐시 특별 보상\n' +
+      '- 오랜 기간 미접속 사용자 로그인 시 1,000 캐시 특별 보상\n' +
       '- 재방문 유도를 위한 SMS/카카오톡 자동 알림 발송\n' +
       '- Dynamic Link 를 통한 원활한 사용자 경험 제공 (현재는 지원 중단된..)\n' +
       '![카카오 알림톡{400x}](https://footage.latentspace.world/production/images/%E1%84%8F%E1%85%A1%E1%84%8F%E1%85%A1%E1%84%8B%E1%85%A9_%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%86%B7%E1%84%90%E1%85%A9%E1%86%A8.png)' +
@@ -225,12 +225,12 @@ const projects: IProject[] = [
       '\n' +
       '### 1. 자정 트래픽 스파이크 관리\n' +
       '\n' +
-      '**도전**: 자정이 되면 사용자들이 일제히 앱에 접속하여 DynamoDB 테이블 읽기 사용량이 급증하는 현상 발생\n' +
+      '자정이 되면 사용자들이 캐시를 보내려고 일제히 앱에 접속하여 DynamoDB 테이블 읽기/쓰기 사용량이 급증하는 현상이 발생하였습니다.\n' +
       '![DynamoDB Throttle 발생 -> Incremental Retry{600x}](https://footage.latentspace.world/production/images/ddb_incremental_retry.png)' +
       '\n' +
-      '**해결책**: \n' +
-      '- AWS CLI를 통한 시간 기반 스케일링 정책 구현\n' +
-      '- 자정 15분 전부터 자정 1시간 후까지 프로비저닝 용량 자동 증가 설정\n' +
+      '**해결책**\n' +
+      '- AWS CLI를 통한 시간 기반 스케일링 정책을 구현하였습니다.\n' +
+      '- 자정 15분 전부터 자정 1시간 후까지 프로비저닝 용량을 자동으로 증가하도록 설정하였습니다.\n' +
       '![시간 지정 Scale 정책 추가{600x}](https://footage.latentspace.world/production/images/ddb_spike.png)' +
       '\n' +
       '```javascript\n' +
@@ -263,25 +263,24 @@ const projects: IProject[] = [
       '```javascript\n' +
       '// 행운 캐시 테이블 키 구조 예시\n' +
       '{\n' +
-      '  "from.to": "user123.user456",' +
+      '  "from.to": "user123.user456",\n' +
       '  "date": "2024-12-15T14:30:00.000Z",\n' +
       '  "from": "user123",\n'+
       '  "to": "user456",\n' +
       '  "isReceiverActive": true,\n' +
       '  "receivedAmount": 500,\n' +
-      '  "receivedType": "500CASH",\n' +
+      '  "receivedType": "WIN_CASH",\n' +
       '  "receivedAt": "2024-12-15T15:10:25.000Z",\n' +
       '  "previousVersion": false\n' +
       '}\n' +
       '```\n' +
       '\n' +
-      '### 3. Dynamic Link 구현\n' +
+      '### 3. 앱을 사용하지 않는 유저를 다시 활성화 하기 위해 Dynamic Link를 구현\n' +
       '\n' +
-      '**도전**: 휴면 사용자를 앱으로 효과적으로 유도할 수 있는 유입 경로 필요\n' +
+      '앱을 사용하지 않는 사용자를 앱으로 효과적으로 유도할 수 있는 유입 경로가 필요하였고, 이를 해결하기 위해 행운 캐시를 보낼 때 카카오 알림톡(또는 SMS) 를 같이 발송하도록 하였습니다.\n' +
       '\n' +
-      '**해결책**:\n' +
+      '**해결책**\n' +
       '- Firebase Dynamic Links 활용한 서버 측 딥링크 생성 기능을 구현\n' +
-      '- 사용자별 고유 파라미터를 포함한 개인화된 링크 생성\n' +
       '- 카카오톡/SMS 알림과 통합하여 효율적인 사용자 재유입 경로 제공\n' +
       '\n' +
       '## 배운 점\n' +
@@ -292,21 +291,13 @@ const projects: IProject[] = [
       '\n' +
       '2. **트래픽 관리**: 예측 가능한 부하 증가(자정 스파이크)에 대한 자동화된 대응책을 적용하여 예측 가능한 대규모 부하를 관리하는 노하우를 익혔습니다.\n' +
       '\n' +
-      '3. **기술적 의사결정 (초기 설계의 중요성)**: 다이나믹 링크 구현을 서버에서 담당하기로 한 초기 결정은 아래와 같은 문제가 있었으며, 기술 선택에 앞서 해당 기술에 대한 깊은 이해가 선행되어야 함을 배울 수 있었습니다.\n' +
-      '  - Firebase API Quota 제한으로 인하여 짧은 링크를 만들 수 없는 문제\n' +
-      '  - 이로 인해 다이나믹 링크가 매우 길어지는 문제가 있었습니다.\n' +
-      '\n' +
       '## 회고와 개선점\n' +
       '\n' +
       '프로젝트가 전반적으로 성공적이었지만, 몇 가지 개선할 수 있는 부분이 있었습니다:\n' +
       '\n' +
-      '1. **Firebase API Quota**:\n' +
-      '  - 다이나믹 링크 생성을 네이티브 측에서 구현했다면 서버 측 Firebase API Quota 제한 문제를 피할 수 있었을 것이고,\n' +
-      '  - 다이나믹 링크 길이도 짧게 만들 수 있었을 것입니다.\n' +
+      '1. **사전 부하 테스트**: 자정 스파이크에 발생하는 고부하를 사전에 예상했었다면 초기 몇 일간 자정 시간대에 발생한 성능 이슈를 예방할 수 있었을 것입니다.\n' +
       '\n' +
-      '2. **사전 부하 테스트**: 자정 스파이크에 발생하는 고부하를 사전에 예상했었다면 초기 몇 일간 자정 시간대에 발생한 성능 이슈를 예방할 수 있었을 것입니다.\n' +
-      '\n' +
-      '3. DynamoDB 테이블 구조 설계:\n' +
+      '2. DynamoDB 테이블 구조 설계:\n' +
       '  - GSI 를 만들 때 모든 속성을 Project 하여 GSI 를 만들었습니다. 당시에는 어떤 데이터가 필요한지 알 수 없으니 이렇게 만들었지만,\n' +
       '  - GSI 는 사실상 또 다른 테이블이기 때문에 보다 면밀한 고려가 필요했음을 배웠습니다.\n' +
       '\n' +
@@ -321,9 +312,9 @@ const projects: IProject[] = [
   },
   {
     id: 'cashwalk-api-optimization',
-    title: '캐시톡 서비스 최적화 프로젝트: 서버 비용 절감 및 성능 개선 사례',
+    title: '캐시톡 서비스 최적화를 통한 서버 비용 절감 및 성능 개선하기',
     slug: 'cashwalk-api-optimization',
-    excerpt: '사용자 경험은 유지하면서 서버 비용 50% 절감과 API 응답 시간을 최대 67% 개선한 백엔드 최적화 프로젝트',
+    excerpt: '사용자 경험은 유지하면서 서버 비용 50% 절감과 API 응답 시간을 최대 67% 개선한 백엔드 최적화 작업',
     category: '비용 최적화',
     date: new Date(),
     period: '2024-01 ~ 2024-02',
@@ -331,11 +322,9 @@ const projects: IProject[] = [
     role: 'Backend Engineer',
     team: '캐시톡-메신저',
     stacks: [
-      'Node.js',
       'AWS DynamoDB',
-      'AWS Elastic Beanstalk',
       'Redis',
-      'Datadog'
+      'Datadog',
     ],
     links: { github: '', demo: '', docs: '' },
     companyId: 'nudge-healthcare',
@@ -361,17 +350,18 @@ const projects: IProject[] = [
       '- 네트워크 인바운드/아웃바운드 트래픽 약 2배 증가\n' +
       '- API 서버 인스턴스 수 증가 (2배 증가)\n' +
       '- DynamoDB 읽기 요청 급증\n' +
-      '- Datadog 로그 인덱싱 증가\n' +
       '\n' +
       '### 원인 분석 과정\n' +
       '\n' +
-      '문제를 해결하기 위해 Datadog과 AWS CloudWatch 지표를 분석하여 다음과 같은 원인을 파악했습니다:\n' +
+      '문제를 해결하기 위해 Datadog과 AWS CloudWatch 지표를 분석하여 다음과 같은 원인을 파악했습니다.\n' +
       '\n' +
       '1. **비효율적인 데이터베이스 쿼리 패턴**:\n' +
       '  - 캐시톡 관련 API에서 친구 정보를 조회할 때, 일괄 처리(batch) 대신 개별 쿼리를 반복적으로 수행하고 있었습니다.\n' +
       '  - 예를 들어, 사용자가 100명의 친구를 가진 경우 **_친구 정보 조회를 위해 100번의 개별 DB 쿼리를 실행_**하고 있었습니다.\n' +
+      '![친구 한 명당 DDB Query 한 번씩 발생{600x}](https://footage.latentspace.world/production/images/too_many_ddb_req.png)\n' +
       '\n' +
-      '2. **DynamoDB 용량 제한**: 사용자 정보를 담고 있는 `cashwalk.user` 테이블과 관련 인덱스가 증가한 요청을 처리하기에 충분한 용량을 가지고 있지 않아 병목 현상이 발생했습니다.\n' +
+      '2. **DynamoDB Throttle**: 사용자 정보를 담고 있는 `cashwalk.user` 테이블과 관련 인덱스가 증가한 트래픽을 처리하기에 충분한 Capacity 를 가지고 있지 않아 Throttle 이 발생했습니다.\n' +
+      '![유저 테이블 Throttle 발생{600x}](http://footage.latentspace.world/production/images/user_table_throttle.png)' +
       '\n' +
       '3. **불필요한 데이터 조회**: 일부 API에서 필요하지 않은 정보를 추가로 쿼리하고 있었습니다.\n' +
       '\n' +
@@ -386,10 +376,30 @@ const projects: IProject[] = [
       '- `친구_관계` 테이블의 읽기 용량: 1,000 → 3,500으로 증가\n' +
       '\n' +
       '### 2. 코드 최적화\n' +
-      '- **배치 프로세싱 도입**: 친구 정보 조회 시 개별 쿼리 대신 `batchGetItem`을 사용하여 단일 요청으로 여러 항목을 조회하도록 개선했습니다.\n' +
-      '- **캐싱 전략 구현**: 자주 요청되는 친구 정보에 대해 Redis 캐싱을 도입했습니다.\n' +
-      '- **연결 재사용**: HTTP keepAlive 옵션을 활성화하여 DynamoDB API 호출 시 연결을 재사용하도록 했습니다.\n' +
-      '- **불필요한 쿼리 제거**: 특히 `GET /친구_인원_수` API에서 불필요한 친구 정보를 조회하는 쿼리를 제거하였습니다.\n' +
+      '- **배치 프로세싱 도입**: 친구 정보 조회 시 개별 쿼리 대신 `batchGetItem`(한 번에 100명)을 사용하여 단일 요청으로 여러 항목을 조회하도록 개선했습니다.\n' +
+      '![유저 테이블 BatchGetItem 도입{500x}](https://footage.latentspace.world/production/images/get_cached_user.png)\n' +
+      '\n' +
+      '- **유저 정보 캐싱**: 자주 요청되는 친구 정보에 대해 Redis 캐싱을 도입했습니다. [[간략한 코드](https://www.notion.so/1f609aac666780328b9cddb5210ffad9?pvs=4)]\n' +
+      '![Redis 에 유저 정보 캐싱{500x}](https://footage.latentspace.world/production/images/friend_info_from_cache.png)' +
+      '\n' +
+      '- **DynamoDB Connection 재사용**: HTTP keepAlive 옵션을 활성화하여 DynamoDB API 호출 시 연결을 재사용하도록 했습니다.\n' +
+      '```javascript\n' +
+      'const httpsAgent = new https.Agent({\n' +
+      '  maxSocket: 256,\n' +
+      '  keepAlive: true,\n' +
+      '  rejectUnauthorized: true,\n' +
+      '  lookup: cacheable.lookup,\n' +
+      '});\n' +
+      '\n' +
+      'AWS.config.update({\n' +
+      '  region: config.AWSRegion,\n' +
+      '  httpOptions: { agent: httpsAgent },\n' +
+      '  accessKeyId: config.AWSAccessKeyId,\n' +
+      '  secretAccessKey: config.AWSSecretAccessKey,\n' +
+      '});\n' +
+      '```\n' +
+      '\n' +
+      '- **불필요한 쿼리 제거**: 특히 `GET /친구_인원_수` API에서 불필요한 친구 정보를 조회하는 쿼리를 제거하였습니다. [[불필요하게 친구 유저 정보를 조회하는 쿼리를 제거]](https://www.notion.so/1f609aac666780d597f0f953c2b202dd?pvs=4)\n' +
       '\n' +
       '## 성과 및 결과\n' +
       '\n' +
@@ -405,12 +415,19 @@ const projects: IProject[] = [
       '\n' +
       '### 비용 절감\n' +
       '- **API 서버 인스턴스**: 평균 약 8대 감소 (기존 약 16대)\n' +
-      '- **DynamoDB 사용량**: 주요 인덱스의 소비 RCU가 1 미만으로 감소 (캐싱으로 인한 개선 결과)\n' +
-      '- **전체 서버 비용**: 약 50% 절감 효과\n' +
+      '- **DynamoDB 사용량**:\n' +
+      '  - 불필요하게 쿼리하던 인덱스의 RCU가 1 미만으로 감소 (불필요한 쿼리 제거로 인한)\n' +
+      '![쿼리할 필요가 없었던 SNS 계정 인덱스 쿼리 제거{600x}](https://footage.latentspace.world/production/images/reduction_ddb_rcu.png)' +
+      '\n' +
+      '  - 유저 데이터 캐싱으로 RCU 1/4 감소\n' +
+      '\n' +
+      '![유저 테이블 RCU 감소{600x}](https://footage.latentspace.world/production/images/user_rcu_deduction.png)' +
+      '\n' +
+      '- **전체 서버 비용**의 약 50% 절감 효과\n' +
       '\n' +
       '## 배운 점 및 시사점\n' +
       '\n' +
-      '이번 프로젝트를 통해 얻은 가장 중요한 교훈은 다음과 같습니다:\n' +
+      '이번 프로젝트를 통해 얻은 가장 중요한 교훈은 다음과 같습니다.\n' +
       '\n' +
       '1. **모니터링의 중요성**:\n' +
       '  - 비용 증가와 성능 저하 문제를 조기에 발견할 수 있었던 것은 적절한 모니터링 체계 덕분이었습니다.\n' +
@@ -433,15 +450,15 @@ const projects: IProject[] = [
       '\n' +
       '비효율적인 데이터베이스 접근 패턴을 개선하고, 적절한 캐싱과 HTTP Connection 관리를 통해 서비스 성능을 향상시킬 수 있었습니다.\n' +
       '\n' +
-      '특히 이번 경험은 서비스 규모가 성장함에 따라 초기 설계 결정이 미치는 영향이 얼마나 큰지를 보여주었습니다.\n' +
+      '특히 이번 경험은 서비스 규모가 성장함에 따라 초기 설계가 미치는 영향이 얼마나 큰지를 보여주었습니다.\n' +
       '\n' +
       '성능 최적화는 단순히 기술적 과제가 아니라 비즈니스 가치를 창출하는 중요한 활동임을 다시 한번 확인할 수 있었습니다.'
   },
   {
     "id": "kakao-api-optimization",
-    "title": "카카오 API 호출 최적화: 쿼터 제한 문제 해결 사례",
+    "title": "카카오 API 호출 최적화: 쿼터 제한 문제 해결",
     "slug": "kakao-api-optimization",
-    "excerpt": "API 호출을 95% 이상 감소시켜 카카오 API 쿼터 제한으로 인한 서비스 장애를 해결한 백엔드 최적화 사례",
+    "excerpt": "API 호출을 95% 이상 감소시켜 카카오 API 쿼터 제한으로 인한 서비스 장애를 해결한 최적화 사례",
     "category": "이슈 해결",
     "date": new Date(),
     "period": "2024-01 ~ 2024-02",
@@ -450,10 +467,8 @@ const projects: IProject[] = [
     "team": "캐시톡-캐시워크",
     "stacks": [
       "API 캐싱",
-      "카카오 API",
-      "서버 모니터링",
       "Datadog",
-      "서버 최적화"
+      "카카오 API",
     ],
     "links": { "github": "", "demo": "", "docs": "" },
     "companyId": "nudge-healthcare",
@@ -578,9 +593,8 @@ const projects: IProject[] = [
     team: '캐시톡-메신저',
     stacks: [
       'Node.js',
-      'Socket.io',
+      'Socket.io Redis Adapter',
       'ElastiCache',
-      'AWS EC2',
       'AWS CodeBuild',
       'Prisma ORM',
     ],
