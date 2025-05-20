@@ -20,21 +20,19 @@ const profileObj: IProfile = {
     '## 🌟 주요 성과\n' +
     '\n' +
     '- **대용량 메시징 시스템 구축**\n' +
-    '  - AWS SQS와 Elastic Beanstalk Worker를 활용한 300만 DAU 처리 시스템 설계\n' +
+    '  - AWS SQS와 Elastic Beanstalk Worker를 활용한 300만 DAU 메시지 발송 시스템 설계\n' +
     '  - 채널 메시지 발송을 통한 캐시톡 Active Users 160% 증가 달성\n' +
     '\n' +
     '- **행운 캐시 보내기 시스템 개발**\n' +
     '  - 메시지 발송 유저 수 985배 증가 (255명 → 251,098명)\n' +
     '  - 자정 트래픽 스파이크 관리를 위한 시간 기반 DynamoDB 스케일링 구현\n' +
-    '  - DynamoDB 데이터 모델링 및 액세스 패턴 최적화\n' +
+    '  - 데이터 액세스 패턴에 따른 DynamoDB 데이터 모델링 및 쿼리 최적화\n' +
     '\n' +
     '- **서버 비용 최적화 및 성능 개선**\n' +
     '  - 배치 프로세싱 도입 및 Redis 캐싱으로 API 응답 시간 최대 67% 개선\n' +
     '  - 비효율적인 데이터베이스 쿼리 패턴 개선으로 서버 비용 50% 절감\n' +
     '  - API 호출 최적화로 외부 서비스 호출량 95% 이상 감소\n' +
-    '\n' +
-    '- **DB 성능 및 쿼리 최적화**\n' +
-    '  - 비즈니스 로직의 데이터 액세스 패턴을 분석하여 DynamoDB 인덱스를 효율적으로 설계하고 트래픽 급증에 따른 Throttle 문제를 해결함\n',
+    '\n',
   location: '서울, 대한민국',
   experience: '2+ years',
   avatar: 'https://footage.latentspace.world/production/images/1736699511171.png',
