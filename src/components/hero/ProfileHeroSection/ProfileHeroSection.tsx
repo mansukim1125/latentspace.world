@@ -1,15 +1,15 @@
 import React from 'react';
 import {
   Github,
-  Linkedin,
+  // Linkedin,
   Mail,
   MapPin,
   Calendar,
-  Briefcase,
-  Code,
-  Star,
+  // Briefcase,
+  // Code,
+  // Star,
   BookOpen,
-  Award,
+  // Award,
 } from 'lucide-react';
 import { IProfile } from '@/interface/profile/profile.interface';
 import Markdown from 'react-markdown';
@@ -22,8 +22,6 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
     name,
     location,
     social,
-    badges,
-    keyMetrics,
     summary,
     skills,
     title,
@@ -86,7 +84,7 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
                     <Github className="w-5 h-5" />
                   </a>
                   )}
-                {social.linkedin && (
+                {/* {social.linkedin && (
                   <a
                     href={social.linkedin}
                     target="_blank"
@@ -96,7 +94,7 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
                   >
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  )}
+                  )} */}
                 {social.email && (
                   <a
                     href={`mailto:${social.email}`}
@@ -159,41 +157,41 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
             </div>
 
             {/* Key metrics */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
-              <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">
-                <div className="bg-purple-500/20 p-2 rounded-full mb-2">
-                  <Briefcase className="w-5 h-5 text-purple-400" />
-                </div>
-                <span className="text-2xl font-bold text-white">
-                  {keyMetrics.projects}
-                </span>
-                <span className="text-sm text-gray-400">Projects</span>
-              </div>
-              <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">
-                <div className="bg-purple-500/20 p-2 rounded-full mb-2">
-                  <Code className="w-5 h-5 text-purple-400" />
-                </div>
-                <span className="text-2xl font-bold text-white">
-                  {keyMetrics.experience}
-                </span>
-                <span className="text-sm text-gray-400">Experience</span>
-              </div>
-              <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">
-                <div className="bg-purple-500/20 p-2 rounded-full mb-2">
-                  <Star className="w-5 h-5 text-purple-400" />
-                </div>
-                <span className="text-2xl font-bold text-white">
-                  {keyMetrics.contributions}+
-                </span>
-                <span className="text-sm text-gray-400">Contributions</span>
-              </div>
-            </div>
+            {/*<div className="grid grid-cols-2 gap-4 mb-6">*/}
+            {/*  <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">*/}
+            {/*    <div className="bg-purple-500/20 p-2 rounded-full mb-2">*/}
+            {/*      <Briefcase className="w-5 h-5 text-purple-400" />*/}
+            {/*    </div>*/}
+            {/*    <span className="text-2xl font-bold text-white">*/}
+            {/*      {keyMetrics.projects}*/}
+            {/*    </span>*/}
+            {/*    <span className="text-sm text-gray-400">Projects</span>*/}
+            {/*  </div>*/}
+            {/*  <div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">*/}
+            {/*    <div className="bg-purple-500/20 p-2 rounded-full mb-2">*/}
+            {/*      <Code className="w-5 h-5 text-purple-400" />*/}
+            {/*    </div>*/}
+            {/*    <span className="text-2xl font-bold text-white">*/}
+            {/*      {keyMetrics.experience}*/}
+            {/*    </span>*/}
+            {/*    <span className="text-sm text-gray-400">Experience</span>*/}
+            {/*  </div>*/}
+            {/*  /!*<div className="bg-gray-900/40 p-4 rounded-lg border border-gray-800 flex flex-col items-center">*!/*/}
+            {/*  /!*  <div className="bg-purple-500/20 p-2 rounded-full mb-2">*!/*/}
+            {/*  /!*    <Star className="w-5 h-5 text-purple-400" />*!/*/}
+            {/*  /!*  </div>*!/*/}
+            {/*    /!*<span className="text-2xl font-bold text-white">*!/*/}
+            {/*    /!*  {keyMetrics.contributions}+*!/*/}
+            {/*    /!*</span>*!/*/}
+            {/*    /!*<span className="text-sm text-gray-400">Contributions</span>*!/*/}
+            {/*  /!*</div>*!/*/}
+            {/*</div>*/}
 
             {/* Skills */}
             <div className="bg-gray-900/40 p-6 rounded-lg border border-gray-800 mb-6">
               <div className="flex items-center gap-2 mb-4">
                 <BookOpen className="w-5 h-5 text-purple-400" />
-                <h2 className="text-xl font-semibold text-white">Skills</h2>
+                <h2 className="text-xl font-semibold text-white">잘 하는 것</h2>
               </div>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, index) => (
@@ -208,19 +206,19 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
             </div>
 
             {/* Badges/Specialties */}
-            <div className="flex flex-wrap gap-3">
-              {badges.map((badge, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-purple-900/50 to-purple-700/30 rounded-lg border border-purple-700/50"
-                >
-                  <Award className="w-4 h-4 text-purple-400" />
-                  <span className="text-sm font-medium text-purple-300">
-                    {badge}
-                  </span>
-                </div>
-              ))}
-            </div>
+            {/*<div className="flex flex-wrap gap-3">*/}
+            {/*  {badges.map((badge, index) => (*/}
+            {/*    <div*/}
+            {/*      key={index}*/}
+            {/*      className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-purple-900/50 to-purple-700/30 rounded-lg border border-purple-700/50"*/}
+            {/*    >*/}
+            {/*      <Award className="w-4 h-4 text-purple-400" />*/}
+            {/*      <span className="text-sm font-medium text-purple-300">*/}
+            {/*        {badge}*/}
+            {/*      </span>*/}
+            {/*    </div>*/}
+            {/*  ))}*/}
+            {/*</div>*/}
           </div>
         </div>
       </div>

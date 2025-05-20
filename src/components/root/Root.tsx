@@ -5,13 +5,16 @@ import { MainContent } from '@/components/main-content/MainContent';
 import { FooterSection } from '@/components/footer/FooterSection/FooterSection';
 import { ProfileService } from '@/service/profile/profile.service';
 
-export const Root = async (param: { children: React.ReactNode }) => {
-  const { children } = param;
+export const Root = async (param: { 
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  const { children, className = '' } = param;
 
   const profile = await new ProfileService().getProfile();
 
   return (
-    <html lang="en">
+    <html lang="ko" className={className}>
       <body>
         <div className="min-h-screen bg-black text-gray-100">
           <HeaderSection />
