@@ -10,6 +10,7 @@ interface MermaidDiagramProps {
 
 export function MermaidDiagram({ chart, className = '' }: MermaidDiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const id = `mermaid-${Math.random().toString(36).substring(2)}`;
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -21,30 +22,35 @@ export function MermaidDiagram({ chart, className = '' }: MermaidDiagramProps) {
       securityLevel: 'loose',
     });
 
-    // Clear the container contents
-    containerRef.current.innerHTML = '';
-
-    // Render the diagram
     const renderDiagram = async () => {
-      if (!containerRef.current) return;
-      
       try {
-        const { svg } = await mermaid.render(
-          `mermaid-${Math.random().toString(36).substring(2)}`,
-          chart,
-          containerRef.current
-        );
-        containerRef.current.innerHTML = svg;
+        // Create a temporary element with the specific ID that Mermaid requires
+        containerRef.current!.innerHTML = `<div id="${id}">${chart}</div>`;
+        
+        // Let Mermaid process the diagram
+        await mermaid.run({
+          nodes: [document.getElementById(id)!]
+        });
+        
+        // Apply center alignment to the SVG after rendering
+        if (containerRef.current) {
+          const svgElement = containerRef.current.querySelector('svg');
+          if (svgElement) {
+            svgElement.style.margin = '0 auto';
+          }
+        }
       } catch (error) {
         console.error('Error rendering mermaid diagram:', error);
-        containerRef.current.innerHTML = `<div class="text-red-500 p-4 border border-red-500 rounded">
-          Error rendering diagram: ${(error as Error).message || 'Unknown error'}
-        </div>`;
+        if (containerRef.current) {
+          containerRef.current.innerHTML = `<div class="text-red-500 p-4 border border-red-500 rounded">
+            Error rendering diagram: ${(error as Error).message || 'Unknown error'}
+          </div>`;
+        }
       }
     };
 
     renderDiagram();
-  }, [chart]);
+  }, [chart, id]);
 
   return (
     <div ref={containerRef} className={`my-4 overflow-x-auto ${className}`}>
