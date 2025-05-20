@@ -305,6 +305,225 @@ const projects: IProject[] = [
 
   },
   {
+    id: 'distributed-websocket-incident',
+    title: '분산 WebSocket 시스템의 연쇄 장애 해결: 복합적 원인 추적과 해결 과정',
+    slug: 'distributed-websocket-incident',
+    excerpt: '복잡한 분산 시스템에서 발생한 장애의 근본 원인 발견부터 다층적 해결까지의 기술적 여정',
+    category: '장애 대응',
+    date: new Date('2024-03'),
+    period: '2024-03 ~ 2024-04',
+    duration: '1 week',
+    role: 'Backend Engineer',
+    team: '캐시톡-메신저',
+    stacks: [
+      'Node.js',
+      'Socket.io Redis Adapter',
+      'ElastiCache',
+      'AWS CodeBuild',
+      'Prisma ORM',
+    ],
+    links: { github: '', demo: '', docs: '' },
+    companyId: 'nudge-healthcare',
+    achievements: [
+      'Node.js 프로세스 안정성 확보 (빌드-운영 환경 아키텍처 일치)',
+      'Socket.io Redis Adapter 최적화로 PubSub 트래픽 감소',
+      'Redis NetworkOutAllowanceExceeded 지표 정상화',
+      '대규모 분산 시스템 디버깅 역량 향상',
+    ],
+    content:
+      '## 문제 상황\n' +
+      '\n' +
+      '2024년 3월 말, 캐시톡 메신저 서비스에서 약 일주일간 메시지가 보내지지 않는 심각한 장애가 발생하였습니다. 채팅 서버를 이루는 여러 구성 요소(EC2, Socket.io, Redis)에 걸친 복합적 장애 상황이었고, 본 글은 장애의 근본 원인을 찾아내고 해결하는 과정을 담았습니다.\n' +
+      '\n' +
+      '## 기술 스택 및 아키텍처\n' +
+      '\n' +
+      '메신저 서버는 다음과 같은 구성으로 운영되고 있었습니다.\n' +
+      '\n' +
+      '- **서버 구조**: 로드 밸런서 뒤에 여러 EC2 인스턴스가 배포된 분산 서버 구조\n' +
+      '- **통신 방식**: WebSocket(Socket.io) 기반 실시간 채팅 기능\n' +
+      '- **WebSocket 연결 상태 관리**: Redis Cluster의 PubSub 기능을 활용한 WebSocket 연결 상태 관리\n' +
+      '\n' +
+      '## 장애 상황과 초기 대응\n' +
+      '\n' +
+      '### 발견된 증상\n' +
+      '- 캐시워크 행운 캐시 기능의 지연 시간(Latency)과 오류율(Error rate) 급증\n' +
+      '- 캐시톡 메시지 전송 및 수신 과정에서 오류 발생 및 지연 시간 증가\n' +
+      '- Redis 모니터링에서 `NetworkOutAllowanceExceeded` 지표의 급격한 상승\n' +
+      '\n' +
+      '### 초기 대응 및 한계\n' +
+      '처음에는 Redis의 `NetworkOutAllowanceExceeded` 지표 급증을 보고 단순히 리소스 부족으로 판단하여 Redis 인스턴스 스케일업을 진행했습니다.\n' +
+      '\n' +
+      '이로 인해 일시적으로 증상이 완화되었으나, 곧 동일한 문제가 재발했습니다.\n' +
+      '\n' +
+      '이 과정에서 **_표면적 증상 완화가 근본 원인 해결을 의미하지 않는다_**는 교훈을 얻게 되었습니다.\n' +
+      '![급 상승하는 NetworkOutAllowanceExceeded 지표](https://footage.latentspace.world/production/images/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202024-04-01%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.25.52.png)' +
+      '\n' +
+      '## 1주일 풀-야근의 시작: 분산 채팅 시스템(메신저)의 장애 근본 원인 분석\n' +
+      '\n' +
+      '이 문제는 다음과 같은 이유로 진단과 해결이 특히 어려웠습니다.\n' +
+      '\n' +
+      '1. **원인과 결과 사이의 거리가 멈**: 겉으로 보이는 증상(Redis 네트워크 과부하)과 실제 원인(네이티브 모듈 아키텍처 불일치) 사이에 5단계의 인과관계가 존재했습니다.\n' +
+      '2. **분산 환경에서의 복잡한 상호작용**: Socket.io Redis Adapter의 동작 방식과 Redis PubSub 메커니즘 간의 상호작용을 심층적으로 이해해야 했습니다.\n' +
+      '\n' +
+      '## 심층 분석 및 근본 원인 발견\n' +
+      '\n' +
+      '### WebSocket 연결 관리 메커니즘 (Socket.io Redis Adapter) 분석\n' +
+      '\n' +
+      '로그 확인 결과, 아래 오류가 다수 발생하여 아래 로그가 발생하는 지점부터 분석을 시작했습니다.\n' +
+      '```text\n' +
+      'timeout reached while waiting for fetchSockets response\n' +
+      '```\n' +
+      '\n' +
+      '위 에러는 사용자의 WebSocket 연결 처리를 담당하는 `handleConnection` 메소드 > `fetchSockets` 에서 발생하고 있었습니다.\n' +
+      '\n' +
+      'fetchSockets 의 역할은, 기존에 유저가 연결된 WebSocket 연결이 있었는지 확인하는 역할을 합니다.\n' +
+      '\n' +
+      '이를 사용한 목적은, 유저가 앱을 비정상 종료하는 등 WebSocket 연결이 정상적으로 종료되지 않았을 때 이를 종료하고자 사용하였습니다.\n' +
+      '\n' +
+      '```typescript\n' +
+      'async handleConnection(@ConnectedSocket() socket: SocketWithUserData) {\n' +
+      '  try {\n' +
+      '    const token = socket.handshake.query.access_token as string;\n' +
+      '    const user = await this.authService.verifyAndUpsertUser(token);\n' +
+      '\n' +
+      '    // 오래된 기존 연결 확인\n' +
+      '    const oldSocketId = await this.redis.get(`${user.owner}`);\n' +
+      '    if (oldSocketId !== null) {\n' +
+      '      // fetchSockets\n' +
+      '      const remoteSockets = await this.server.in(oldSocketId).fetchSockets();\n' +
+      '      // ... 이후 처리 로직\n' +
+      '    }\n' +
+      '  } catch (error) {\n' +
+      '    // 오류 처리\n' +
+      '  }\n' +
+      '}\n' +
+      '```\n' +
+      '\n' +
+      'fetchSockets 메소드의 내부 동작을 분석한 결과, 다음과 같은 중요한 발견을 할 수 있었습니다.\n' +
+      '\n' +
+      '[[자세한 fetchSockets 동작 원리 확인하기!]](https://www.notion.so/fetchSockets-1f209aac666780ee9d7ff61add7bc0b7?pvs=4)' +
+      '\n' +
+      '1. **분산 서버 인스턴스의 PubSub 메커니즘**\n' +
+      '   - `fetchSockets`는 Redis PubSub을 통해 모든 서버 인스턴스에 Socket 연결 가져오기 요청을 브로드캐스트하고, 각 서버 인스턴스가 메모리 상에 보유한 소켓 객체 리스트 응답을 기다립니다.\n' +
+      '   - 기존에 유저가 어느 서버 인스턴스에 WebSocket 이 연결되었는지를 알지 못하기 때문입니다.\n' +
+      '\n' +
+      '2. **응답을 모두 받았는지 확인하는 로직**\n' +
+      '   - Socket.io Redis Adapter는 내부적으로 `serverCount`(전체 서버 인스턴스 수)와 `msgCount`(`fetchSockets` 요청에 대해 응답받은 메시지 수)를 비교하여 모든 서버로부터 응답이 왔는지 확인합니다.\n' +
+      '\n' +
+      '3. **Timeout 에러**\n' +
+      '   - 5초 내에 모든 서버로부터 응답이 오지 않으면(`msgCount < serverCount`) 해당 `fetchSockets` 요청은 reject됩니다.\n' +
+      '\n' +
+      '### 연쇄 장애의 발생 메커니즘\n' +
+      '\n' +
+      '서버 로그 심층 분석과 Socket.io와 Redis Adapter의 내부 구현 코드 검토를 통해 다음과 같은 연쇄 장애 메커니즘을 발견했습니다.\n' +
+      '\n' +
+      '1. **네이티브 모듈 아키텍처 불일치**\n' +
+      '   - buildspec.yml 에서 node_modules가 빌드 결과물에 포함되었고, 이것이 그대로 상용 환경으로 흘러들어가 빌드 환경(Intel)에서 컴파일된 Prisma(ORM 라이브러리) 바이너리가 운영 환경의 아키텍처(Arm)와 불일치했습니다.\n' +
+      '\n' +
+      '2. **Node 프로세스 지속적 종료**\n' +
+      '   - 이로 인해 다음과 같은 v8 엔진 오류가 발생하며 Node 프로세스가 반복적으로 종료되었습니다.\n' +
+      '   ```\n' +
+      '   FATAL ERROR: EscapableHandleScope::Escape Escape value set twice\n' +
+      '   FATAL ERROR: Context::GetNumberOfEmbedderDataFields Not a native context\n' +
+      '   ```\n' +
+      '\n' +
+      '3. **Socket.io 요청 실패**\n' +
+      '   - Node 프로세스가 비정상 종료되면서 `fetchSockets` 요청에 대한 응답이 누락되었고, `msgCount < serverCount` 상태가 지속되어 타임아웃(`reject`)이 발생하게 되었습니다.\n' +
+      '   ```\n' +
+      '   timeout reached while waiting for fetchSockets response\n' +
+      '   ```\n' +
+      '\n' +
+      '4. **클라이언트 재시도 증가**\n' +
+      '   - 연결이 끊어진 클라이언트들이 정상적인 재연결 시도 매커니즘에 따라 재연결을 시도했습니다.\n' +
+      '\n' +
+      '5. **Redis PubSub 트래픽 폭증**\n' +
+      '   - 재연결 시도마다 새로운 `fetchSockets` 요청이 발생하여 Redis PubSub 채널의 트래픽이 크게 증가했습니다.\n' +
+      '![Redis PubSubBasedCmds 증가](https://footage.latentspace.world/production/images/pubsubbasedcmds.png)' +
+      '\n' +
+      '6. **Redis 네트워크 대역폭 초과**\n' +
+      '   - 결과적으로 Redis 노드 간 통신에 사용되는 네트워크 대역폭이 초과되어 `NetworkOutAllowanceExceeded` 지표가 급상승했습니다.\n' +
+      '![급 상승하는 NetworkOutAllowanceExceeded 지표](https://footage.latentspace.world/production/images/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202024-04-01%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.25.52.png)' +
+      '\n' +
+      '## 적용한 해결 방안\n' +
+      '\n' +
+      '### 1. 근본 원인 해결: 빌드 환경과 운영 환경의 일치성 확보\n' +
+      '\n' +
+      'buildspec.yml 을 수정하여 node_modules가 빌드 결과물에 포함되지 않도록 변경했습니다.\n' +
+      '\n' +
+      '```yaml\n' +
+      '# 수정된 buildspec.yml\n' +
+      'artifacts:\n' +
+      '  files:\n' +
+      '    - "**/*"\n' +
+      '  base-directory: "."\n' +
+      '  exclude-paths:\n' +
+      '    - "node_modules/**"\n' +
+      '```\n' +
+      '\n' +
+      '이를 통해 운영 환경에서 직접 의존성을 설치하도록 하여 네이티브 모듈이 정확한 아키텍처로 설치되도록 했습니다.\n' +
+      '\n' +
+      '### 2. Socket.io 최적화: fetchSockets 가 효율적으로 동작하도록 개선\n' +
+      '\n' +
+      'Redis PubSub 트래픽을 줄이기 위해 Socket.io Redis Adapter 설정을 개선했습니다. [[Socket.io Redis Adapter 공식 문서 링크]](https://socket.io/docs/v4/redis-adapter/#default-adapter)\n' +
+      '\n' +
+      '```typescript\n' +
+      '// Redis Adapter 설정 최적화\n' +
+      'const redisAdapter = createAdapter(pubClient, subClient, {\n' +
+      '  publishOnSpecificResponseChannel: true // fetchSockets 요청을 보낸 서버 인스턴스에게만 응답\n' +
+      '});\n' +
+      'io.adapter(redisAdapter);\n' +
+      '```\n' +
+      '\n' +
+      '이 옵션은 요청을 보낸 인스턴스에만 fetchSockets 응답을 전송하도록 하여 불필요한 메시지 브로드캐스트를 방지합니다.\n' +
+      '\n' +
+      '### 3. 부하 방어 로직 구현: 재시도 폭증 방지\n' +
+      '\n' +
+      '재시도로 인한 과도한 `fetchSockets` 호출을 방지하기 위한 방어 로직을 구현했습니다.\n' +
+      '\n' +
+      '```typescript\n' +
+      '// fetchSockets 호출 제한 로직\n' +
+      'const retryPreventionKey = `rp:${oldSocketId}`;\n' +
+      'const result = await this.redis\n' +
+      '  .multi()\n' +
+      '  .incr(retryPreventionKey)\n' +
+      '  .expire(retryPreventionKey, 60, \'NX\')\n' +
+      '  .exec();\n' +
+      'const [[, value]] = result;\n' +
+      'if (typeof value === \'number\' && value > 1) {\n' +
+      '  throw new Error(\'connection retry interval exceeded\');\n' +
+      '}\n' +
+      '```\n' +
+      '\n' +
+      '## 기술적 성과 및 교훈\n' +
+      '\n' +
+      '### 분산 시스템 디버깅 역량 향상\n' +
+      '\n' +
+      '이 경험을 통해 복잡한 분산 시스템 구조에서 발생한 문제를 해결하는 접근 방식을 배울 수 있었습니다.\n' +
+      '\n' +
+      '1. **장애 발생 시 표면적 증상을 바탕으로 근본 원인을 찾을 것**\n' +
+      '   - Redis 네트워크 과부하라는 표면적 증상으로부터 시작하여 여러 계층을 거쳐 네이티브 모듈 아키텍처 불일치라는 근본 원인을 찾아냈습니다.\n' +
+      '   - 단순히 증상을 완화하는 것이 아니라, 문제의 근본 원인이 다른 곳에 있을 수 있다는 가능성을 항상 열어두고 분석해야 합니다.\n' +
+      '\n' +
+      '2. **복잡한 서버 구성요소 간 상호작용을 깊이 있게 이해할 것**\n' +
+      '   - Socket.io Redis Adapter의 내부 동작 원리(분산 환경에서의 PubSub 메커니즘)를 심층적으로 이해하게 되었고, 장애 발생 원인을 찾아낼 수 있었습니다.\n' +
+      '\n' +
+      '3. **선입견 없이 로그와 데이터를 분석할 것**\n' +
+      '   - 로그와 지표를 선입견 없이 분석하는 것이 문제를 해결하는 중요한 원칙임을 배웠습니다.\n' +
+      '\n' +
+      '4. **여러 계층에서의 해결책 구현**:\n' +
+      '   - 근본 원인 해결뿐만 아니라 방어 로직 구현, 시스템 최적화 등 여러 계층에서의 개선이 필요합니다.\n' +
+      '\n' +
+      '## 결론\n' +
+      '\n' +
+      '이번 장애 대응 경험은 분산 채팅 시스템(메신저)의 장애 상황에서 표면적 증상으로부터 시작해 여러 구성요소를 탐색하고,\n' +
+      '\n' +
+      '최종적으로 근본 원인을 발견하여 해결하는 과정이었습니다. (CTO 님과 지코바를 먹으며..)\n' +
+      '\n' +
+      '이러한 경험을 통해 복잡한 구조를 가진 분산 시스템에서의 장애 대응 방법과 복잡한 인과관계를 추적하는 능력을 크게 향상시킬 수 있었습니다.\n' +
+      '\n' +
+      '이는 대규모 시스템을 설계하고 운영하는 데 있어 매우 가치 있는 자산이 되었다고 생각합니다.',
+  },
+  {
     id: 'cashwalk-api-optimization',
     title: '캐시톡 서비스 최적화를 통한 서버 비용 절감 및 성능 개선하기',
     slug: 'cashwalk-api-optimization',
@@ -571,225 +790,6 @@ const projects: IProject[] = [
       '서버 모니터링 시스템(Datadog)을 바탕으로 유저 별 API 요청량을 분석하고, 캐싱 전략을 효율적으로 적용하고,\n' +
       '\n' +
       '다양한 이해관계자와의 원활한 의사소통을 통해 외부 API 호출을 95% 이상 감소시켜 서비스 안정성을 크게 향상시킬 수 있었습니다.\n',
-  },
-  {
-    id: 'distributed-websocket-incident',
-    title: '분산 WebSocket 시스템의 연쇄 장애 해결: 복합적 원인 추적과 해결 과정',
-    slug: 'distributed-websocket-incident',
-    excerpt: '복잡한 분산 시스템에서 발생한 장애의 근본 원인 발견부터 다층적 해결까지의 기술적 여정',
-    category: '장애 대응',
-    date: new Date('2024-03'),
-    period: '2024-03 ~ 2024-04',
-    duration: '1 week',
-    role: 'Backend Engineer',
-    team: '캐시톡-메신저',
-    stacks: [
-      'Node.js',
-      'Socket.io Redis Adapter',
-      'ElastiCache',
-      'AWS CodeBuild',
-      'Prisma ORM',
-    ],
-    links: { github: '', demo: '', docs: '' },
-    companyId: 'nudge-healthcare',
-    achievements: [
-      'Node.js 프로세스 안정성 확보 (빌드-운영 환경 아키텍처 일치)',
-      'Socket.io Redis Adapter 최적화로 PubSub 트래픽 감소',
-      'Redis NetworkOutAllowanceExceeded 지표 정상화',
-      '대규모 분산 시스템 디버깅 역량 향상',
-    ],
-    content:
-      '## 문제 상황\n' +
-      '\n' +
-      '2024년 3월 말, 캐시톡 메신저 서비스에서 약 일주일간 메시지가 보내지지 않는 심각한 장애가 발생하였습니다. 채팅 서버를 이루는 여러 구성 요소(EC2, Socket.io, Redis)에 걸친 복합적 장애 상황이었고, 본 글은 장애의 근본 원인을 찾아내고 해결하는 과정을 담았습니다.\n' +
-      '\n' +
-      '## 기술 스택 및 아키텍처\n' +
-      '\n' +
-      '메신저 서버는 다음과 같은 구성으로 운영되고 있었습니다.\n' +
-      '\n' +
-      '- **서버 구조**: 로드 밸런서 뒤에 여러 EC2 인스턴스가 배포된 분산 서버 구조\n' +
-      '- **통신 방식**: WebSocket(Socket.io) 기반 실시간 채팅 기능\n' +
-      '- **WebSocket 연결 상태 관리**: Redis Cluster의 PubSub 기능을 활용한 WebSocket 연결 상태 관리\n' +
-      '\n' +
-      '## 장애 상황과 초기 대응\n' +
-      '\n' +
-      '### 발견된 증상\n' +
-      '- 캐시워크 행운 캐시 기능의 지연 시간(Latency)과 오류율(Error rate) 급증\n' +
-      '- 캐시톡 메시지 전송 및 수신 과정에서 오류 발생 및 지연 시간 증가\n' +
-      '- Redis 모니터링에서 `NetworkOutAllowanceExceeded` 지표의 급격한 상승\n' +
-      '\n' +
-      '### 초기 대응 및 한계\n' +
-      '처음에는 Redis의 `NetworkOutAllowanceExceeded` 지표 급증을 보고 단순히 리소스 부족으로 판단하여 Redis 인스턴스 스케일업을 진행했습니다.\n' +
-      '\n' +
-      '이로 인해 일시적으로 증상이 완화되었으나, 곧 동일한 문제가 재발했습니다.\n' +
-      '\n' +
-      '이 과정에서 **_표면적 증상 완화가 근본 원인 해결을 의미하지 않는다_**는 교훈을 얻게 되었습니다.\n' +
-      '![급 상승하는 NetworkOutAllowanceExceeded 지표](https://footage.latentspace.world/production/images/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202024-04-01%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.25.52.png)' +
-      '\n' +
-      '## 1주일 풀-야근의 시작: 분산 채팅 시스템(메신저)의 장애 근본 원인 분석\n' +
-      '\n' +
-      '이 문제는 다음과 같은 이유로 진단과 해결이 특히 어려웠습니다.\n' +
-      '\n' +
-      '1. **원인과 결과 사이의 거리가 멈**: 겉으로 보이는 증상(Redis 네트워크 과부하)과 실제 원인(네이티브 모듈 아키텍처 불일치) 사이에 5단계의 인과관계가 존재했습니다.\n' +
-      '2. **분산 환경에서의 복잡한 상호작용**: Socket.io Redis Adapter의 동작 방식과 Redis PubSub 메커니즘 간의 상호작용을 심층적으로 이해해야 했습니다.\n' +
-      '\n' +
-      '## 심층 분석 및 근본 원인 발견\n' +
-      '\n' +
-      '### WebSocket 연결 관리 메커니즘 (Socket.io Redis Adapter) 분석\n' +
-      '\n' +
-      '로그 확인 결과, 아래 오류가 다수 발생하여 아래 로그가 발생하는 지점부터 분석을 시작했습니다.\n' +
-      '```text\n' +
-      'timeout reached while waiting for fetchSockets response\n' +
-      '```\n' +
-      '\n' +
-      '위 에러는 사용자의 WebSocket 연결 처리를 담당하는 `handleConnection` 메소드 > `fetchSockets` 에서 발생하고 있었습니다.\n' +
-      '\n' +
-      'fetchSockets 의 역할은, 기존에 유저가 연결된 WebSocket 연결이 있었는지 확인하는 역할을 합니다.\n' +
-      '\n' +
-      '이를 사용한 목적은, 유저가 앱을 비정상 종료하는 등 WebSocket 연결이 정상적으로 종료되지 않았을 때 이를 종료하고자 사용하였습니다.\n' +
-      '\n' +
-      '```typescript\n' +
-      'async handleConnection(@ConnectedSocket() socket: SocketWithUserData) {\n' +
-      '  try {\n' +
-      '    const token = socket.handshake.query.access_token as string;\n' +
-      '    const user = await this.authService.verifyAndUpsertUser(token);\n' +
-      '\n' +
-      '    // 오래된 기존 연결 확인\n' +
-      '    const oldSocketId = await this.redis.get(`${user.owner}`);\n' +
-      '    if (oldSocketId !== null) {\n' +
-      '      // fetchSockets\n' +
-      '      const remoteSockets = await this.server.in(oldSocketId).fetchSockets();\n' +
-      '      // ... 이후 처리 로직\n' +
-      '    }\n' +
-      '  } catch (error) {\n' +
-      '    // 오류 처리\n' +
-      '  }\n' +
-      '}\n' +
-      '```\n' +
-      '\n' +
-      'fetchSockets 메소드의 내부 동작을 분석한 결과, 다음과 같은 중요한 발견을 할 수 있었습니다.\n' +
-      '\n' +
-      '[[자세한 fetchSockets 동작 원리 확인하기!]](https://www.notion.so/fetchSockets-1f209aac666780ee9d7ff61add7bc0b7?pvs=4)' +
-      '\n' +
-      '1. **분산 서버 인스턴스의 PubSub 메커니즘**\n' +
-      '   - `fetchSockets`는 Redis PubSub을 통해 모든 서버 인스턴스에 Socket 연결 가져오기 요청을 브로드캐스트하고, 각 서버 인스턴스가 메모리 상에 보유한 소켓 객체 리스트 응답을 기다립니다.\n' +
-      '   - 기존에 유저가 어느 서버 인스턴스에 WebSocket 이 연결되었는지를 알지 못하기 때문입니다.\n' +
-      '\n' +
-      '2. **응답을 모두 받았는지 확인하는 로직**\n' +
-      '   - Socket.io Redis Adapter는 내부적으로 `serverCount`(전체 서버 인스턴스 수)와 `msgCount`(`fetchSockets` 요청에 대해 응답받은 메시지 수)를 비교하여 모든 서버로부터 응답이 왔는지 확인합니다.\n' +
-      '\n' +
-      '3. **Timeout 에러**\n' +
-      '   - 5초 내에 모든 서버로부터 응답이 오지 않으면(`msgCount < serverCount`) 해당 `fetchSockets` 요청은 reject됩니다.\n' +
-      '\n' +
-      '### 연쇄 장애의 발생 메커니즘\n' +
-      '\n' +
-      '서버 로그 심층 분석과 Socket.io와 Redis Adapter의 내부 구현 코드 검토를 통해 다음과 같은 연쇄 장애 메커니즘을 발견했습니다.\n' +
-      '\n' +
-      '1. **네이티브 모듈 아키텍처 불일치**\n' +
-      '   - buildspec.yml 에서 node_modules가 빌드 결과물에 포함되었고, 이것이 그대로 상용 환경으로 흘러들어가 빌드 환경(Intel)에서 컴파일된 Prisma(ORM 라이브러리) 바이너리가 운영 환경의 아키텍처(Arm)와 불일치했습니다.\n' +
-      '\n' +
-      '2. **Node 프로세스 지속적 종료**\n' +
-      '   - 이로 인해 다음과 같은 v8 엔진 오류가 발생하며 Node 프로세스가 반복적으로 종료되었습니다.\n' +
-      '   ```\n' +
-      '   FATAL ERROR: EscapableHandleScope::Escape Escape value set twice\n' +
-      '   FATAL ERROR: Context::GetNumberOfEmbedderDataFields Not a native context\n' +
-      '   ```\n' +
-      '\n' +
-      '3. **Socket.io 요청 실패**\n' +
-      '   - Node 프로세스가 비정상 종료되면서 `fetchSockets` 요청에 대한 응답이 누락되었고, `msgCount < serverCount` 상태가 지속되어 타임아웃(`reject`)이 발생하게 되었습니다.\n' +
-      '   ```\n' +
-      '   timeout reached while waiting for fetchSockets response\n' +
-      '   ```\n' +
-      '\n' +
-      '4. **클라이언트 재시도 증가**\n' +
-      '   - 연결이 끊어진 클라이언트들이 정상적인 재연결 시도 매커니즘에 따라 재연결을 시도했습니다.\n' +
-      '\n' +
-      '5. **Redis PubSub 트래픽 폭증**\n' +
-      '   - 재연결 시도마다 새로운 `fetchSockets` 요청이 발생하여 Redis PubSub 채널의 트래픽이 크게 증가했습니다.\n' +
-      '![Redis PubSubBasedCmds 증가](https://footage.latentspace.world/production/images/pubsubbasedcmds.png)' +
-      '\n' +
-      '6. **Redis 네트워크 대역폭 초과**\n' +
-      '   - 결과적으로 Redis 노드 간 통신에 사용되는 네트워크 대역폭이 초과되어 `NetworkOutAllowanceExceeded` 지표가 급상승했습니다.\n' +
-      '![급 상승하는 NetworkOutAllowanceExceeded 지표](https://footage.latentspace.world/production/images/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202024-04-01%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.25.52.png)' +
-      '\n' +
-      '## 적용한 해결 방안\n' +
-      '\n' +
-      '### 1. 근본 원인 해결: 빌드 환경과 운영 환경의 일치성 확보\n' +
-      '\n' +
-      'buildspec.yml 을 수정하여 node_modules가 빌드 결과물에 포함되지 않도록 변경했습니다.\n' +
-      '\n' +
-      '```yaml\n' +
-      '# 수정된 buildspec.yml\n' +
-      'artifacts:\n' +
-      '  files:\n' +
-      '    - "**/*"\n' +
-      '  base-directory: "."\n' +
-      '  exclude-paths:\n' +
-      '    - "node_modules/**"\n' +
-      '```\n' +
-      '\n' +
-      '이를 통해 운영 환경에서 직접 의존성을 설치하도록 하여 네이티브 모듈이 정확한 아키텍처로 설치되도록 했습니다.\n' +
-      '\n' +
-      '### 2. Socket.io 최적화: fetchSockets 가 효율적으로 동작하도록 개선\n' +
-      '\n' +
-      'Redis PubSub 트래픽을 줄이기 위해 Socket.io Redis Adapter 설정을 개선했습니다. [[Socket.io Redis Adapter 공식 문서 링크]](https://socket.io/docs/v4/redis-adapter/#default-adapter)\n' +
-      '\n' +
-      '```typescript\n' +
-      '// Redis Adapter 설정 최적화\n' +
-      'const redisAdapter = createAdapter(pubClient, subClient, {\n' +
-      '  publishOnSpecificResponseChannel: true // fetchSockets 요청을 보낸 서버 인스턴스에게만 응답\n' +
-      '});\n' +
-      'io.adapter(redisAdapter);\n' +
-      '```\n' +
-      '\n' +
-      '이 옵션은 요청을 보낸 인스턴스에만 fetchSockets 응답을 전송하도록 하여 불필요한 메시지 브로드캐스트를 방지합니다.\n' +
-      '\n' +
-      '### 3. 부하 방어 로직 구현: 재시도 폭증 방지\n' +
-      '\n' +
-      '재시도로 인한 과도한 `fetchSockets` 호출을 방지하기 위한 방어 로직을 구현했습니다.\n' +
-      '\n' +
-      '```typescript\n' +
-      '// fetchSockets 호출 제한 로직\n' +
-      'const retryPreventionKey = `rp:${oldSocketId}`;\n' +
-      'const result = await this.redis\n' +
-      '  .multi()\n' +
-      '  .incr(retryPreventionKey)\n' +
-      '  .expire(retryPreventionKey, 60, \'NX\')\n' +
-      '  .exec();\n' +
-      'const [[, value]] = result;\n' +
-      'if (typeof value === \'number\' && value > 1) {\n' +
-      '  throw new Error(\'connection retry interval exceeded\');\n' +
-      '}\n' +
-      '```\n' +
-      '\n' +
-      '## 기술적 성과 및 교훈\n' +
-      '\n' +
-      '### 분산 시스템 디버깅 역량 향상\n' +
-      '\n' +
-      '이 경험을 통해 복잡한 분산 시스템 구조에서 발생한 문제를 해결하는 접근 방식을 배울 수 있었습니다.\n' +
-      '\n' +
-      '1. **장애 발생 시 표면적 증상을 바탕으로 근본 원인을 찾을 것**\n' +
-      '   - Redis 네트워크 과부하라는 표면적 증상으로부터 시작하여 여러 계층을 거쳐 네이티브 모듈 아키텍처 불일치라는 근본 원인을 찾아냈습니다.\n' +
-      '   - 단순히 증상을 완화하는 것이 아니라, 문제의 근본 원인이 다른 곳에 있을 수 있다는 가능성을 항상 열어두고 분석해야 합니다.\n' +
-      '\n' +
-      '2. **복잡한 서버 구성요소 간 상호작용을 깊이 있게 이해할 것**\n' +
-      '   - Socket.io Redis Adapter의 내부 동작 원리(분산 환경에서의 PubSub 메커니즘)를 심층적으로 이해하게 되었고, 장애 발생 원인을 찾아낼 수 있었습니다.\n' +
-      '\n' +
-      '3. **선입견 없이 로그와 데이터를 분석할 것**\n' +
-      '   - 로그와 지표를 선입견 없이 분석하는 것이 문제를 해결하는 중요한 원칙임을 배웠습니다.\n' +
-      '\n' +
-      '4. **여러 계층에서의 해결책 구현**:\n' +
-      '   - 근본 원인 해결뿐만 아니라 방어 로직 구현, 시스템 최적화 등 여러 계층에서의 개선이 필요합니다.\n' +
-      '\n' +
-      '## 결론\n' +
-      '\n' +
-      '이번 장애 대응 경험은 분산 채팅 시스템(메신저)의 장애 상황에서 표면적 증상으로부터 시작해 여러 구성요소를 탐색하고,\n' +
-      '\n' +
-      '최종적으로 근본 원인을 발견하여 해결하는 과정이었습니다. (CTO 님과 지코바를 먹으며..)\n' +
-      '\n' +
-      '이러한 경험을 통해 복잡한 구조를 가진 분산 시스템에서의 장애 대응 방법과 복잡한 인과관계를 추적하는 능력을 크게 향상시킬 수 있었습니다.\n' +
-      '\n' +
-      '이는 대규모 시스템을 설계하고 운영하는 데 있어 매우 가치 있는 자산이 되었다고 생각합니다.',
   },
   // {
   //   id: 'cashdeal-promotion-1',
