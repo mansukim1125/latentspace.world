@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Clock, Calendar, Share2, Bookmark } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar, /* Share2, Bookmark */ } from 'lucide-react';
 import { IWriting } from '@/interface/writing/writing.interface';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';

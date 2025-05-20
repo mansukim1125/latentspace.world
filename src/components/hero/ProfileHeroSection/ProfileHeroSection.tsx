@@ -1,15 +1,15 @@
 import React from 'react';
 import {
   Github,
-  Linkedin,
+  // Linkedin,
   Mail,
   MapPin,
   Calendar,
-  Briefcase,
-  Code,
-  Star,
+  // Briefcase,
+  // Code,
+  // Star,
   BookOpen,
-  Award,
+  // Award,
 } from 'lucide-react';
 import { IProfile } from '@/interface/profile/profile.interface';
 import Markdown from 'react-markdown';
@@ -22,8 +22,6 @@ export const ProfileHeroSection = (param: { profile: IProfile }) => {
     name,
     location,
     social,
-    badges,
-    keyMetrics,
     summary,
     skills,
     title,

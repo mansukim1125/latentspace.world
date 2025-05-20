@@ -112,7 +112,8 @@ export default function ProjectDetail({ project }: { project: IProject }) {
               },
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               img({ node: _, ...props }) {
-                let { src, alt } = props;
+                const { src } = props;
+                let { alt } = props;
                 
                 if (!src) return null;
                 let width, height;
@@ -144,7 +145,7 @@ export default function ProjectDetail({ project }: { project: IProject }) {
                 );
               },
               // Custom code block handler for mermaid diagrams
-              code({ node, className, children, ...props }) {
+              code({ className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || '');
                 
                 // Handle mermaid code blocks specifically
