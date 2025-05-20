@@ -7,6 +7,7 @@ import React from 'react';
 import { IProject } from '@/interface/project/project.interface';
 import { CustomHeading } from '@/components/custom-heading/CustomHeading';
 import { useRouter } from 'next/navigation';
+import { MermaidDiagram } from '@/components/mermaid-diagram/MermaidDiagram';
 
 export default function ProjectDetail({ project }: { project: IProject }) {
   const router = useRouter();
@@ -109,6 +110,23 @@ export default function ProjectDetail({ project }: { project: IProject }) {
                   <CustomHeading level={3}>{props.children}</CustomHeading>
                 );
               },
+              // Custom code block handler for mermaid diagrams
+              code({ node, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '');
+                
+                // Handle mermaid code blocks specifically
+                if (match && match[1] === 'mermaid') {
+                  const content = String(children).replace(/\n$/, '');
+                  return <MermaidDiagram chart={content} />;
+                }
+                
+                // Return regular code block for other languages
+                return (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              }
             }}
           >
             {project.content}
