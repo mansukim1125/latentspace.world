@@ -26,13 +26,13 @@ export const HeaderSection = () => {
           {/* 데스크톱 메뉴 */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/writings" className="text-gray-300 hover:text-white">
-              Writings
+              글
             </Link>
             <Link
               href="/experiences"
               className="text-gray-300 hover:text-white"
             >
-              Experiences
+              경험
             </Link>
           </div>
 
@@ -55,14 +55,14 @@ export const HeaderSection = () => {
               className="block py-2 text-gray-300 hover:text-white"
               onClick={() => setMenuOpen(false)}
             >
-              Writings
+              글
             </Link>
             <Link
               href="/experiences"
               className="block py-2 text-gray-300 hover:text-white"
               onClick={() => setMenuOpen(false)}
             >
-              Experiences
+              경험
             </Link>
           </div>
         )}

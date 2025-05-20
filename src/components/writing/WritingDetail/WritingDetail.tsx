@@ -46,16 +46,16 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
               className="flex items-center text-gray-400 hover:text-white"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Writing
+              글 목록으로 돌아가기
             </span>
-            <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-400 hover:text-white">
-                <Share2 className="w-5 h-5" />
-              </button>
-              <button className="p-2 text-gray-400 hover:text-white">
-                <Bookmark className="w-5 h-5" />
-              </button>
-            </div>
+            {/*<div className="flex items-center space-x-4">*/}
+            {/*  <button className="p-2 text-gray-400 hover:text-white">*/}
+            {/*    <Share2 className="w-5 h-5" />*/}
+            {/*  </button>*/}
+            {/*  <button className="p-2 text-gray-400 hover:text-white">*/}
+            {/*    <Bookmark className="w-5 h-5" />*/}
+            {/*  </button>*/}
+            {/*</div>*/}
           </div>
         </div>
       </nav>
@@ -74,7 +74,7 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
               </div>
               <div className="flex items-center">
                 <Clock className="w-4 h-4 mr-1" />
-                {writing.readTime} min read
+                {writing.readTime}분 소요
               </div>
             </div>
             <h1 className="text-4xl font-bold text-white mb-6">
@@ -156,21 +156,30 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
       </div>
 
       {/* AuthorInterface Section */}
-      <div className="max-w-6xl mx-auto px-4 py-12 border-t border-gray-800">
+      {/* <div className="max-w-6xl mx-auto px-4 py-12 border-t border-gray-800">
         <div className="max-w-3xl">
           <div className="flex items-center space-x-4">
             <img
-              src={writing.author.avatar}
-              alt={writing.author.name}
+              src="https://footage.latentspace.world/production/images/1736699511171.png"
+              alt="Joonseok Kim"
               className="w-12 h-12 rounded-full"
             />
             <div>
-              <div className="text-white font-medium">{writing.author.name}</div>
-              <div className="text-gray-400 text-sm">Software Engineer</div>
+              <div className="text-white font-medium">Joonseok Kim</div>
+              <div className="text-gray-400 text-sm">
+                <a 
+                  href="https://github.com/mansukim1125" 
+                  className="hover:text-purple-400 transition-colors"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  @mansukim1125
+                </a> · <span className="text-gray-500">mansukim1125@icloud.com</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

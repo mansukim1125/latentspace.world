@@ -9,11 +9,11 @@ export interface IProfile {
   keyMetrics: {
     projects: number;
     experience: string;
-    contributions: number;
+    // contributions: number;
   };
   social: {
     github?: string;
-    linkedin?: string;
+    // linkedin?: string;
     email?: string;
   };
   badges: string[];

@@ -12,6 +12,9 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      fontFamily: {
+        sans: ['var(--font-noto-sans-kr)', 'Arial', 'Helvetica', 'sans-serif'],
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],

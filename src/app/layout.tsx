@@ -2,6 +2,13 @@ import type { Metadata } from 'next';
 import './globals.css';
 import React from 'react';
 import { Root } from '@/components/root/Root';
+import { Noto_Sans_KR } from 'next/font/google';
+
+const notoSansKR = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-noto-sans-kr',
+});
 
 export const metadata: Metadata = {
   title: 'latentspace.world',
@@ -13,5 +20,5 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <Root>{children}</Root>;
+  return <Root className={notoSansKR.className}>{children}</Root>;
 }

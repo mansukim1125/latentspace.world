@@ -7,8 +7,4 @@ export interface IConfig {
     title: string;
     description: string;
   };
-  mainHero: {
-    title: string;
-    description: string;
-  };
 }

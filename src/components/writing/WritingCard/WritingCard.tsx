@@ -22,7 +22,7 @@ export const WritingCard = (param: { writing: IWriting }) => {
         <p className="text-gray-400 mb-4">{writing.excerpt}</p>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-500">
-            {writing.readTime} min read
+            {writing.readTime}분 소요
           </span>
           <ChevronRight className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform" />
         </div>

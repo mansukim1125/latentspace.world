@@ -22,7 +22,7 @@ export default function ProjectDetail({ project }: { project: IProject }) {
               className="flex items-center text-gray-400 hover:text-white"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Experiences
+              경험 목록으로 돌아가기
             </span>
             <div className="flex items-center space-x-4">
               {project.links &&

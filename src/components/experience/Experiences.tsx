@@ -47,7 +47,7 @@ export function Experiences({
                       : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                   }`}
                 >
-                  {category === 'all' ? 'All' : category}
+                  {category === 'all' ? '전체' : category}
                 </button>
               ))}
 
@@ -58,7 +58,7 @@ export function Experiences({
                   className="px-4 py-2 text-sm bg-gray-700 text-gray-400 hover:bg-gray-600 rounded-full flex items-center gap-2"
                 >
                   <XCircle className="w-4 h-4" />
-                  Reset
+                  초기화
                 </button>
               )}
             </div>
@@ -70,7 +70,7 @@ export function Experiences({
                   href="/experiences"
                   className="text-purple-400 hover:text-purple-300 flex items-center text-sm font-medium"
                 >
-                  View All Experiences
+                  모든 프로젝트 보기
                   <ChevronRight className="w-4 h-4 ml-1" />
                 </Link>
               )}
@@ -80,7 +80,7 @@ export function Experiences({
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
                   type="text"
-                  placeholder="Search projects..."
+                  placeholder="프로젝트 검색..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-300 focus:outline-none focus:border-purple-500"
@@ -126,7 +126,7 @@ export function Experiences({
                 </div>
               ) : (
                 <div className="text-center text-gray-400 mt-10">
-                  No projects found. Try adjusting the filters.
+                  프로젝트를 찾을 수 없습니다. 필터를 조정해 보세요.
                 </div>
               )}
             </section>

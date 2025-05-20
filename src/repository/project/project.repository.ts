@@ -829,7 +829,7 @@ const projects: IProject[] = [
     "period": "2024-07 ~ 2024-07",
     "duration": "12 hours",
     "role": "Backend Engineer",
-    "team": "Kidztales",
+    "team": "Kidztales 팀",
     "stacks": [
       "Nest.js",
       "Socket.io",
@@ -842,7 +842,7 @@ const projects: IProject[] = [
       "demo": "",
       "docs": ""
     },
-    "companyId": "side-project",
+    "companyId": "kidztales",
     "achievements": [
       "12시간 제한 시간 내 MVP 개발을 위한 효율적인 프로세스 구축",
       "WebSocket을 활용한 실시간 채팅 기능 구현",

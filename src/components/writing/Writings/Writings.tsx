@@ -46,7 +46,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
   const categories = Array.from(
     new Set(writings.map((writing) => writing.category)),
   );
-  categories.unshift('All');
+  categories.unshift('전체');
 
   return (
     <>
@@ -66,7 +66,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
                       : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                   }`}
                 >
-                  {category}
+                  {category === '전체' ? '전체' : category}
                 </button>
               ))}
 
@@ -77,7 +77,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
                   className="px-4 py-2 text-sm bg-gray-700 text-gray-400 hover:bg-gray-600 rounded-full flex items-center gap-2"
                 >
                   <XCircle className="w-4 h-4" />
-                  Reset
+                  초기화
                 </button>
               )}
             </div>
@@ -89,7 +89,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
                   type="text"
-                  placeholder="Search writings..."
+                  placeholder="글 검색..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-300 focus:outline-none focus:border-purple-500"
@@ -102,8 +102,8 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
                 onChange={(e) => setSortBy(e.target.value as 'date' | 'title')}
                 className="px-4 py-2 bg-gray-800 rounded-lg text-gray-300 hover:bg-gray-700 focus:outline-none"
               >
-                <option value="date">Sort by Date</option>
-                <option value="title">Sort by Title</option>
+                <option value="date">날짜순 정렬</option>
+                <option value="title">제목순 정렬</option>
               </select>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function Writings({ writings }: { writings: IWriting[] }) {
           </div>
         ) : (
           <div className="text-center text-gray-400 mt-10">
-            No writings found matching your criteria.
+            조건에 맞는 글을 찾을 수 없습니다.
           </div>
         )}
       </div>
