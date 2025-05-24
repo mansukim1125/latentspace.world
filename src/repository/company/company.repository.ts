@@ -6,7 +6,7 @@ const companies: ICompany[] = [
   {
     id: 'nudge-healthcare',
     name: 'Nudge Healthcare Inc.',
-    period: '2023.06 - Present',
+    period: '2022.06 - Present',
     position: 'Backend Engineer',
     team: 'Back-end Team',
     description: '캐시워크, 팀워크, 캐시톡 서비스를 거쳐 현재는 글로벌 캐시워크, 모두의 챌린지의 백엔드 운영/개발/유지 보수를 책임지고 있습니다.',
