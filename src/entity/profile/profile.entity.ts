@@ -9,7 +9,7 @@ export class Profile implements IProfile {
   avatar?: string;
   skills: string[];
   keyMetrics: {
-    projects: number;
+    // projects: number;
     experience: string;
     // contributions: number;
   };
