@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm';
 import { makeHeadingId } from '@/util';
 import { CustomHeading } from '@/components/custom-heading/CustomHeading';
 import { useRouter } from 'next/navigation';
+import { MermaidDiagram } from '@/components/mermaid-diagram/MermaidDiagram';
 
 interface TableOfContents {
   id: string;
@@ -111,6 +112,57 @@ const WritingDetail = ({ writing }: { writing: IWriting }) => {
                     <CustomHeading level={3}>{props.children}</CustomHeading>
                   );
                 },
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                img({ node: _, ...props }) {
+                  const { src } = props;
+                  let { alt } = props;
+
+                  if (!src) return null;
+                  let width, height;
+
+                  if (alt) {
+                    const altMatch = alt.match(/(.+)\{(\d+)?x(\d+)?}/);
+                    if (altMatch) {
+                      console.log(altMatch);
+                      alt = altMatch[1] ? altMatch[1] : undefined;
+                      width = altMatch[2] ? Number(altMatch[2]) : undefined;
+                      height = altMatch[3] ? Number(altMatch[3]) : undefined;
+                    }
+                  }
+
+                  return (
+                    <span className="block">
+                    <img
+                      src={src}
+                      alt={alt || ''}
+                      height={height}
+                      style={{
+                        height: height ? (height + 'px') : undefined,
+                        width: width ? (width + 'px') : '100%'
+                      }}
+                      className="ml-auto mr-auto"
+                    />
+                      {alt && <span className="block text-center text-sm text-gray-500 mt-2">{alt}</span>}
+                  </span>
+                  );
+                },
+                // Custom code block handler for mermaid diagrams
+                code({ className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || '');
+
+                  // Handle mermaid code blocks specifically
+                  if (match && match[1] === 'mermaid') {
+                    const content = String(children).replace(/\n$/, '');
+                    return <MermaidDiagram chart={content} />;
+                  }
+
+                  // Return regular code block for other languages
+                  return (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                }
               }}
             >
               {writing.content}

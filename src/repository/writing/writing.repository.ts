@@ -1702,6 +1702,39 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "online-judge-system-in-spring-boot",
+    "title": "Online Judge 시스템을 Spring Boot 기반으로 리팩토링하기",
+    "slug": "online-judge-system-in-spring-boot",
+    "category": "Spring Boot",
+    "date": new Date("2025-06-04"),
+    "excerpt":
+      "텀 프로젝트로 만들었던 Judge System 을 Spring Boot 기반으로 리팩토링한다.",
+    "readTime": 5,
+    "content": "이전에 Java 프로젝트 수업을 들으면서 기말 프로젝트로 만들었던 코드 Judge 시스템을 Spring Boot 로 재설계 하고자 한다.\n" +
+      "\n" +
+      "![코드 채점 프로그램 화면](http://footage.latentspace.world/production/images/problem.png)\n" +
+      "\n" +
+      "### 동작 흐름\n" +
+      '\n' +
+      "시퀀스 다이어그램을 그려보면 다음과 같은 흐름으로 동작하는 시스템이다.\n" +
+      "\n" +
+      "1. 사용자가 문제 목록에서 문제를 선택하면 상세 화면에서 코드를 작성할 수 있다.\n" +
+      "2. 코드 제출 시 채점이 시작되며, 먼저 컴파일을 수행한다. (별도 Docker Container 가 만들어지고 컴파일이 이루어진다.)\n" +
+      "3. 컴파일이 성공하면 각 테스트케이스를 병렬로 실행한다. (역시 별도 Container 에서 실행된다.)\n" +
+      "4. 실시간으로 Swing UI 에 진행 상황이 업데이트된다.\n" +
+      "    \n" +
+      "    ![채점 화면](https://footage.latentspace.world/production/images/judgment.png)\n" +
+      "    \n" +
+      "\n" +
+      "![시퀀스 다이어그램](https://footage.latentspace.world/production/images/sequence_diagram.png)\n" +
+      "\n" +
+      "다음 글에서는 Spring Boot 기반으로 시스 템을 재설계하기 위해 어떤 것들이 필요한지 알아보도록 하자.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
