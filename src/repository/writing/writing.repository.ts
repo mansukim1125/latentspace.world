@@ -93,7 +93,7 @@ const writings: IWriting[] = [
   },
   {
     "id": "3-day-problem-enjoyed-with-3-solutions",
-    "title": "3일차 초콜릿.. 아니 문제 풀이",
+    "title": "3일차 문제 풀이",
     "slug": "3-day-problem-enjoyed-with-3-solutions",
     "category": "Self Improvement",
     "date": new Date("2025-04-02"),
