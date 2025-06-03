@@ -902,20 +902,7 @@ const projects: IProject[] = [
       '\n' +
       '2. 등장인물 성격, 모습을 기반으로 프롬프트 구성\n' +
       '\n' +
-      '```mermaid\n' +
-      'flowchart TD\n' +
-      '    A[시작] --> B[스토리 내용 가져오기]\n' +
-      '    B --> C{등장인물 정보 가져오기}\n' +
-      '    C --> D[성격 정보]\n' +
-      '    C --> E[외모 정보]\n' +
-      '    D --> F[프롬프트 구성]\n' +
-      '    E --> F\n' +
-      '    F --> G[종료]\n' +
-      '    \n' +
-      '    style A fill:#f9f,stroke:#333,stroke-width:2px\n' +
-      '    style G fill:#f9f,stroke:#333,stroke-width:2px\n' +
-      '    style C fill:#bbf,stroke:#333,stroke-width:2px\n' +
-      '```\n' +
+      '![프롬프트 구성{700x}](https://footage.latentspace.world/production/images/chat_with_character.png)\n' +
       '\n' +
       '개발 단에서는 Front-end 개발자와 제가(Back-end 담당) 웹에서 채팅 기능을 구현하기 위해 WebSockets API 명세를 빠르게 공유하고 서로 개발을 진행하였습니다.\n' +
       '\n' +
@@ -924,33 +911,7 @@ const projects: IProject[] = [
       '![WebSockets API 설계{300x}](https://footage.latentspace.world/production/images/websocket_api_%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8.jpeg)\n' +
       '    \n' +
       '\n' +
-      '```mermaid\n' +
-      'sequenceDiagram\n' +
-      '    participant Client\n' +
-      '    participant WebSocket Server\n' +
-      '    participant OpenAI API\n' +
-      '\n' +
-      '    Note over Client,WebSocket Server: 채팅 초기화\n' +
-      '    Client->>WebSocket Server: CHAT_INIT\n' +
-      '    Note right of Client: {bookId: string, characterId: number}\n' +
-      '    \n' +
-      '    rect rgb(240, 240, 240)\n' +
-      '        Note over Client,OpenAI API: 대화 주고받기\n' +
-      '        Client->>WebSocket Server: MESSAGE_REQUEST\n' +
-      '        Note right of Client: {content: string}\n' +
-      '        \n' +
-      '        WebSocket Server->>OpenAI API: ChatCompletion API 요청\n' +
-      '        \n' +
-      '        loop Streaming Response\n' +
-      '            OpenAI API-->>WebSocket Server: SSE(Server-Sent Events)\n' +
-      '            WebSocket Server-->>Client: MESSAGE_RESPONSE\n' +
-      '            Note right of Client: {content: string, isFinish: false}\n' +
-      '        end\n' +
-      '        \n' +
-      '        WebSocket Server-->>Client: MESSAGE_RESPONSE\n' +
-      '        Note right of Client: {content: string, isFinish: true}\n' +
-      '    end\n' +
-      '```\n' +
+      '![유저 채팅 시퀀스 다이어그램{800x}](https://footage.latentspace.world/production/images/chat_sequence_diagram.png)\n' +
       '\n' +
       '**최종 클라이언트 측 WebSockets Event**\n' +
       '\n' +
