@@ -1735,6 +1735,126 @@ const writings: IWriting[] = [
       "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
     }
   },
+  {
+    "id": "entity-relationship-analysis-online-judge-system",
+    "title": "Online Judge 시스템의 개체-관계 분석",
+    "slug": "entity-relationship-analysis-online-judge-system",
+    "category": "Spring Boot",
+    "date": new Date("2025-06-08"),
+    "excerpt":
+      "Online Judge System 을 구현하기 전, 어떤 기능이 필요한지 분석하고 개체-관계 분석을 해 본다.",
+    "readTime": 5,
+    "content": "## 어떤 기능들이 필요한가\n" +
+      "\n" +
+      "Online Judge 라고 하면 필요한 기능에 대해 생각해보자. 간략히 생각해보면 아래 기능이 있을 것이다.\n" +
+      "\n" +
+      "- 사용자는 계정을 만들 수 있다.\n" +
+      "- 사용자는 로그인을 할 수 있다.\n" +
+      "- 사용자는 계정을 삭제할 수 있다.\n" +
+      "- 사용자는 문제 목록을 볼 수 있다.\n" +
+      "- 사용자는 문제를 만들 수 있다.\n" +
+      "- 사용자는 문제를 볼 수 있다.\n" +
+      "- 사용자는 문제에 대한 답안을 제출할 수 있다.\n" +
+      "- 사용자는 제출한 답안에 대한 채점 결과를 테스트 케이스 별로 볼 수 있다.\n" +
+      "\n" +
+      "## 위 기능 요구사항에 어떤 구성 요소가 존재하는가\n" +
+      "\n" +
+      "그렇다면 위 기능 요구사항에서 어떤 개체를 추출할 수 있는가? 위 요구사항 문장들에서 명사를 추출해보면 알 수 있다.\n" +
+      "\n" +
+      "또한 각 개체들이 어떤 정보를 가져야 하는지, 어떤 역할을 하는지 함께 알아보자.\n" +
+      "\n" +
+      "### **1. 사용자 (User)**\n" +
+      "\n" +
+      "- 기본키: id (UUID)\n" +
+      "- 속성: name, password, email\n" +
+      "- 역할: Online Judge 시스템 이용 주체, 문제 생성 및 답안 제출을 할 수 있다.\n" +
+      "\n" +
+      "### **2. 문제 (Problem)**\n" +
+      "\n" +
+      "- 기본키: id (UUID)\n" +
+      "- 외래키: userId (문제 생성자)\n" +
+      "- 속성: title, description, cpuTimeLimit, wallTimeLimit, memoryLimit\n" +
+      "- 역할: 해결해야 할 코딩 문제 정보\n" +
+      "\n" +
+      "### **3. 테스트 케이스 (TestCase)**\n" +
+      "\n" +
+      "- 기본키: id (UUID)\n" +
+      "- 외래키: problemId\n" +
+      "- 속성: expectedInput, expectedOutput\n" +
+      "- 역할: 문제의 입출력 검증 데이터\n" +
+      "\n" +
+      "### **4. 제출 (Submission)**\n" +
+      "\n" +
+      "- 기본키: id (UUID)\n" +
+      "- 외래키: problemId, userId\n" +
+      "- 속성: language (enum), code\n" +
+      "- 역할: 사용자가 제출한 답안. 코드 본문과 언어 정보를 가지고 있다.\n" +
+      "\n" +
+      "### **5. 채점 결과 (Judgment)**\n" +
+      "\n" +
+      "- 기본키: id (UUID)\n" +
+      "- 외래키: submissionId\n" +
+      "- 속성: status (JudgmentStatus enum)\n" +
+      "- 역할: 제출에 대한 전체적인 채점 결과\n" +
+      "\n" +
+      "### 6. 테스트 케이스 별 채점 결과 **(TestCaseResult)**\n" +
+      "\n" +
+      "- 기본키: id (UUID)\n" +
+      "- 외래키: testCaseId, judgmentId\n" +
+      "- 속성: executionStatus, executionCpuTime, executionWallTime, memoryUsage, stdout, stderr\n" +
+      "- 역할: 개별 테스트 케이스의 실행 결과\n" +
+      "\n" +
+      "### **7. 언어 (Language)**\n" +
+      "\n" +
+      "- 값 객체: enum (C, CPP, Java, Python3)\n" +
+      "- 역할: 지원하는 프로그래밍 언어\n" +
+      "\n" +
+      "## 개체-관계 Diagram\n" +
+      "\n" +
+      "그렇다면 각 구성 요소는 어떻게 상호작용하는지 개체-관계 분석을 통해 알아보자.\n" +
+      "\n" +
+      "### 엔티티 간 관계\n" +
+      "\n" +
+      "**1. User ↔ Problem (0:N)**\n" +
+      "\n" +
+      "- 설명: 한 사용자가 0개 이상 문제를 생성할 수 있다.\n" +
+      "\n" +
+      "**2. User ↔ Submission (0:N)**\n" +
+      "\n" +
+      "- 설명: 한 사용자가 0개 이상 답안을 제출할 수 있음\n" +
+      "\n" +
+      "**3. Problem ↔ TestCase (0:N)**\n" +
+      "\n" +
+      "- 설명: 한 문제는 0개 이상의 테스트 케이스를 가진다.\n" +
+      "\n" +
+      "**4. Problem ↔ Submission (0:N)**\n" +
+      "\n" +
+      "- 설명: 한 문제에 대해 여러 사용자가 답안을 제출할 수 있다.\n" +
+      "\n" +
+      "**5. Submission ↔ Judgment (0:N)**\n" +
+      "\n" +
+      "- 설명: 하나의 제출에 대해 여러 번의 채점이 가능하다. (재채점이 가능하다.)\n" +
+      "\n" +
+      "**6. Judgment ↔ TestCaseResult (1:N)**\n" +
+      "\n" +
+      "- 설명: 하나의 채점은 여러 테스트 케이스 채점 결과를 포함한다.\n" +
+      "\n" +
+      "**7. TestCase ↔ TestCaseResult (0:N)**\n" +
+      "\n" +
+      "- 설명: 하나의 테스트 케이스는 여러 제출에 대해 실행될 수 있다.\n" +
+      "\n" +
+      "## E-R Diagram\n" +
+      "\n" +
+      "그렇게 하여 최종적인 개체-관계 다이어그램은 다음과 같다.\n" +
+      "\n" +
+      '![개체-관계 다이어그램이다.](https://footage.latentspace.world/production/images/online-judge-er-diagram.png)\n' +
+      "\n" +
+      "다음 글에서는 간단한 구현을 바로 시작해보자. 가장 간단한 기능 요구사항부터 만들어 나가보도록 하겠다.",
+    "author": {
+      "name": "Joonseok Kim",
+      "avatar": "https://avatars1.githubusercontent.com/u/55?v=4"
+    }
+  },
 ];
 
 export class WritingRepository implements IRepository<IWriting> {
